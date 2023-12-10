@@ -1,0 +1,51 @@
+@charset "utf-8";
+
+@import "../variables/varibles.less";
+
+.mixin-bgc(){
+  .bgc_primary{.bgc_all_this();}
+  .bgc_success{.bgc_all_this(@default-c-success);}
+  .bgc_warning{.bgc_all_this(@default-c-warning);}
+  .bgc_info{.bgc_all_this(@default-c-info);}
+  .bgc_default{.bgc_all_this(@default-c-default);}
+  .bgc_danger{.bgc_all_this(@default-c-danger);}
+  .bgc_purple{.bgc_all_this(@default-c-purple);}
+  .bgc_pink{.bgc_all_this(@default-c-pink);}
+  .bgc_ink{.bgc_all_this(@default-c-ink);}
+  .bgc_ash{.bgc_all_this(@default-c-ash);}
+  .bgc_grey{.bgc_all_this(@default-c-grey);}
+  .bgc_tran{.bgc_all_this(@default-c-tran);}
+
+  .bgc_primary_tran{.mixin-bgc-linear();}
+
+  .bgc_all_this(@s:@default-c-primary){
+    background-color: @s;
+    &:focus{background-color:desaturate(@s,10%);}
+    &:hover{
+      background-color:desaturate(@s,20%);
+      cursor: pointer;
+    }
+    &:active{
+      background-color:lighten(@s,5%);
+    }
+    &[disabled]{
+      cursor: default;
+      background-color:fadeout(@s,30%);
+    }
+    &[readonly]{
+      cursor: default;
+      background-color:fadeout(@s,20%);
+    }
+  }
+}
+
+.mixin-bgc-linear(@bgc1:@default-c-primary,@bgc2:@default-c-tran,@bgcdirection:right){
+  background: -webkit-linear-gradient(@bgcdirection,@bgc1, @bgc2);
+  background: -o-linear-gradient(@bgcdirection,@bgc1, @bgc2);
+  background: -moz-linear-gradient(@bgcdirection,@bgc1, @bgc2);
+  background: linear-gradient(to @bgcdirection,@bgc1, @bgc2);
+}
+
+
+
+

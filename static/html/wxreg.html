@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>注册</title>
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="../css/base.min.css">
+  <link rel="stylesheet" href="../css/main.min.css">
+  <style type="text/css">
+    .header {
+      font-size: 0.16rem;
+      line-height: 0.4rem;
+      height: 0.4rem;
+      color: #fff;
+      background: linear-gradient(85deg, rgb(5, 177, 15), rgb(15, 208, 27));
+    }
+
+    .header span {
+      padding: 0 0.2rem
+    }
+
+    .header p {
+      flex: 1;
+      text-align: center;
+      font-weight: 650;
+      text-indent: -0.6rem
+    }
+
+    .view {
+      margin: 0.3rem auto 0;
+      width: 1.5rem;
+      height: 1.5rem;
+      background-color: #ccc;
+      border-radius: 0.2rem;
+      display: block;
+      animation: run 2s linear infinite alternate;
+      box-shadow: 0 0 0.3rem #333;
+    }
+
+    @keyframes run {
+      from {
+        border-radius: 0.2rem;
+        transform: scale(1);
+      }
+
+      to {
+        border-radius: 50%;
+        transform: scale(0.7);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header flex">
+    <span id="back">返回</span>
+    <p>注册授权</p>
+  </div>
+  <textarea name="" id="aaa" cols="30" rows="10"></textarea>
+</body>
+
+</html>
+<script type="text/javascript" src="../js/axios.min.js"></script>
+<script type="text/javascript" src="../js/base.min.js"></script>
+<script type="text/javascript" src="../vconsole.min.js"></script>
+<script type="text/javascript">
+  new VConsole()
+  var $demo = new Demo({
+    name: 'youeryuanweb'
+  })
+  $demo.font(375)
+  $demo.js('#back').click(function () {
+    window.history.go(-2)
+  })
+  var params = $demo.getUrl()
+  if (params.code && params.state) {
+    var state = decodeURIComponent(params.state).split('#%_%#')
+    $demo.ajax(window.location.origin + '/api/login/get_openid').post({
+      type: 1,
+      js_code: params.code,
+    }, e => {
+      if (e.code !== 200) {
+        $demo.toast(e.msg)
+      } else {
+        let id = e.data.openid
+        $demo.js('#aaa').val(id)
+        console.log(e.data, id)
+        // var obj = $demo.$local.get(state[0], [])
+        // let ufe = obj[0] == 0 ? 'login_reg' : 'regs/0&0&0'
+        // let vid = obj[1] == 0 ? '' : obj[1]
+        // if (obj[2] === '') {
+        // 	let code = $demo.$local.get("bind-code", {});
+        // 	if (code.time && code.time > Date.now()) {
+        // 		obj[2] = code.code;
+        // 	}
+        // }
+        // let ps = obj[3]+''
+        // if (ps.indexOf('login') >= 0 || ps == 0 || ps=='undefined') {
+        // 	ps = '#/login_reg'
+        // }
+        // let sta = [obj[2], encodeURIComponent(id), encodeURIComponent(ps),vid].join('____')
+        // $demo.$local.clear('token')
+        // window.location.replace(window.location.origin + '/web/?state=' + sta + '#/' + ufe)
+      }
+    }, 'json', {
+      access_token: $demo.$local.get('token')
+    })
+  }
+</script>

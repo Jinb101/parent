@@ -1,0 +1,71 @@
+@import "../variables/varibles.less";
+
+.mixin-transition(@arg) when (@default-compatible){
+  -webkit-transition: @arg;
+  -moz-transition: @arg;
+  -o-transition: @arg;
+  transition: @arg;
+}
+.mixin-transition(@arg) when not (@default-compatible){
+  transition: @arg;
+}
+
+
+.mixin-transform(@arg,@s) when (@default-compatible){
+
+  .out(@s) when(@arg=rotate){
+    -webkit-transform: rotate(@s);
+    -moz-transform: rotate(@s);
+    -ms-transform: rotate(@s);
+    -o-transform: rotate(@s);
+    transform: rotate(@s);
+  }
+  .out(@s) when(@arg=translateY){
+    -webkit-transform: translateY(@s);
+    -moz-transform: translateY(@s);
+    -ms-transform: translateY(@s);
+    -o-transform: translateY(@s);
+    transform: translateY(@s);
+  }
+  .out(@s) when(@arg=translateX){
+    -webkit-transform: translateX(@s);
+    -moz-transform: translateX(@s);
+    -ms-transform: translateX(@s);
+    -o-transform: translateX(@s);
+    transform: translateX(@s);
+  }
+  .out(@s) when(@arg=scale){
+    -webkit-transform: scale(@s,@s);
+    -moz-transform: scale(@s,@s);
+    -ms-transform: scale(@s,@s);
+    -o-transform: scale(@s,@s);
+    transform: scale(@s,@s);
+  }
+  .out(@s) when(@arg=scale2){
+    -webkit-transform: scale(@s,@s / 2);
+    -moz-transform: scale(@s,@s / 2);
+    -ms-transform: scale(@s,@s / 2);
+    -o-transform: scale(@s,@s / 2);
+    transform: scale(@s,@s / 2);
+  }
+  .out(@s);
+}
+.mixin-transform(@arg,@s) when not (@default-compatible){
+  .out(@s) when(@arg=rotate){
+    transform: rotate(@s);
+  }
+  .out(@s) when(@arg=translateY){
+    transform: translateY(@s);
+  }
+  .out(@s) when(@arg=translateX){
+    transform: translateX(@s);
+  }
+  .out(@s) when(@arg=scale){
+    transform: scale(@s,@s);
+  }
+  .out(@s) when(@arg=scale2){
+    transform: scale(@s,@s / 2);
+  }
+  .out(@s);
+}
+

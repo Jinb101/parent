@@ -1,0 +1,47 @@
+@charset "utf-8";
+
+@import "../variables/varibles.less";
+
+.mixin-color(){
+  .col_success{.col_all_this(@default-c-success);}
+  .col_primary{.col_all_this(@default-c-primary);}
+  .col_default{.col_all_this(@default-c-default);}
+  .col_warning{.col_all_this(@default-c-warning);}
+  .col_info{.col_all_this(@default-c-info);}
+  .col_danger{.col_all_this(@default-c-danger);}
+  .col_all_this(@s:@default-font-color){
+    color:@s;
+  }
+}
+
+.mixin-border-color(){
+  .border_primary{.mixin-border-all-color();}
+  .border_default{.mixin-border-all-color(@default-c-default);}
+  .border_warning{.mixin-border-all-color(@default-c-warning);}
+  .border_info{.mixin-border-all-color(@default-c-info);}
+  .border_success{.mixin-border-all-color(@default-c-success);}
+  .border_danger{.mixin-border-all-color(@default-c-danger);}
+  .border_right{.mixin-border-right-radius() !important;}
+  .border_left{.mixin-border-left-radius() !important;}
+  .border_top{.mixin-border-top-radius() !important;}
+  .border_bottom{.mixin-border-bottom-radius() !important;}
+}
+.mixin-border-all-color(@s:@default-c-primary){
+  border-color: @s !important;
+  &:focus{border-color:desaturate(@s,20%) !important;}
+  &:hover{
+    border-color:desaturate(@s,10%) !important;
+    cursor: pointer;
+  }
+  &:active{
+    border-color:lighten(@s,5%) !important;
+  }
+  &[disabled]{
+    cursor: default;
+    border-color:fadeout(@s,30%) !important;
+  }
+  &[readonly]{
+    cursor: default;
+    border-color:fadeout(@s,20%) !important;
+  }
+}

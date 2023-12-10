@@ -1,0 +1,44 @@
+@charset "utf-8";
+
+//IE
+@default-ie: 9; //兼容IE版本
+
+//其他
+@default-w-col: 24; //栅格等分
+@default-compatible: false; //是否兼容其他浏览器
+@default-input-checkbox-isBgc: false; //单选框/复选框是否为图片 true为是
+@default-input-checkbox-Url: 'xxx.png'; //@default-input-checkbox-isBgc 为true调用
+@default-input-checkbox-Bgc: #369; //@default-input-checkbox-isBgc 为false调用
+
+//颜色
+@default-c-success: #6dda40; //默认成功色/绿色
+@default-c-warning: #feae1b; //默认警告色/黄色
+@default-c-danger: #ff4351; //默认危险色/红色
+@default-c-primary: #229ffd; //默认首选色/蓝色
+@default-c-default: #e0e2e0; //默认
+@default-c-info: #5bc0de; //默认 浅蓝
+@default-c-purple: #7b72e9; //默认紫色
+@default-c-pink: #ffb8fe; //默认粉色
+@default-c-ink: #222; //默认黑色
+@default-c-ash: #666; //默认浅灰色
+@default-c-grey: #808080; //默认灰色
+@default-c-tran: transparent; //默认透明色
+@default-c-white: #fff; //白色
+
+
+//初始化
+@default-font-family: "Microsoft YaHei", Arial, sans-serif; //默认字体
+@default-font-color: @default-c-ink; //默认字体颜色
+@default-inp-color: @default-c-primary; //默认input/button颜色
+@default-placeholder-color: @default-c-ash; //默认input placeholder 颜色
+@default-zIndex: 200; //z-index
+
+//边框
+@default-b-radius: 5px; //圆角
+@default-b-color: @default-c-default; //边框色
+
+//移动端适配
+@default-web-width: 750; //设计稿宽度
+@default-baseSize: 100; //基准值
+@default-bs: 100rem; //换算
+@default-deviceWithList: 320px, 360px, 375px, 384px, 400px, 414px, 424px, 480px, 540px, 640px, 720px, 750px; //需要适配的所有设备

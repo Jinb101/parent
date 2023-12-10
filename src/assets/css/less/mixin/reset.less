@@ -1,0 +1,219 @@
+@charset "utf-8";
+
+@import "../variables/varibles.less";
+
+.mixin-reset(){
+  html, body, div, span, applet, object, iframe,
+  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  a, abbr, acronym, address, big, cite, code,
+  del, dfn, em, img, ins, kbd, q, s, samp,
+  small, strike, strong, sub, sup, tt, var,
+  b, u, i, center,
+  dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend,
+  table, caption, tbody, tfoot, thead, tr, th, td,
+  article, aside, canvas, details, embed,
+  figure, figcaption, footer, header, hgroup,
+  menu, nav, output, ruby, section, summary,
+  time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    // color: @default-font-color;
+  }
+  i{
+    color: inherit;
+  }
+  /* HTML5 display-role reset for older browsers */
+  article, aside, details, figcaption, figure,
+  footer, header, hgroup, menu, nav, section {
+    display: block;
+  }
+  body {
+    line-height: 1;
+  }
+  ol, ul {
+    list-style: none;
+  }
+  blockquote, q {
+    quotes: none;
+  }
+  blockquote:before, blockquote:after,
+  q:before, q:after {
+    content: '';
+    content: none;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  audio,
+  canvas,
+  video {
+    .mixin-inline-block();
+  }
+  audio:not([controls]) {
+    display: none;
+    height: 0;
+  }
+  [hidden] {
+    display: none;
+  }
+  mark {
+    background: #ff0;
+    color: @default-c-default;
+  }
+  figure {
+    margin: 0;
+  }
+  a,a:active,a:hover{
+    text-decoration: none;
+  }
+}
+
+//移动端
+.mixin-reset-web(){
+  html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    -webkit-text-size-adjust: 100%;
+    font-family: -apple-system, "PingFang SC","Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    font-size: 62.5%;
+    background: transparent;
+    color: @default-font-color;
+  }
+  body {
+    width: 100%;
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+  body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, sumary {
+    margin: 0;
+    padding: 0;
+  }
+  input, select,textarea {
+    border: 0;
+    -webkit-appearance: none;
+    appearance:none;
+  }
+  ol, ul {
+    list-style: none;
+  }
+  *:not(input, select, textArea) {
+    -webkit-user-select: none;
+  }
+  img,a{
+    -webkit-touch-callout:none;
+  }
+
+  a,a:active,a:hover {
+    text-decoration: none;
+  }
+  a,button,input,textarea{
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+  }
+  button,
+  input {
+    line-height: normal;
+  }
+
+  select {
+    margin: 0;
+    outline: 0;
+  }
+
+  input.fixAKeyboard:focus,
+  textarea.fixAndroidKeyboard:focus {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    -webkit-user-modify: read-write-plaintext-only;
+  }
+
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  }
+
+  button,
+  input[type=button],
+  input[type=checkbox],
+  input[type=reset],
+  input[type=submit],
+  label {
+    cursor: pointer;
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+  }
+
+  input[type=submit] {
+    -webkit-user-modify: read-plaintext-only;
+    -moz-user-modify: read-plaintext-only;
+    -ms-user-modify: read-plaintext-only;
+    -o-user-modify: read-plaintext-only;
+    user-modify: read-plaintext-only;
+  }
+
+  input[type='search']::-webkit-search-cancel-button,
+  input[type='search']::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+
+  input[type='search'] {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    -webkit-appearance: textfield;
+  }
+  .flex {
+    display: box;
+    ///* OLD - Android 4.4- */
+    display: -webkit-box;
+    ///* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;
+    ///* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;
+    ///* TWEENER - IE 10 */
+    display: -webkit-flex;
+    ///* NEW - Chrome */
+    display: flex;
+    -webkit-box-lines: multiple;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -o-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box; ///*所有元素以border开始计算盒子大小*/
+  }
+}
+
+//常用class
+.mixin-style(){
+  .fl{
+    float: left;
+  }
+  .fr{
+    float: right;
+  }
+  .dn{
+    display: none;
+  }
+  .clear,.clearfix{
+    .mixin-after();
+  }
+  .text_overflow {
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden
+  }
+}

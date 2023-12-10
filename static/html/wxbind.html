@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>绑定微信</title>
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="../css/base.min.css">
+  <link rel="stylesheet" href="../css/main.min.css">
+  <style type="text/css">
+    .header {
+      font-size: 0.16rem;
+      line-height: 0.4rem;
+      height: 0.4rem;
+      color: #fff;
+      background: linear-gradient(85deg, rgb(5, 177, 15), rgb(15, 208, 27));
+    }
+
+    .header span {
+      padding: 0 0.2rem
+    }
+
+    .header p {
+      flex: 1;
+      text-align: center;
+      font-weight: 650;
+      text-indent: -0.6rem
+    }
+
+    .view {
+      margin: 0.3rem auto 0;
+      width: 1.5rem;
+      height: 1.5rem;
+      background-color: #ccc;
+      border-radius: 0.2rem;
+      display: block;
+      animation: run 2s linear infinite alternate;
+      box-shadow: 0 0 0.3rem #333;
+    }
+
+    @keyframes run {
+      from {
+        border-radius: 0.2rem;
+        transform: scale(1);
+      }
+
+      to {
+        border-radius: 50%;
+        transform: scale(0.7);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header flex">
+    <span id="back">返回</span>
+    <p>绑定微信</p>
+  </div>
+  <img class="view" id="ava">
+</body>
+
+</html>
+<script type="text/javascript" src="../js/axios.min.js"></script>
+<script type="text/javascript" src="../js/base.min.js"></script>
+<script type="text/javascript">
+  var $demo = new Demo({
+    name: 'youeryuanweb'
+  })
+  $demo.font(375)
+  $demo.js('#ava').attr('src', $demo.$local.get('appConfig', {}).logo)
+  $demo.js('#back').click(function () {
+    window.history.go(-2)
+  })
+  var params = $demo.getUrl()
+  if (params.code && params.state) {
+    var state = params.state.split('_')
+    var os = {
+      id: $demo.$local.get('nid')
+    }
+    if (state[0] !== '0') {
+      os.theme = state[0]
+    }
+    if (state[1] !== '0') {
+      os.token = state[1]
+    }
+    if (state[2] !== '0') {
+      os.debug = state[2]
+    }
+    if (state[3]) {
+      os.id = state[3]
+    }
+    $demo.ajax(window.location.origin + '/api/com/common/setOpenid').post({
+      n_id: os.id,
+      code: params.code,
+      access_token: state[4] || $demo.$local.get('token')
+    }, e => {
+      if (e.code !== 200) {
+        $demo.toast(e.msg)
+      } else {
+        $demo.toast('绑定成功')
+        var ext = Object.keys(os).map(function (r) {
+          return r + '=' + os[r] + '&'
+        }).join('')
+        window.location.replace(window.location.origin + '/parent/?' + ext + 'u=1')
+      }
+    }, 'json', {
+      access_token: state[4] || $demo.$local.get('token')
+    })
+  }
+</script>

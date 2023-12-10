@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hand</title>
+	<style type="text/css">
+		.hand{
+			height: 300px;
+		      width: 90%;
+		      margin: 0 auto 10px;
+		      border-radius: 5px;
+		      overflow: hidden;
+		      background-color: #fff;
+		}
+		.btn{
+			box-sizing: border-box;
+		      padding: 5px 5%;
+		      display: flex;
+		}
+		.m_btn{
+			height: 40px;
+    line-height: 40px;
+    padding: 0 8px;
+    text-align: center;
+    background: 0 0;
+    margin: 0;
+    outline: 0;
+    display: inline-block;
+    cursor: pointer;
+    box-sizing: border-box;
+    user-select: none;border: 0;
+    color: #f0efee;background-color: #7b72e9;border-radius: 5px
+		}
+		.btn .m_btn{
+		flex: 1;
+        font-size: 14px;
+        height: 35px;
+        line-height: 35px;
+		}
+		.btn .m_btn + .m_btn{
+          margin-left: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="hand" id="hand"></div>
+	<div class="btn">
+          <button class="m_btn bgc_primary" id="save">保存</button>
+          <button class="m_btn bgc_warning" id="clear">清除</button>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+	function lineCanvas(obj) {
+	  this.linewidth = 1;
+	  this.color = "#000";
+	  this.background = "#fff";
+	  for (var i in obj) {
+	    this[i] = obj[i];
+	  };
+	  this.paddingX = this.el.getBoundingClientRect().left
+	  this.paddingY = this.el.getBoundingClientRect().top
+	  this.canvas = document.createElement("canvas");
+	  this.el.prepend(this.canvas);
+	  this.cxt = this.canvas.getContext("2d");
+	  this.canvas.width = this.el.clientWidth;
+	  this.canvas.height = this.el.clientHeight;
+	  this.cxt.fillStyle = this.background;
+	  this.cxt.fillRect(0, 0, this.canvas.width, this.canvas.height);
+	  this.cxt.strokeStyle = this.color;
+	  this.cxt.lineWidth = this.linewidth;
+	  this.cxt.lineCap = "round";
+	  this.path = ''
+	  // 开始绘制
+	  this.canvas.addEventListener("touchstart", function (e) {
+	    this.cxt.beginPath();
+	    // console.log(e.changedTouches)
+	    this.cxt.moveTo(e.changedTouches[0].pageX - this.paddingX, e.changedTouches[0].pageY - this.paddingY);
+	  }.bind(this), false);
+	  // 绘制中
+	  this.canvas.addEventListener("touchmove", function (e) {
+	    this.cxt.lineTo(e.changedTouches[0].pageX - this.paddingX, e.changedTouches[0].pageY - this.paddingY);
+	    this.cxt.stroke();
+	  }.bind(this), false);
+	  // 结束绘制
+	  this.canvas.addEventListener("touchend", function () {
+	    this.cxt.closePath();
+	  }.bind(this), false);
+	  // 清除画布
+	  this.clearEl.addEventListener("click", function () {
+	    this.cxt.clearRect(0, 0, this.canvas.width, this.canvas.height);
+	    this.cxt.fillRect(0, 0, this.canvas.width, this.canvas.height);
+	    this.path = ''
+	    localStorage.handImage=''
+	  }.bind(this), false);
+	  // 保存图片，直接转base64
+	  this.saveEl.addEventListener("click", function () {
+	    var imgBase64 = this.canvas.toDataURL();
+	    this.path = imgBase64
+	    console.log(this.path)
+	    localStorage.handImage = this.path
+	    // 其它逻辑
+	  }.bind(this), false);
+	  return this
+	};
+	new lineCanvas({
+		el: document.getElementById("hand"), // 绘制canvas的父级div
+        clearEl: document.getElementById("clear"), // 清除按钮
+        saveEl: document.getElementById("save"), // 保存按钮
+        linewidth: 1, // 线条粗细，选填
+        color: "#38f", // 线条颜色，选填
+        background: "#fff", // 线条背景，选填
+        paddingX: 0, // x轴偏移量
+        paddingY: 0, // y轴偏移量
+	})
+</script>

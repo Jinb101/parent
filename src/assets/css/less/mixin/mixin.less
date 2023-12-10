@@ -1,0 +1,397 @@
+@charset "utf-8";
+
+@import "../variables/varibles.less";
+@import "borderRadius.less";
+@import "css3.less";
+@import "flex.less";
+@import "reset.less";
+@import "transition.less";
+@import "color.less";
+@import "bgc.less";
+@import "btn&inp.less";
+@import "table.less";
+@import "animated.less";
+@import "model.less";
+@import "explain.less";
+
+//清除浮动
+.mixin-after(){
+  &:after{
+    width: 0;
+    height: 0;
+    display: table;
+    clear: both;
+    content: ' ';
+  }
+}
+
+//适配主流设备
+//需要基准值
+//1rem=100px
+//length(@xxx)获取数组长度
+//extract(@arr,2)获取数组的第2个值
+//adapter mixin
+//@index 数组序号 when 满足条件 当前序号小于数组长度
+.mixin-adapterFuc(@index) when (@index<=length(@default-deviceWithList)){
+  @media (min-width:extract(@default-deviceWithList,@index)) {
+    html{
+      font-size: extract(@default-deviceWithList,@index)/@default-web-width*@default-baseSize;
+    }
+  }
+  //自调用 容易死循环 要加判断条件
+  .mixin-adapterFuc(@index+1);
+}
+
+//栅格
+//.mixin-col(@n,@num:@default-w-col,@ts:_) when (@n>0){
+//  .mixin-col(@n - 1,@num);
+//  .w_col@{ts}@{n}{
+//    width: 100% / @num * @n;
+//  }
+//}
+.mixin-row(@n,@num:@default-w-col,@ts:_) when (@n>0){
+  .mixin-row(@n - 1,@num);
+  .w_row@{ts}@{n}{
+    height: 100% / @num * @n;
+  }
+}
+.mixin-col(@n:@default-w-col + 1,@num:@default-w-col){
+  .this_col(@n - 1,@num);
+  .this_left(@n - 1,@num);
+  @media screen and (max-width: 750px){
+    .this_col(@n - 1,@num,_md_);
+    .this_left(@n - 1,@num,_md_);
+    .w_col_left_md_0{
+      margin-left: 0;
+    }
+  }
+  @media screen and (max-width: 640px){
+    .this_col(@n - 1,@num,_sm_);
+    .this_left(@n - 1,@num,_sm_);
+    .w_col_left_sm_0{
+      margin-left: 0;
+    }
+  }
+  @media screen and (max-width: 321px){
+    .this_col(@n - 1,@num,_xs_);
+    .this_left(@n - 1,@num,_xs_);
+    .w_col_left_xs_0{
+      margin-left: 0;
+    }
+  }
+
+  .this_col(@n,@num,@ts:_) when (@n>0){
+    .this_col(@n - 1,@num,@ts);
+    .w_col@{ts}@{n}{
+      width: 100% / @num * @n;
+    }
+  }
+  .this_left(@n,@num,@ts:_) when (@n>0){
+    .this_left(@n - 1,@num,@ts);
+    .w_col_left@{ts}@{n}{
+      margin-left: 100% / @num * @n;
+    }
+  }
+
+  [class*='w_col_']{
+    .mixin-box-sizing();
+    display: block;
+    float: left;
+  }
+  .w_col_left_0{
+    margin-left: 0;
+  }
+}
+
+//行内块
+.mixin-inline-block() {
+  display: inline-block;
+}
+.mixin-ie-inline-block() {
+  *display: inline;
+  *zoom: 1;
+}
+.mixin-inline-block() when (@default-ie < 8) {
+  .mixin-ie-inline-block();
+}
+
+//user-select
+.mixin-user-select(@c:none) when (@default-compatible){
+  -webkit-user-select: @c;
+  -moz-user-select: @c;
+  -ms-user-select: @c;
+  user-select: @c;
+}
+.mixin-user-select(@c:none) when not (@default-compatible){
+  user-select: @c;
+}
+
+//box-sizing
+.mixin-box-sizing(@c:border-box) when (@default-compatible){
+  -webkit-box-sizing: @c;
+  -moz-box-sizing: @c;
+  box-sizing: @c;
+}
+.mixin-box-sizing(@c:border-box) when not (@default-compatible){
+  box-sizing: @c;
+}
+
+//placeholder
+.mixin-placeholder(@style:@default-placeholder-color) when (@default-compatible){
+  .output() when (iscolor(@style)) {
+    &::-webkit-input-placeholder {
+      color: @style;
+      font-size: 14px;
+    }
+    &:-moz-placeholder {
+      color: @style;
+      font-size: 14px;
+    }
+    &::-moz-placeholder {
+      color: @style;
+      font-size: 14px;
+    }
+    &:-ms-input-placeholder {
+      color: @style;
+      font-size: 14px;
+    }
+  }
+  .output();
+}
+.mixin-placeholder(@style:@default-placeholder-color) when not (@default-compatible){
+  .output() when (iscolor(@style)) {
+    &::placeholder {
+      color: @style;
+      font-size: 14px;
+    }
+  }
+  .output();
+}
+
+//移动端页面选中状态
+.mixin-user-select(@type:none) when (@default-compatible){
+  -webkit-user-select: @type;
+  -moz-user-select: @type;
+  -ms-user-select: @type;
+  user-select: @type;
+}
+.mixin-user-select(@type:none) when not (@default-compatible){
+  user-select: @type;
+}
+
+//透明度
+.mixin-opacity(@opacity: 100%) {
+  opacity: unit(@opacity) / 100;
+}
+.mixin-opacity(@opacity: 100%) when (@default-ie < 9) {
+  @op: unit(@opacity);
+  filter: ~"alpha(opacity=@{op})";
+}
+
+//rgba
+.mixin-rgba(@rgba) when (@default-ie < 9){
+  background: ~"url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7) repeat\0";
+  @argb: argb(@rgba);
+  filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr=@{argb},endColorstr=@{argb})\0";
+  zoom: ~"1\0";
+  background: @rgba;
+  :root & {
+    filter: none\9;
+  }
+}
+.mixin-rgba(@rgba) when not (@default-ie < 9){
+  background: @rgba;
+}
+.mixin-rgba(@color, @opacity) {
+  @op: unit(@opacity);
+  @rgba: fadeout(@color, percentage((100 - @op) / 100));
+  .mixin-rgba(@rgba);
+}
+
+.mixin-bgcImg(@u:'') when (@default-compatible){
+  background: url(@u)  0 0 no-repeat scroll transparent;
+  -webkit-background-size:100% 100%;
+  background-size:100% 100%;
+}
+.mixin-bgcImg(@u:'') when not (@default-compatible){
+  background: url(@u)  0 0 no-repeat scroll transparent;
+  background-size:100% 100%;
+}
+
+//移动端适配
+.mixin-adapter(@index:1) when (@index<=length(@default-deviceWithList)){
+  @media (min-width:extract(@default-deviceWithList,@index)) {
+    html{
+      font-size: extract(@default-deviceWithList,@index)/@default-web-width*@default-baseSize;
+    }
+  }
+  .mixin-adapter(@index+1);
+}
+
+//
+.mixin-box-shadow(@x:0,@y:@x,@z:@x,@c:@default-c-ink) when (@default-compatible){
+  box-shadow: @x @y @z @c;
+  -webkit-box-shadow: @x @y @z @c;
+  -moz-box-shadow: @x @y @z @c;
+}
+.mixin-box-shadow(@x:0,@y:@x,@z:@x,@c:@default-c-ink) when not (@default-compatible){
+  box-shadow: @x @y @z @c;
+}
+
+.mixin-banner(@h:600px){
+  height: @h;
+  position: relative;
+  width: 100%;
+  z-index:120;
+  overflow: hidden;
+  .mixin-box-sizing();
+    ul{
+      .mixin-after();
+      li{
+        float: left;
+      }
+    }
+    .content{
+      position: relative;
+      display: block;
+      height: 100%;
+      width: 100%;
+      z-index:130;
+      ul{
+        position: absolute;
+        left:0;
+        top:0;
+        height: 100%;
+      }
+      li{
+        height: inherit;
+        a,img{
+          display: block;
+          height: inherit;
+        }
+        a{
+          width: 100%;
+        }
+        img{
+          max-width: 100%;
+          margin: 0 auto;
+        }
+      }
+    }
+    .circle{
+      text-align: center;
+      position: absolute;
+      left:0;
+      right: 0;
+      bottom: 20px;
+      margin: auto;
+      z-index:150;
+      width: 100%;
+      height: auto;
+      ul{
+        display: inline-block;
+        width:auto;
+      }
+      li{
+        height: 15px;
+        width: 21px;
+        padding: 0 3px;
+        .mixin-box-sizing();
+        .mixin-transition(all .5s);
+        a{
+          display: block;
+          width: 100%;
+          height: 100%;
+          font-size: 0;
+          overflow: hidden;
+          background-color: #fff;
+          .mixin-border-radius(50%);
+          .mixin-transition(all .5s);
+        }
+        &.lang{
+          width: 30px;
+          a{
+            .mixin-border-radius(5px);
+          }
+        }
+        &.active{
+          a{
+            background-color: @default-c-primary;
+          }
+        }
+      }
+      .small{
+        li{
+          height: 11px;
+          width: 17px;
+          &.lang{
+            width: 25px;
+          }
+        }
+      }
+    }
+    .prev,.next{
+      position: absolute;
+      top:0;bottom: 0;margin: auto;
+      height: 100%;
+      width: 5%;
+      z-index:200;
+      opacity:0;
+      .mixin-transition(all .5s);
+      i{
+        width: 100%;
+        position: absolute;
+        left:0;
+        top:0;
+        bottom: 0;
+        margin: auto;
+        height: 80px;
+        line-height: 80px;
+        text-align: center;
+        font-size: 80px;
+        color: @default-c-primary;
+      }
+    }
+    .prev{
+      left: 0;
+      .mixin-bgc-linear(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.7),left);
+    }
+    .next{
+      right: 0;
+      .mixin-bgc-linear(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.7),right);
+    }
+  &:hover{
+    .prev,.next{
+      opacity:1;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

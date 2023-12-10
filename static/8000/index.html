@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>在园记录表</title>
+  <link rel="stylesheet" href="./css/base.min.css">
+  <link rel="stylesheet" href="./css/main.min.css">
+  <link rel="stylesheet" href="./css/vant.min.css">
+  <link rel="stylesheet" href="./css/8000.min.css">
+</head>
+
+<body>
+  <div id="app" v-clock>
+    <div class="app_view_box">
+      <div class="cover"></div>
+      <div class="views flex">
+        <span class="time" @click="show=true">日期：{{ymd}}</span>
+        <span class="name">姓名：{{ext.name}}</span>
+      </div>
+    </div>
+    <template v-for="(i,j) in extData">
+      <v-view :key="j+'-view'" :title="i.title" :ids="'views-'+j" :class="{last:extData.length-1===j}"
+        :readonly="i.type!=='textarea'">
+        <template v-for="(q,w) in i.item">
+          <v-btn :title="q.title" :item="q.list" :key="w+'-b-'+j" @change="onChange($event,j,w)" readonly>
+          </v-btn>
+        </template>
+        <template v-if="i.type==='textarea'">
+          <textarea v-model="i.value" cols="30" rows="10" class="m_inp" @input="onChangeText($event,i,j)"
+            :disabled="+i.sub===1"></textarea>
+          <div class="app_view_line">
+            <h3 class="flex" style="line-height: 0.58rem;">{{i.label}} ：<span class="app_check_btn grey"
+                @click="onClickHand(i,j)" v-if="+i.sub===2">点击签字</span>
+            </h3>
+            <div class="image flex" v-if="i.hand">
+              <van-image :src="i.hand"></van-image>
+            </div>
+          </div>
+        </template>
+      </v-view>
+    </template>
+    <div class="covers_empty" v-if="!extData.length" style="height:calc(100% - 3.28rem)">
+      <van-empty description="暂无上传"></van-empty>
+    </div>
+    <v-view ids="view-s" v-else>
+      <van-button block type="info" @click="onSave">提交保存</van-button>
+    </v-view>
+    <div class="app_foot">
+      <span class="cover"></span>
+      <div class="views"></div>
+    </div>
+    <van-popup v-model="show" position="bottom" :style="{ height: '310px' }">
+      <van-datetime-picker v-model="time" type="date" title="选择年月日" :max-date="maxDate" @confirm="onTimeChange"
+        @cancel="show=false">
+      </van-datetime-picker>
+    </van-popup>
+    <transition name="van-slide-left">
+      <div class="app_show_fixed" v-if="hand1">
+        <div class="van-nav-bar van-hairline--bottom">
+          <div class="van-nav-bar__content">
+            <div class="van-nav-bar__left" @click="hand1=false">
+              <i class="van-icon van-icon-arrow-left van-nav-bar__arrow"></i>
+              <span class="van-nav-bar__text">关闭</span>
+            </div>
+            <div class="van-nav-bar__title van-ellipsis">{{+hand2===1?'老师':'家长'}}签字</div>
+            <div class="van-nav-bar__right">
+              <span class="van-nav-bar__text" @click="$refs.hands.commit()">保存</span>
+            </div>
+          </div>
+        </div>
+        <div class="views">
+          <v-hand ref="hands" :type="hand2" @on-save="onSaveHand"></v-hand>
+        </div>
+        <div class="foot flex">
+          <button class="m_btn bgc_info small" @click="hand1=false">取消</button>
+          <button class="m_btn bgc_green small" @click="$refs.hands.clear()">清除</button>
+          <button class="m_btn bgc_primary small" @click="$refs.hands.commit()">保存</button>
+        </div>
+        <!-- <v-hand></v-hand> -->
+      </div>
+    </transition>
+  </div>
+</body>
+
+</html>
+<script src="./js/axios.min.js"></script>
+<script src="./js/compressor.min.js"></script>
+<script src="./js/md5.min.js"></script>
+<script src="./js/base.min.js"></script>
+<script src="./js/vue.min.js"></script>
+<script src="./js/vant.min.js"></script>
+<script src="./js/es6.min.js"></script>
+<script src="./js/8000.min.js"></script>
+<script>
+
+  const app = new Vue({
+    el: '#app',
+    components: {
+      vView: demo.$vue().view(),
+      vBtn: demo.$vue().btn(),
+      vHand: demo.$vue().hand()
+    },
+    data() {
+      return {
+        extData: [],
+        newData: [],
+        show: false,
+        maxDate: new Date(),
+        time: new Date(),
+        timeout: '',
+        hand1: false,
+        hand2: '',
+        index: -1,
+        ext: {},
+        tpic: '',
+        ppic: ''
+      }
+    },
+    computed: {
+      ymd() {
+        if (this.timeout > 0) {
+          let v = demo.timeout(this.timeout, 'array')
+          return v[0] + '年' + v[1] + '月' + v[2] + '日'
+        }
+        return '00年00月00日'
+      }
+    },
+    methods: {
+      onChangeText(e, i, j) {
+        this.$set(this.newData[j], 'value', i.value)
+      },
+      onSaveHand(path, index) {
+        demo.es6().imageCompress(path, {}, res => {
+          demo.$api().upload(res.small, rej => {
+            if (+this.hand2 === 1) {
+              this.tpic = rej.path
+            } else {
+              this.ppic = rej.path
+            }
+            this.$set(this.newData[this.index], 'hand', rej.pic)
+            this.$set(this.extData[this.index], 'hand', rej.pic)
+            this.$set(this.newData[this.index], 'path', rej.path)
+            this.$set(this.extData[this.index], 'path', rej.path)
+            this.hand1 = false
+          })
+        })
+      },
+      onClickHand(e, j) {
+        this.hand1 = true
+        this.hand2 = e.sub
+        this.index = j
+      },
+      onTimeChange() {
+        this.show = false
+        this.timeout = this.time.getTime()
+        this.onApi()
+      },
+      onChange(e, j, w) {
+        let val = this.newData[j].item[w].list
+        if (JSON.stringify(e) === JSON.stringify(val)) return 0
+        this.$set(this.newData[j].item[w], 'list', e)
+      },
+      onSave() {
+        demo.$api().save(this.newData, this.toTime(this.timeout), this.ext.park_records_id)
+      },
+      toTime(n) {
+        let c = demo.timeout(n, "array");
+        return [c[0], c[1], c[2]].join("-");
+      },
+      onApi() {
+        vant.Toast.loading({
+          duration: 0,
+          message: '加载中',
+          forbidClick: true
+        })
+        demo.$api().detail(this.toTime(this.timeout), res => {
+          this.ext = res
+          let json = []
+          vant.Toast.clear()
+          let defJson = demo.$json().theme1()
+          try {
+            json = JSON.parse(res.content)
+            if (!json[0].item[0].list) {
+              vant.Toast('数据出错,请重新录入')
+              json = defJson
+            } else {
+              json.push(defJson[defJson.length - 1])
+            }
+          } catch (err) {
+            json = []
+          }
+          this.extData = [...json]
+          this.newData = [...json]
+        })
+      }
+    },
+    mounted() {
+      // this.extData = demo.$json().theme1()
+      // this.newData = demo.$json().theme1()
+      this.timeout = Date.now()
+      // 获取数据
+      if (demo.params.time) {
+        this.timeout = demo.params.time
+        this.onApi()
+      }
+    },
+  })
+
+</script>

@@ -1,0 +1,237 @@
+@charset "utf-8";
+@import "index.less";
+
+.c3d(@s, @e) {
+  -webkit-transform: scale(@s) translateX(@e);
+  -moz-transform: scale(@s) translateX(@e);
+  -ms-transform: scale(@s) translateX(@e);
+  -o-transform: scale(@s) translateX(@e);
+  transform: scale(@s) translateX(@e);
+}
+
+.carousel {
+  position: relative;
+  text-align: center;
+  .mixin-user-select();
+
+  .carousel_list {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+
+    &.bor {
+      ul li.s3 {
+        overflow: hidden;
+        .mixin-border-radius(25px);
+      }
+    }
+
+    ul {
+      height: 600px;
+      width: 280px;
+      margin-bottom: 10px;
+      position: relative;
+      display: inline-block;
+      .mixin-after();
+      .mixin-transition(all .5s);
+
+      li {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        text-align: center;
+        z-index: 50;
+        opacity: 0;
+        .mixin-transition(all .5s);
+        .mixin-transform(scale, 0.2);
+
+        a,
+        img {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+
+        &.s0 {
+          z-index: 51;
+          opacity: 0.5;
+          .c3d(0.5, -450%);
+        }
+
+        &.s1 {
+          z-index: 52;
+          opacity: 0.7;
+          .c3d(0.6, -280%);
+        }
+
+        &.s2 {
+          z-index: 53;
+          opacity: 0.9;
+          .c3d(0.8, -120%);
+        }
+
+        &.s3 {
+          z-index: 54;
+          opacity: 1;
+          .c3d(1, 0);
+        }
+
+        &.s4 {
+          z-index: 53;
+          opacity: 0.9;
+          .c3d(0.8, 120%);
+        }
+
+        &.s5 {
+          z-index: 52;
+          opacity: 0.7;
+          .c3d(0.6, 280%);
+        }
+
+        &.s6 {
+          z-index: 51;
+          opacity: 0.5;
+          .c3d(0.5, 450%);
+        }
+      }
+    }
+
+    .cover {
+      height: 100%;
+      width: 300px;
+      position: absolute;
+      left: 0;
+      top: -8px;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      z-index: 80;
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .carousel_circle {
+    display: inline-block;
+    .mixin-after();
+    width: auto;
+    height: auto;
+    position: relative;
+    z-index: 100;
+    text-align: center;
+    margin-top: 10px;
+
+    li {
+      width: 10px;
+      height: 10px;
+      margin: 5px;
+      background-color: #fff;
+      font-size: 0;
+      cursor: pointer;
+      float: left;
+      .mixin-transition(all .2s);
+      .mixin-border-radius(50%);
+
+      &.active {
+        width: 20px;
+        background-color: @default-c-warning;
+        .mixin-border-radius(5px);
+      }
+    }
+  }
+
+  .carousel_prev,
+  .carousel_next {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 60%;
+    width: 50px;
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    z-index: 200;
+    text-align: center;
+
+    i {
+      display: block;
+    }
+  }
+
+  .carousel_prev {
+    left: 0;
+  }
+
+  .carousel_next {
+    right: 0;
+  }
+
+}
+
+@media screen and(max-width: 960px) {
+  .carousel {
+    .carousel_list ul {
+      width: 240px;
+      height: 427px;
+    }
+
+    .carousel_list .cover {
+      width: 260px;
+    }
+  }
+}
+
+@media screen and(max-width: 768px) {
+  .carousel {
+    .carousel_list ul {
+      width: 220px;
+      height: 391px;
+    }
+
+    .carousel_list .cover {
+      width: 240px;
+    }
+  }
+}
+
+@media screen and(max-width: 480px) {
+  .carousel {
+    .carousel_list {
+      &.bor {
+        ul li.s3 {
+          border-bottom-right-radius: 10px;
+          border-bottom-left-radius: 10px;
+        }
+      }
+
+      ul {
+        width: 180px;
+        height: 306px;
+      }
+
+      .cover {
+        width: 200px;
+      }
+    }
+  }
+}
+
+@media screen and(max-width: 375px) {
+  .carousel {
+    .carousel_list ul {
+      width: 145px;
+      height: 258px;
+    }
+
+    .carousel_list .cover {
+      width: 165px;
+      height: 98%;
+    }
+  }
+}

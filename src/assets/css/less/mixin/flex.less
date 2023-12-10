@@ -1,0 +1,161 @@
+@charset "utf-8";
+
+@import "../variables/varibles.less";
+
+
+//
+// Flexible Box Layout
+//
+// IE 10 support: http://msdn.microsoft.com/en-us/library/ie/hh673531%28v=vs.85%29.aspx
+// IE 11 update: http://msdn.microsoft.com/en-us/library/ie/dn265027%28v=vs.85%29.aspx
+
+.flex-direction(@direction) when not (@default-compatible) {
+  -webkit-flex-direction: @direction;
+  -ms-flex-direction: @direction;
+  flex-direction: @direction;
+}
+.flex-direction(@direction) when (@default-compatible) {
+  flex-direction: @direction;
+}
+
+.flex-wrap(@wrap) when not (@default-compatible) {
+  -webkit-flex-wrap: @wrap;
+  -ms-flex-wrap: @wrap;
+  flex-wrap: @wrap;
+}
+.flex-wrap(@wrap) when (@default-compatible) {
+  flex-wrap: @wrap;
+}
+
+.flex-flow(@flow) when not (@default-compatible) {
+  -webkit-flex-flow: @flow;
+  -ms-flex-flow: @flow;
+  flex-flow: @flow;
+}
+.flex-flow(@flow) when (@default-compatible) {
+  flex-flow: @flow;
+}
+
+.order(@order) when not (@default-compatible) {
+  -ms-flex-order: @order;
+  -webkit-order: @order;
+  order: @order;
+}
+.order(@order) when (@default-compatible) {
+  order: @order;
+}
+
+.flex(@flex) when not (@default-compatible) {
+  -webkit-flex: @flex;
+  -ms-flex: @flex;
+  flex: @flex;
+}
+.flex(@flex) when (@default-compatible) {
+  flex: @flex;
+}
+
+.flex-grow(@flex) when not (@default-compatible) {
+  -webkit-flex-grow: @flex;
+  -ms-flex-positive: @flex;
+  flex-grow: @flex;
+}
+.flex-grow(@flex) when (@default-compatible) {
+  flex-grow: @flex;
+}
+
+.flex-shrink(@flex) when not (@default-compatible) {
+  -webkit-flex-shrink: @flex;
+  -ms-flex-negative: @flex;
+  flex-shrink: @flex;
+}
+.flex-shrink(@flex) when (@default-compatible) {
+  flex-shrink: @flex;
+}
+
+.flex-basis(@size) when not (@default-compatible) {
+  -ms-flex-preferred-size: @size;
+  -webkit-flex-basis: @size;
+  flex-basis: @size;
+}
+.flex-basis(@size) when (@default-compatible) {
+  flex-basis: @size;
+}
+
+.justify-content(@align) when not (@default-compatible) {
+  @flex-pack: ~`"@{align}".replace(/flex-/ig, "").replace(/space-between/ig, "justify").replace(/space-around/ig, "distribute")`;
+  -ms-flex-pack: @flex-pack;
+  -webkit-justify-content: @align;
+  justify-content: @align;
+}
+.justify-content(@align) when (@default-compatible) {
+  justify-content: @align;
+}
+
+.align-items(@align) when not (@default-compatible) {
+  @flex-align: ~`"@{align}".replace(/flex-/ig, "")`;
+  -ms-flex-align: @flex-align;
+  -webkit-align-items: @align;
+  align-items: @align;
+}
+.align-items(@align) when (@default-compatible) {
+  align-items: @align;
+}
+
+.align-self(@align) when not (@default-compatible) {
+  @flex-align: ~`"@{align}".replace(/flex-/ig, "")`;
+  -ms-flex-item-align: @flex-align;
+  -webkit-align-self: @align;
+  align-self: @align;
+}
+.align-self(@align) when (@default-compatible) {
+  align-self: @align;
+}
+
+.align-content(@align) when not (@default-compatible) {
+  @flex-line-pack: ~`"@{align}".replace(/flex-/ig, "").replace(/space-between/ig, "justify").replace(/space-around/ig, "distribute")`;
+  -ms-flex-line-pack: @flex-line-pack;
+  -webkit-align-content: @align;
+  align-content: @align;
+}
+.align-content(@align) when (@default-compatible) {
+  align-content: @align;
+}
+
+//
+// Old Flexible Box Layout
+// not affected by `@use-autoprefixer` because Autoprefixer doesn't deal with `box-*` syntax.
+.box-orient(@orient) {
+  -webkit-box-orient: @orient;
+  -moz-box-orient: @orient;
+}
+
+.box-direction(@direction) {
+  -webkit-box-direction: @direction;
+  -moz-box-direction: @direction;
+}
+
+.box-ordinal-group(@group) {
+  -webkit-box-ordinal-group: @group;
+  -moz-box-ordinal-group: @group;
+}
+
+.box-flex-group(@group) {
+  -webkit-box-flex-group: @group;
+  -moz-box-flex-group: @group;
+}
+
+.box-flex(@flex) {
+  -webkit-box-flex: @flex;
+  -moz-box-flex: @flex;
+}
+
+.box-align(@align) {
+  -webkit-box-align: @align;
+  -moz-box-align: @align;
+}
+
+.box-pack(@align) {
+  -webkit-box-pack: @align;
+  -moz-box-pack: @align;
+}
+

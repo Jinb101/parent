@@ -1,0 +1,150 @@
+@charset "utf-8";
+@import "../index.less";
+.page_box{
+  position: relative;
+  z-index:100;
+  background-clip: padding-box;
+  overflow: hidden;
+  .mixin-border-radius(5px);
+  height: 35px;
+  ul {
+    position: absolute;
+    z-index: 102;
+    left: 35px;
+    top: 0;
+    min-width: 175px;
+    .mixin-transition(all .8s);
+    .mixin-after();
+    li {
+      position: relative;
+      z-index: 103;
+      width: 35px;
+      height: 35px;
+      overflow: hidden;
+      float: left;
+      .mixin-box-sizing();
+      a {
+        float: left;
+        .mixin-box-sizing();
+      }
+    }
+  }
+  a {
+    display: block;
+    line-height: 35px;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    .mixin-box-sizing();
+    &:first-child,&:last-child{
+      position: absolute;
+      top: 0;
+      z-index: 120;
+    }
+    &:first-child{
+      left:0;
+    }
+    &:last-child{right: 0}
+  }
+  &.page_box_5 {
+    width: 245px;
+  }
+  &.page_box_left{
+    float: left;
+  }
+  &.page_box_right{
+    float: right;
+  }
+  &.page_box_center{
+    margin: 0 auto;
+  }
+}
+
+
+//颜色
+.page_box_primary {
+  @border: #d9d9d9; //边框
+  @aBg: #fff; //按钮背景
+  @aHoverBg: #337ab7; //按钮触碰背景
+  @aCol: #337ab7; //按钮字体颜色
+  @aHoverCol: #fff; //按钮触碰字体颜色
+  .page_set_col_default(@border, @aBg, @aHoverBg, @aCol, @aHoverCol);
+}
+.page_box_warning {
+  @border: #b9b9b9; //边框
+  @aBg: #fff; //按钮背景
+  @aHoverBg: @default-c-default; //按钮触碰背景
+  @aCol: #8d8d8d; //按钮字体颜色
+  @aHoverCol: #fff; //按钮触碰字体颜色
+  .page_set_col(@border, @aBg, @aHoverBg, @aCol, @aHoverCol);
+}
+
+.page_set_col_default(@border,@aBg,@aHoverBg,@aCol,@aHoverCol){
+  //border:1px solid @border;
+  .mixin-border-radius(0);
+  a{
+    border:1px solid @border;
+    color: @aCol;
+    &:hover{
+      background-color: @aHoverBg;
+      color: @aHoverCol;
+    }
+    &[disabled],&[disabled="disabled"]{
+      color: @aCol;
+      background-color: transparent;
+      opacity:.5;
+      cursor: not-allowed;
+    }
+  }
+  >a{
+    border:1px solid @border;
+    background-color: @aBg;
+    &:last-child{
+      margin-left: 3px;
+    }
+    &:first-child{
+      margin-right:3px;
+    }
+  }
+};
+//上色
+.page_set_col(@border,@aBg,@aHoverBg,@aCol,@aHoverCol,@lg:46px){
+  //border:1px solid @border;
+  .mixin-border-radius(0);
+  height: @lg - 6;
+  ul{
+    left: @lg;
+    height: @lg - 6;
+    li{
+      width: @lg;
+      height: @lg - 6;
+      padding: 0 3px;
+    }
+  }
+  a{
+    width: @lg - 6;
+    height: @lg - 6;
+    border:1px solid @border;
+    color: @aCol;
+    &:hover{
+      background-color: @aHoverBg;
+      color: @aHoverCol;
+    }
+    &[disabled],&[disabled="disabled"]{
+      color: @aCol;
+      background-color: transparent;
+      opacity:.5;
+      cursor: not-allowed;
+    }
+  }
+  >a{
+    border:1px solid @border;
+    background-color: @aBg;
+    &:last-child{
+      margin-left: 3px;
+    }
+    &:first-child{
+      margin-right:3px;
+    }
+  }
+}
