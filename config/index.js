@@ -16,7 +16,7 @@ module.exports = {
         target: 'http://test.official.jsxrk.xin/api',
         changeOrigin: true,
         pathRewrite: {
-          '^/dev': '/'// 重写,
+          '^/dev': '/'// 重写，
         }
       },
       '/env': {

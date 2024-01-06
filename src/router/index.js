@@ -36,7 +36,7 @@ const router = new Router({
       name: "start"
     }
   },
-  // 路由地址，对应文件，路由名字,路由标题,返回路由地址(带有route_back则后退)，子路由数组
+  // 路由地址，对应文件，路由名字，路由标题，返回路由地址 (带有 route_back 则后退)，子路由数组
   // routerObj('/login', 'login/index.vue', 'login', '登录'),
   // routerObj('/login_reg', 'login/reg.vue', 'loginReg', '注册'),
   // routerObj('/login_reset', 'login/forget.vue', 'loginReset', '重置密码'),
@@ -54,12 +54,12 @@ const router = new Router({
   routerObj('/cute_detail/:id', 'index/cute/detail.vue', 'cuteDetail', '精彩瞬间详情'),
   routerObj('/info', 'index/info/index.vue', 'info', '园所资讯'),
   routerObj('/info_detail/:id', 'index/info/detail.vue', 'infoDetail', '园所资讯详情'),
-  routerObj('/info_detail_detail/:id', 'index/info/detail.vue', 'infoDetail2', '园所资讯详情'), // 园所触发bug使用
+  routerObj('/info_detail_detail/:id', 'index/info/detail.vue', 'infoDetail2', '园所资讯详情'), // 园所触发 bug 使用
   routerObj('/garden', 'index/garden/index.vue', 'garden', '园所风采'),
   routerObj('/garden/:id', 'index/garden/index.vue', 'garden2', '园所风采'),
   routerObj('/garden_detail', 'index/garden/detail.vue', 'gardenDetail', '园所简介'),
   routerObj('/garden_honor', 'index/garden/honor.vue', 'gardenHonor', '园所荣誉'),
-  routerObj('/garden_vr', 'index/garden/vr.vue', 'gardenVr', 'VR校园'),
+  routerObj('/garden_vr', 'index/garden/vr.vue', 'gardenVr', 'VR 校园'),
   routerObj('/teach', 'index/teach/index.vue', 'teach', '教师风采'),
   routerObj('/teach_detail/:id', 'index/teach/detail.vue', 'teachDetail', '教师风采详情'),
   routerObj('/teach_plan', 'index/teach_plan/index.vue', 'teach_plan', '班级课表'),

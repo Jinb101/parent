@@ -1,37 +1,42 @@
 <template>
   <div class="pri_video">
-    <van-empty description="暂无" v-if="!item.length" />
-    <section v-for="(i, j) in list" :key="j + '-video'">
-      <h6 class="van-ellipsis" @click="onPath(i)">{{ i.title }}</h6>
-      <div class="event" @click="onDetail(i)">
+    <van-empty description="暂无"
+               v-if="!item.length" />
+    <section v-for="(i, j) in list"
+             :key="j + '-video'">
+      <h6 class="van-ellipsis"
+          @click="onPath(i)">{{ i.title }}</h6>
+      <div class="event"
+           @click="onDetail(i)">
         <van-icon name="ellipsis" />
       </div>
       <div class="poster">
-        <van-icon
-          name="play"
-          v-if="!i.player"
-          class="aa"
-          @click="onPlayer(i, j)"
-        />
-        <van-image
-          :src="i.pic"
-          radius="5px"
-          fit="cover"
-          v-if="!i.player"
-          @click="onPlayer(i, j)"
-        ></van-image>
-        <div :id="i.playerId" v-show="i.player" class="video"></div>
+        <van-icon name="play"
+                  v-if="!i.player"
+                  class="aa"
+                  @click="onPlayer(i, j)" />
+        <van-image :src="i.pic"
+                   radius="5px"
+                   fit="cover"
+                   v-if="!i.player"
+                   @click="onPlayer(i, j)"></van-image>
+        <div :id="i.playerId"
+             v-show="i.player"
+             class="video"></div>
       </div>
-      <div class="tool flex" @click="onPath(i)">
+      <div class="tool flex"
+           @click="onPath(i)">
         <span class="time">时间：{{ appTimeout(i.create_time, "ymd") }}</span>
-        <span class="goods" @click.stop="onToggleGood(i, j)">
-          <van-icon name="good-job-o" v-if="i.like === 2" />
-          <van-icon name="good-job" v-else color="tomato" />
+        <span class="goods"
+              @click.stop="onToggleGood(i, j)">
+          <van-icon name="good-job-o"
+                    v-if="i.like === 2" />
+          <van-icon name="good-job"
+                    v-else
+                    color="tomato" />
           <b :class="{ col_danger: i.like !== 2 }">{{ i.quantity }}</b>
         </span>
-        <span class="count"
-          ><van-icon name="eye-o" />{{ appCountNum(i.pageview) }}</span
-        >
+        <span class="count"><van-icon name="eye-o" />{{ appCountNum(i.pageview) }}</span>
       </div>
     </section>
   </div>
@@ -195,12 +200,14 @@ export default {
     padding: 0 8px;
     box-sizing: border-box;
   }
+
   h6 {
     height: 40px;
     line-height: 40px;
     font-size: 16px;
     padding-right: 40px;
   }
+
   .event {
     position: absolute;
     right: 0;
@@ -211,30 +218,36 @@ export default {
     line-height: 40px;
     color: #999;
   }
+
   .tool {
     font-size: 12px;
     color: #999;
     height: 30px;
     line-height: 30px;
+
     .time {
       flex: 1;
     }
+
     .goods {
       padding-right: 8px;
       min-width: 50px;
       box-sizing: border-box;
     }
+
     .van-icon {
       vertical-align: middle;
       font-size: 20px;
       margin-right: 5px;
     }
   }
+
   .poster {
     width: 100%;
     height: 175px;
     margin: 0 auto;
     position: relative;
+
     .aa {
       position: absolute;
       left: 0;
@@ -252,11 +265,11 @@ export default {
       box-shadow: 0 0 10px rgba(204, 204, 204, 0.3);
       border-radius: 50%;
     }
+
     .video {
       display: block;
       width: 100%;
       height: 100%;
     }
   }
-}
-</style>
+}</style>

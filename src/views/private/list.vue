@@ -1,18 +1,20 @@
 <template>
   <div class="pri_list">
-    <van-empty description="暂无" v-if="!item.length" class="a" />
-    <section
-      v-for="(i, j) in item"
-      :key="j + '-article'"
-      class="flex"
-      @click="onDetail(i)"
-    >
+    <van-empty description="暂无"
+               v-if="!item.length"
+               class="a" />
+    <section v-for="(i, j) in item"
+             :key="j + '-article'"
+             class="flex"
+             @click="onDetail(i)">
       <div class="ico">
-        <van-image :src="i.image[0]" fit="cover" radius="5px"></van-image>
+        <van-image :src="i.image[0]"
+                   fit="cover"
+                   radius="5px"></van-image>
       </div>
       <div class="stro">
-        <h6 class="van-ellipsis">{{ i.title }}</h6>
-        <p class="van-multi-ellipsis--l2">{{ i.content }}</p>
+        <h2 class="van-ellipsis van-multi-ellipsis--l2">{{ i.title }}</h2>
+        <p class=" desc van-multi-ellipsis--l2">{{ i.content }}</p>
       </div>
     </section>
   </div>
@@ -37,41 +39,57 @@ export default {
       this.appPath("/info_detail/" + e.id);
     },
   },
-  mounted() {},
+  mounted() { },
 };
 </script>
 <style lang='less' scoped>
 .pri_list {
   background-color: #f5f5f5;
+
   .a {
     background-color: #fff;
   }
+
   section {
     padding: 10px 0;
     height: 120px;
     margin-bottom: 2px;
     background-color: #fff;
   }
+
   .ico {
     width: 120px;
     height: 120px;
   }
+
+  .desc {
+    line-height: 15px;
+    font-size: 14px;
+    height: 30px;
+    color: #999;
+  }
+
   .stro {
     width: calc(100% - 120px);
     box-sizing: border-box;
     padding-left: 10px;
-    h6 {
+    font-size: 15px;
+
+    h2 {
       line-height: 18px;
       font-size: 16px;
       height: 18px;
       margin-bottom: 18px;
       padding-top: 8px;
+      font-weight: 650;
     }
+
     p {
       font-size: 14px;
       line-height: 16px;
     }
   }
+
   // .van-image {
   //   width: 100%;
   //   height: 100%;

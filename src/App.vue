@@ -1,72 +1,68 @@
 <template>
   <div id="app">
-    <div class="app_progress" :style="{ width: progress + '%' }"></div>
+    <div class="app_progress"
+         :style="{ width: progress + '%' }"></div>
     <!-- 入口 -->
     <transition :name="transitionName">
-      <router-view
-        v-if="isRouterAlive"
-        :childData="childData"
-        :class="routeClass"
-        class="app_view"
-      ></router-view>
+      <router-view v-if="isRouterAlive"
+                   :childData="childData"
+                   :class="routeClass"
+                   class="app_view"></router-view>
     </transition>
     <!-- 全局弹框盒子 -->
     <transition name="fade">
       <v-fixed></v-fixed>
     </transition>
     <!-- 底部 nav  -->
-    <!-- 部分页面底部tabbar -->
+    <!-- 部分页面底部 tabbar -->
     <!-- <v-bar index fixed v-if="isFooter" :select="$route.name"></v-bar> -->
     <!-- 全局弹出层 -->
-    <v-popup
-      :open="popup.open"
-      :title="popup.title"
-      :keys="popup.keys"
-      :item="popup.item"
-      @on-change="onPopupChange"
-    ></v-popup>
+    <v-popup :open="popup.open"
+             :title="popup.title"
+             :keys="popup.keys"
+             :item="popup.item"
+             @on-change="onPopupChange"></v-popup>
     <!-- 上传按钮 隐藏 -->
-    <button class="m_btn mini up" :id="btnId"></button>
+    <button class="m_btn mini up"
+            :id="btnId"></button>
     <!-- 分享 -->
-    <v-share
-      :open="share.open"
-      :ext="share.ext"
-      :item="share.item"
-      :title="share.title"
-    ></v-share>
-    <van-image-preview
-      v-model="showImage"
-      :images="imageList"
-      :startPosition="imageIndex"
-    ></van-image-preview>
+    <v-share :open="share.open"
+             :ext="share.ext"
+             :item="share.item"
+             :title="share.title"></v-share>
+    <van-image-preview v-model="showImage"
+                       :images="imageList"
+                       :startPosition="imageIndex"></van-image-preview>
     <!-- 班级圈评论 -->
     <transition name="height">
-      <div class="app_comment_class" v-if="showComment">
-        <div class="cover" @click="onCloseComment(false)"></div>
+      <div class="app_comment_class"
+           v-if="showComment">
+        <div class="cover"
+             @click="onCloseComment(false)"></div>
         <div class="cin">
-          <van-field center clearable placeholder="请输入" v-model="comment">
+          <van-field center
+                     clearable
+                     placeholder="请输入"
+                     v-model="comment">
             <template #button>
-              <van-button
-                size="small"
-                type="primary"
-                @click.stop="onSendComment"
-                >发送</van-button
-              >
+              <van-button size="small"
+                          type="primary"
+                          @click.stop="onSendComment">发送</van-button>
             </template>
           </van-field>
         </div>
       </div>
     </transition>
     <transition name="fade">
-      <v-music
-        :music="music"
-        :class="{ foot: isFooter }"
-        @on-remove="showMusic = false"
-        v-if="showMusic"
-      ></v-music>
+      <v-music :music="music"
+               :class="{ foot: isFooter }"
+               @on-remove="showMusic = false"
+               v-if="showMusic"></v-music>
     </transition>
     <transition name="fade">
-      <div class="app_share_wx" v-if="share_open" @click="share_open = false">
+      <div class="app_share_wx"
+           v-if="share_open"
+           @click="share_open = false">
         <div class="cover">
           <van-image :src="$js.def.icon.wx.icon"></van-image>
         </div>
@@ -290,7 +286,7 @@ export default {
       }
       if (e.u) {
         this.$demo.$session.set("app-time-user", 0);
-        this.appGetInfo(() => {});
+        this.appGetInfo(() => { });
       }
     },
     // 发送评论
@@ -413,7 +409,7 @@ export default {
         }, 500);
       }, 200);
     },
-    // 获取用户信息 10分钟
+    // 获取用户信息 10 分钟
     appGetInfo(fn) {
       let ts = this;
       let time = ts.$demo.$session.get("app-time-user", 0);
@@ -438,19 +434,19 @@ export default {
       let url = window.location.href;
       if (window.location.href.indexOf('tulis') > -1 && token) {
         let newUrl = window.location.href.replace(/&tulis=1/, '');
-          history.replaceState(null, '', newUrl);
-          return
+        history.replaceState(null, '', newUrl);
+        return
       }
-        if (url.indexOf("&tulis") > -1) {
-          // eslint-disable-next-line no-undef
-              // demo.$session.reset();
-              // eslint-disable-next-line
-              // demo.$local.clear("token");
-              this.$nextTick(() => {
-                this.appPath("/index");
-              });
-        }
-          if (!token) {
+      if (url.indexOf("&tulis") > -1) {
+        // eslint-disable-next-line no-undef
+        // demo.$session.reset();
+        // eslint-disable-next-line
+        // demo.$local.clear("token");
+        this.$nextTick(() => {
+          this.appPath("/index");
+        });
+      }
+      if (!token) {
         if (err) {
           return err();
         }
@@ -473,6 +469,7 @@ export default {
     appShare(item, data, type, title) {
       let ext = data;
       ext.share_type = type;
+      console.log(data);
       this.share = {
         item,
         ext,
@@ -480,7 +477,7 @@ export default {
         title,
       };
     },
-    // 获取url参数
+    // 获取 url 参数
     appGetParams(name) {
       return name ? this.params[name] : this.params;
     },
@@ -535,7 +532,7 @@ export default {
       if (+n === 2) return icon.girl;
       return icon.boy;
     },
-    // 初始化 10分钟
+    // 初始化 10 分钟
     async init() {
       let ts = this;
       let nid = ts.$demo.$local.get("nid", "");
@@ -575,7 +572,7 @@ export default {
         // 获取基本信息
         ts.getconfigs();
       }
-      // 获取微信配置5
+      // 获取微信配置 5
       if (ts.$demo.es6().isWx()) {
         ts.$api.http("wx", {}, (e) => {
           ts.$demo.$local.set("wxConfig", e);
@@ -634,9 +631,11 @@ html,
 body {
   height: 100%;
 }
+
 body {
   background-color: #eee;
 }
+
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -644,6 +643,7 @@ body {
   // user-select: none;
   background-color: #fff;
 }
+
 .up {
   z-index: -1;
   position: fixed;
@@ -659,22 +659,27 @@ body {
   position: sticky;
   z-index: 50;
   top: 0;
+
   &.bgc {
     background-color: #fff;
   }
+
   &.h44 {
     top: 44px;
   }
+
   &.h10 {
     top: 10px;
   }
 }
+
 .app_bottom {
   position: sticky;
   z-index: 50;
   bottom: 0;
   padding: 10px;
   background-color: #fff;
+
   &.tran {
     background-color: transparent;
   }
@@ -722,6 +727,7 @@ body {
   height: 100vh;
   background-color: rgba(34, 34, 34, 0.7);
   z-index: 88888;
+
   .cover {
     width: 50%;
     position: absolute;
@@ -729,21 +735,22 @@ body {
     top: 0;
   }
 }
+
 .triangle {
   position: fixed;
   z-index: -1;
   width: 50%;
   height: 50%;
+
   &.triangle_top {
     top: 0;
     left: 0;
     transform: rotate(45deg) scale(2) translateX(-20%);
-    background: linear-gradient(
-      90deg,
-      rgb(15, 252, 173),
-      rgba(255, 255, 255, 0)
-    );
+    background: linear-gradient(90deg,
+        rgb(15, 252, 173),
+        rgba(255, 255, 255, 0));
   }
+
   &.triangle_bottom {
     right: 0;
     bottom: 0;
@@ -751,6 +758,7 @@ body {
     background: linear-gradient(-90deg, #38f, rgba(255, 255, 255, 0));
   }
 }
+
 .app_btn_add {
   position: fixed;
   right: 10px;
@@ -769,13 +777,16 @@ body {
   box-shadow: 0 0 10px #a8d578;
   transform: scale(0.9);
   z-index: 50;
+
   i {
     font-size: 20px;
   }
+
   &.b20 {
     bottom: 20px;
   }
 }
+
 .app_comment_class {
   position: fixed;
   left: 0;
@@ -783,11 +794,13 @@ body {
   width: 100vw;
   height: 100vh;
   z-index: 3000;
+
   .cover {
     z-index: 3001;
     width: 100%;
     height: 100%;
   }
+
   .cin {
     position: absolute;
     bottom: 0;
@@ -803,19 +816,23 @@ body {
   font-size: 14px;
   line-height: 1.5;
   padding: 0 8px;
+
   img,
   iframe,
   video {
     max-width: 100%;
     border-radius: 5px;
   }
+
   iframe,
   video {
     display: block;
     width: 100%;
   }
+
   &.auto {
     padding: 0;
+
     img {
       border-radius: 0;
     }
@@ -840,24 +857,29 @@ body {
   height: calc(100% - 46px);
   left: 0;
   z-index: 50;
+
   .w60 {
     margin: 30px auto 10px;
     width: 60%;
   }
+
   .w80 {
     position: fixed;
     z-index: 55;
     left: 10%;
     bottom: 15px;
     width: 80%;
-    .van-button + .van-button {
+
+    .van-button+.van-button {
       margin-left: 10px;
     }
   }
+
   &.top {
     height: 100%;
     top: 0;
   }
+
   &.tran {
     background-color: transparent;
   }
@@ -876,6 +898,7 @@ body {
 .app_approval_purchase {
   background-color: #f5f5f5;
   overflow-y: scroll;
+
   .show_search,
   .show_lists,
   .change_people {
@@ -890,6 +913,7 @@ body {
     padding: 5px;
     overflow-y: scroll;
   }
+
   .show_foot {
     position: fixed;
     z-index: 299;
@@ -898,20 +922,24 @@ body {
     height: 60px;
     background-color: #fff;
     width: 100%;
+
     .price {
       width: calc(100% - 60px);
       box-sizing: border-box;
       padding: 32px 5px 0 11px;
       font-size: 14px;
     }
+
     .van-button {
       height: 60px;
       width: 160px;
     }
   }
+
   .change_people {
     padding: 0;
   }
+
   .header {
     height: 44px;
     line-height: 44px;
@@ -919,71 +947,87 @@ body {
     padding: 0 15px;
     font-size: 15px;
     margin-bottom: 8px;
+
     b {
       flex: 1;
       font-weight: 700;
     }
+
     .van-icon {
       line-height: 44px;
       color: #999;
     }
   }
+
   .peo {
     background-color: #fff;
     padding: 17px 12px;
     font-size: 15px;
+
     h6 {
       margin-bottom: 15px;
     }
   }
+
   .h30 {
     margin-bottom: 15px;
   }
+
   .h10 {
     margin-bottom: 10px;
   }
+
   .inp {
     background-color: #fff;
     height: 44px;
     line-height: 44px;
     font-size: 14px;
     padding: 0 12px;
-    > p {
+
+    >p {
       width: 80px;
     }
   }
+
   .descs {
     background-color: #fff;
     padding: 12px;
     margin-bottom: 70px;
+
     h6 {
       font-size: 15px;
       line-height: 35px;
       height: 35px;
     }
   }
+
   .show_lists {
     .van-button {
       width: 70%;
       margin: 30px auto;
     }
+
     li {
       height: 70px;
       padding: 10px;
       box-sizing: border-box;
       font-size: 13px;
+
       .ava {
         height: 50px;
         width: 50px;
         margin-right: 10px;
       }
+
       .name {
         margin: 6px 0;
         font-size: 16px;
       }
+
       .text {
         width: calc(100% - 120px);
       }
+
       .close,
       .dire {
         width: 30px;
@@ -992,6 +1036,7 @@ body {
         font-size: 20px;
         color: tomato;
       }
+
       .dire {
         color: #988;
       }
@@ -1002,17 +1047,20 @@ body {
 .trigger_tag {
   padding: 10px;
   font-size: 15px;
+
   span {
     padding: 0 10px;
     line-height: 20px;
     display: flex;
     align-items: center;
+
     i {
       margin-right: 4px;
     }
   }
 }
-.pub_title + .pub_page {
+
+.pub_title+.pub_page {
   height: calc(100% - 46px) !important;
 }
 
@@ -1037,59 +1085,71 @@ body {
   opacity: 0;
   transform: .5 translateX(100%);
 }
+
 .slide-right-leave-active,
 .slide-right-enter {
   opacity: 0;
   transform: .5 translateX(-100%);
 }
+
 .height-enter,
 .height-leave-to {
   opacity: 0;
   height: 0;
-  transform:  translateX(-50%);
+  transform: translateX(-50%);
 }
+
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
   transform: scale(0);
 }
+
 .moveleft-enter,
 .moveleft-leave-to {
   position: absolute;
   opacity: 0;
   transform: translateX(-100%);
 }
+
 .moveright-enter,
 .moveright-leave-to {
   position: absolute;
   opacity: 0;
   transform: translateX(100%);
 }
+
 .van-image-preview__overlay {
   background: rgba(0, 0, 0, 0.4);
 }
+
 .db_image {
   display: block;
   width: 100%;
   height: 100%;
 }
+
 .van-progress__pivot,
 .van-progress__portion {
   transition: all 0.5s;
 }
+
 .van-tabbar-item--active img {
   position: relative;
   animation: dropAndRecover 1.5s ease;
-  transform: translate3d(0, 0, 0); /* 使用硬件加速 */
+  transform: translate3d(0, 0, 0);
+  /* 使用硬件加速 */
 }
 
 @keyframes dropAndRecover {
   0% {
     transform: translateY(0) scale(1);
   }
+
   50% {
     transform: translateY(-15px) scale(1.4);
   }
+
   100% {
     transform: translateY(0) scale(1);
   }

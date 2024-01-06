@@ -52,11 +52,11 @@ const vx = (data = {}, type = 'share', flag) => {
       switch (type) {
         case 'location':
           wx.openLocation({
-            latitude: +os.latitude || 0, // 纬度，浮点数，范围为90 ~ -90
-            longitude: +os.longitude || 0, // 经度，浮点数，范围为180 ~ -180。
+            latitude: +os.latitude || 0, // 纬度，浮点数，范围为 90 ~ -90
+            longitude: +os.longitude || 0, // 经度，浮点数，范围为 180 ~ -180。
             name: os.address || '', // 位置名
             address: os.localization || '', // 地址详情说明
-            scale: 15, // 地图缩放级别,整形值,范围从1~28。默认为最大
+            scale: 15, // 地图缩放级别，整形值，范围从 1~28。默认为最大
           })
           break
         default:
@@ -69,8 +69,9 @@ const vx = (data = {}, type = 'share', flag) => {
           wx.updateAppMessageShareData({
             title: os.title, // 分享标题
             desc: os.desc, // 分享描述
-            link: os.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: os.logo, // 分享图标
+            link: os.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号 JS 安全域名一致
+            imgUrl: data.logo ? data.logo : a.logo, // 分享图标
+            logo: data.logo ? data.logo : a.logo, // 分享图标
             success: function (r) {
               // 设置成功
               if (!!debug) {
@@ -85,8 +86,9 @@ const vx = (data = {}, type = 'share', flag) => {
           })
           wx.updateTimelineShareData({
             title: os.title, // 分享标题
-            link: os.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: os.logo, // 分享图标
+            link: os.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号 JS 安全域名一致
+            imgUrl: data.logo ? data.logo : a.logo, // 分享图标
+            logo: data.logo ? data.logo : a.logo, // 分享图标
             success: function (r) {
               // 设置成功
               if (!!debug) {

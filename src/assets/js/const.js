@@ -14,7 +14,7 @@ let api = {
 let env = process.env.NODE_ENV === 'development'
 
 if (env) {
-  api.http = '/dev/'
+  api.http = '/env/'
   api.h5 = 'http://127.0.0.5/500/'
 }
 
