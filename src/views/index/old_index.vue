@@ -160,7 +160,7 @@ export default {
             // 检测是否有权限访问
             if (e.level > 1) {
               this.appGetInfo((r) => {
-                // is_it_bound, // 绑定宝宝审核 0未绑定 1待审核 2通过 3驳回
+                // is_it_bound, // 绑定宝宝审核 0 未绑定 1 待审核 2 通过 3 驳回
                 switch (+r.is_it_bound) {
                   case 0:
                     this.$model.info("您还未绑定宝宝", 2);
@@ -224,9 +224,13 @@ export default {
           return s.type === +type;
         });
         a = a[0] || {};
-        return a.is_show !== 0;
+        if (a) {
+          return a.is_show !== 0;
+        } else {
+          return false;
+        }
       };
-      this.$api.http("isIndexOpen", {}, (e) => {
+       this.$api.http("isIndexOpen", {}, (e) => {
         // 0 为开启
         let baby = sr(e, 0);
         let cute = sr(e, 1);
@@ -250,7 +254,6 @@ export default {
           });
         }
       });
-
       // 新规则 是否有权限
       let menulevel = this.$demo.$session.get("menulevel", {});
       let closed = menulevel.close || [];

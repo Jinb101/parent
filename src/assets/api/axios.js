@@ -58,7 +58,7 @@ const http = {
   ground: () => {
     return ajax.post('com/nursery_common/is_grounding', {})
   },
-  // 获取logo
+  // 获取 logo
   logo: () => {
     return ajax.post('com/common/nursery_info', {})
   },
@@ -66,11 +66,11 @@ const http = {
   getAppId: () => {
     return ajax.post('com/common/get_share', {})
   },
-  // 获取微信openid
+  // 获取微信 openid
   getOpenId: (code) => {
     return ajax.post('com/common/get_openid', { js_code: code })
   },
-  // 设置openid
+  // 设置 openid
   setOpenId: (code) => {
     return ajax.post('com/nursery_common/setOpenid', { code })
   },
@@ -288,12 +288,12 @@ const http = {
   },
   /**----------------------------------------------------- 组织管理 z 4 / 4----------------------------------------------------- */
   // 组织架构/园所风采
-  zIndex: (type) => { // 1组织架构 0园所风采 3员工手册
+  zIndex: (type) => { // 1 组织架构 0 园所风采 3 员工手册
     return ajax.post('nursery/Human/organization', {
       type: type === 3 ? 3 : type ? 1 : 2
     })
   },
-  // 组织架构[新] 1园所荣誉2组织架构 3人力资源二维码 4来访登记二维码5积分管理制度 6VR校园
+  // 组织架构 [新] 1 园所荣誉 2 组织架构 3 人力资源二维码 4 来访登记二维码 5 积分管理制度 6VR 校园
   zIndex2: (d) => {
     return ajax.post('nursery/Human/framework', { type: d.type || 2 })
   },
@@ -408,7 +408,7 @@ const http = {
   bIndex: (d) => {
     let data = {
       datetime: d.time || '',
-      status: [1, 5, 3, 6][d.type] || 1, // 1已打卡 5迟到 3缺卡 6离校
+      status: [1, 5, 3, 6][d.type] || 1, // 1 已打卡 5 迟到 3 缺卡 6 离校
       class_id: d.id
     }
     return ajax.post('nursery/Education/childAttendance', data)
@@ -429,7 +429,7 @@ const http = {
   },
   /**----------------------------------------------------- 调研表 d 5 / 5 ----------------------------------------------------- */
   // 调查
-  dIndex: (d) => { // 0家长调研表 1员工调研表 2岗位胜任力调研表
+  dIndex: (d) => { // 0 家长调研表 1 员工调研表 2 岗位胜任力调研表
     return ajax.post('nursery/work/feedBack', {
       type: [1, 2, 3][d.type] || 1,
       page: d.page || 1,
@@ -459,7 +459,7 @@ const http = {
     return ajax.post('nursery/work/submit', data)
   },
   // 记录
-  dList: (d) => { // 0家长调研表 1员工调研表 2岗位胜任力调研表
+  dList: (d) => { // 0 家长调研表 1 员工调研表 2 岗位胜任力调研表
     return ajax.post('nursery/work/survey_records', {
       type: [1, 2, 3][d.type] || 1,
       page: d.page || 1,
@@ -507,7 +507,7 @@ const http = {
   vAdd: (d) => {
     let data = {
       title: d.title,
-      type: d.type ? 2 : 1, // 0图片 1视频
+      type: d.type ? 2 : 1, // 0 图片 1 视频
       cover: d.img,
       video: d.video
     }
@@ -540,7 +540,7 @@ const http = {
     let data = {
       page: d.page || 1,
       limit: d.limit || 10,
-      examine_status: d.type ? 1 : 2, // 1待审核 0已审核
+      examine_status: d.type ? 1 : 2, // 1 待审核 0 已审核
       name: d.name || ''
     }
     return ajax.post('nursery/binding/audit_list', data)
@@ -554,7 +554,7 @@ const http = {
   // 审核
   ySend: (d) => {
     let data = {
-      status: d.type ? 1 : 2, // 1通过 0驳回
+      status: d.type ? 1 : 2, // 1 通过 0 驳回
       reject: d.msg || '',
       id: d.id
     }
@@ -598,7 +598,7 @@ const http = {
     let data = {
       start_time: d.start,
       end_time: d.end,
-      type: d.type ? 1 : 2, // 1文本 0图片
+      type: d.type ? 1 : 2, // 1 文本 0 图片
       recipes: d.list || [],
       describe: d.desc || ''
     }
@@ -663,10 +663,10 @@ const http = {
     let data = {
       supplies: d.json || '[]', // 采购物品 json
       principal_type: 1, // 审批人为园所端
-      principal_id: d.id || '', // 审批人id，多个逗号拼接
-      center_inform_ids: '', // 集团管理中心知会人id
-      nursery_inform_ids: d.zid || '', // 园所知会人id
-      supplier_id: d.gid || '', // 供应商id
+      principal_id: d.id || '', // 审批人 id，多个逗号拼接
+      center_inform_ids: '', // 集团管理中心知会人 id
+      nursery_inform_ids: d.zid || '', // 园所知会人 id
+      supplier_id: d.gid || '', // 供应商 id
       content: d.message || '', // 采购说明
       amount: d.price || 0, // 合计金额
       imgs: d.image || [], // 图片
@@ -682,9 +682,9 @@ const http = {
     let data = {
       supplies: d.json || '[]', // 采购物品 json
       principal_type: 1, // 审批人为园所端
-      principal_id: d.id || '', // 审批人id，多个逗号拼接
-      center_inform_ids: '', // 集团管理中心知会人id
-      nursery_inform_ids: d.zid || '', // 园所知会人id
+      principal_id: d.id || '', // 审批人 id，多个逗号拼接
+      center_inform_ids: '', // 集团管理中心知会人 id
+      nursery_inform_ids: d.zid || '', // 园所知会人 id
       content: d.message || '', // 采购说明
       imgs: d.image || [], // 图片
       recording: d.ly || '', // 录音
@@ -770,7 +770,7 @@ const http = {
     let url = 'myapprovaldetail' // approvaltomedetail approvalinformmedetail
     let data = {
       a_id: d.id,
-      type: d.type // 1采购审批，2领用审批，3报销审批，4费用审批，5出勤审批
+      type: d.type // 1 采购审批，2 领用审批，3 报销审批，4 费用审批，5 出勤审批
     }
     switch (name * 1) {
       case 2:
@@ -785,15 +785,15 @@ const http = {
   },
   // 更改审批状态
   approvalChange: (d) => {
-    // -1拒绝，2通过，3撤销
+    // -1 拒绝，2 通过，3 撤销
     return ajax.post('nursery/index/changeapprovalstatus', { id: d.id, status: d.status || -1 })
   },
   // 获取审批人 历史
   approvalHistory: (type) => {
-    // 审批类型 1采购审批，2领用审批，3报销审批，4费用审批，5出勤审批
+    // 审批类型 1 采购审批，2 领用审批，3 报销审批，4 费用审批，5 出勤审批
     return ajax.post('nursery/index/getApprovalPerson', { approval_type: type })
   },
-  // 红点  1采购审批，2领用审批，3报销审批，4费用审批，5出勤审批
+  // 红点  1 采购审批，2 领用审批，3 报销审批，4 费用审批，5 出勤审批
   approvalDot: (type) => {
     return ajax.post('com/nursery_common/little_red_dot', { approval_type: type })
   },
@@ -803,7 +803,7 @@ const http = {
     let data = {
       page: d.page || 1,
       limit: d.limit || 10,
-      type: d.type || 1 // 1待入库 2已入库 3已撤销
+      type: d.type || 1 // 1 待入库 2 已入库 3 已撤销
     }
     return ajax.post('nursery/Logistics/purchase', data)
   },
@@ -811,7 +811,7 @@ const http = {
   logPurchaseDetail: (d) => {
     return ajax.post('nursery/Logistics/purchaseDetail', { approval_id: d.id, purchase_id: d.pid })
   },
-  // 采购入库-撤销
+  // 采购入库 - 撤销
   logPurchaseStatus: (d) => {
     let url = 'nursery/Logistics/confirm_revote'
     if (d.type) {
@@ -824,7 +824,7 @@ const http = {
   logInspectGet: () => {
     return ajax.post('nursery/Logistics/inspect', {})
   },
-  // 检查项 添加-编辑-删除
+  // 检查项 添加 - 编辑 - 删除
   logInspectEvent: (d) => {
     let type = d.type || 1
     let url = 'addInspect' // 添加
@@ -888,7 +888,7 @@ const http = {
     }
     return ajax.post('nursery/Logistics/checkTheCheckItem', data)
   },
-  // 晨检记录-日期
+  // 晨检记录 - 日期
   logInspectDay: (d) => {
     let data = {
       page: d.page || 1,
@@ -953,7 +953,7 @@ const http = {
       page: d.page || 1,
       limit: d.limit || 10,
       name: d.value || '',
-      type: d.type || 1 // 1待出库 2待还库 3已还库 4无需还库
+      type: d.type || 1 // 1 待出库 2 待还库 3 已还库 4 无需还库
     }
     return ajax.post('nursery/Logistics/receive', data)
   },
@@ -986,11 +986,11 @@ const http = {
       page: d.page || 1,
       limit: d.limit || 10,
       name: d.value || '',
-      type: d.type || '' // 1幼小衔接班 2婴幼衔接班 3小班 4中班 5大班
+      type: d.type || '' // 1 幼小衔接班 2 婴幼衔接班 3 小班 4 中班 5 大班
     }
     return ajax.post('nursery/Education/classManagement', data)
   },
-  // 添加-编辑 班级
+  // 添加 - 编辑 班级
   eduClassEvent: (d) => {
     let url = 'create_class'
     let data = {
@@ -1056,7 +1056,7 @@ const http = {
   eduAttendance: (d) => {
     return ajax.post('nursery/Education/attendanceRecord', { c_id: d.id, date: d.time })
   },
-  // 出勤2
+  // 出勤 2
   eduAttendanceDetail: (d) => {
     return ajax.post('nursery/Education/attendanceDetail', { c_id: d.id, year_month: d.time })
   },
@@ -1105,7 +1105,7 @@ const http = {
   // 获取入驻审批
   direIndex: (d) => {
     let data = {
-      examine: d.type || 1, // 1通过 2待审核 3未通过
+      examine: d.type || 1, // 1 通过 2 待审核 3 未通过
       contact: d.tel || '',
       name: d.name || '',
       start_time: d.st || '',
@@ -1119,7 +1119,7 @@ const http = {
   direExamine: (d) => {
     let data = {
       teacher_id: d.id,
-      status: [3, 1][d.type] || 1, // 1通过 3未通过
+      status: [3, 1][d.type] || 1, // 1 通过 3 未通过
       remarks: d.brief || ''
     }
     return ajax.post('nursery/teacher/examine', data)
@@ -1246,8 +1246,8 @@ const http = {
   // 获取园所部门
   getGroup: (d) => {
     let data = {
-      is_human: d.kh || 0, // 是否为绩效考核 1是 0否
-      is_need_dean: d.bm || 0 // 是否需要园长部门 1是 0否
+      is_human: d.kh || 0, // 是否为绩效考核 1 是 0 否
+      is_need_dean: d.bm || 0 // 是否需要园长部门 1 是 0 否
     }
     return ajax.post('com/nursery_common/getgroup', data)
   },
@@ -1261,7 +1261,7 @@ const http = {
   },
   // 获取员工
   getStaff: (d) => {
-    let data = { g_id: d.id, is_human: d.type || 1 } // 是否为绩效考核 1是 2否
+    let data = { g_id: d.id, is_human: d.type || 1 } // 是否为绩效考核 1 是 2 否
     return ajax.post('com/nursery_common/getstaff', data)
   },
   // 获取所有员工与家长人数
@@ -1289,7 +1289,7 @@ const http = {
     return ajax.post('nursery/Education/getCountry', {})
   },
   /**----------------------------------------------------- 2020 1123 新增 ----------------------------------------------------- */
-  // 通讯录-家长
+  // 通讯录 - 家长
   mailParent: (d) => {
     let data = {
       page: d.page || 1,
@@ -1299,7 +1299,7 @@ const http = {
     }
     return ajax.post('nursery/Maillist/parentAddressBook', data)
   },
-  // 通讯录-老师
+  // 通讯录 - 老师
   mailTeacher: (d) => {
     let data = {
       page: d.page || 1,
@@ -1310,7 +1310,7 @@ const http = {
     }
     return ajax.post('nursery/Maillist/teacherAddressBook', data)
   },
-  // 通讯录-政务-添加
+  // 通讯录 - 政务 - 添加
   mailAdd: (d) => {
     let data = {
       unit_name: d.text, // 单位名称
@@ -1321,11 +1321,11 @@ const http = {
     }
     return ajax.post('nursery/Maillist/addGovernmentAddressBook', data)
   },
-  // 通讯录-政务-删除
+  // 通讯录 - 政务 - 删除
   mailDel: (id) => {
     return ajax.post('nursery/Maillist/deleteGovernmentAddressBook', { id })
   },
-  // 通讯录-政务-修改
+  // 通讯录 - 政务 - 修改
   mailUpd: (d) => {
     let data = {
       id: d.id,
@@ -1337,7 +1337,7 @@ const http = {
     }
     return ajax.post('nursery/Maillist/editGovernmentAddressBook', data)
   },
-  // 通讯录-政务-查询
+  // 通讯录 - 政务 - 查询
   mailSel: (d) => {
     let data = {
       page: d.page || 1,
@@ -1461,7 +1461,7 @@ const http = {
   showFood: (d) => {
     let data = {
       year: d.time, start_time: d.s.replace('/', '-'), end_time: d.e.replace('/', '-'),
-      type: d.id || 1, // 1食材 2水 3电 4气 5工资社保  6费用
+      type: d.id || 1, // 1 食材 2 水 3 电 4 气 5 工资社保  6 费用
       semester: [2, 1][d.type] || 1 // 0=上学期 1=下学期
     }
     return ajax.post('nursery/statistics/foodIngredients', data)
@@ -1503,7 +1503,7 @@ const http = {
   // 行为积分 列表
   interDeed: (d) => {
     let data = {
-      type: [2, 1][d.type] || 2, // 0扣分 1奖分
+      type: [2, 1][d.type] || 2, // 0 扣分 1 奖分
       year_month: d.time, // 0000-00
       page: d.page || 1,
       limit: d.limit || 10
@@ -1512,7 +1512,7 @@ const http = {
   },
   // 获取行为积分
   interDeedGet: (d) => {
-    // 0扣分 1奖分
+    // 0 扣分 1 奖分
     return ajax.post('nursery/behavior_integral/behaviorTemplate', { type: [2, 1][d] || 2 })
   },
   // 添加，扣除 行为记分
@@ -1521,7 +1521,7 @@ const http = {
       program: d.name, // 奖分/扣分项目
       malformed: d.rule, // 规则
       minutes: d.num, // 分值
-      type: [2, 1][d.type] || 2, // 0扣分 1奖分
+      type: [2, 1][d.type] || 2, // 0 扣分 1 奖分
       staff_id: d.id,
       remarks: d.message || '',
       picture: d.img || ''
@@ -1531,7 +1531,7 @@ const http = {
   // 我的行为积分 积分明细
   interDeedThis: (d) => {
     let data = {
-      type: [2, 1][d.type] || 2, // 0扣分 1奖分
+      type: [2, 1][d.type] || 2, // 0 扣分 1 奖分
       year_month: d.time, // 0000-00
       page: d.page || 1,
       limit: d.limit || 10
@@ -1552,7 +1552,7 @@ const http = {
       start_time: d.time, // 0000-00
       end_time: d.end, // 0000-00
       year: d.year, // 0000
-      semester: [2, 1][d.type] || 0, // 0下学期 1上学期
+      semester: [2, 1][d.type] || 0, // 0 下学期 1 上学期
     }
     return ajax.post('nursery/behavior_integral/SemesterPoints', data)
   },
@@ -1572,7 +1572,7 @@ const http = {
       start_time: d.time, // 0000-00
       end_time: d.end, // 0000-00
       year: d.year, // 0000
-      semester: [2, 1][d.type] || 2, // 0下学期 1上学期
+      semester: [2, 1][d.type] || 2, // 0 下学期 1 上学期
       j_id: d.id,
       page: d.page || 1,
       limit: d.limit || 20,
@@ -1600,7 +1600,7 @@ const http = {
   interGetPeople: () => {
     return ajax.post('nursery/behavior_integral/getTheExaminee', {})
   },
-  // 工作-老师，家长审核数量
+  // 工作 - 老师，家长审核数量
   workCircle: () => {
     return ajax.post('com/nursery_common/pendingAudit', {})
   },
@@ -1621,7 +1621,7 @@ const http = {
   tabGarStudent: (d) => {
     return ajax.post('nursery/garden_record/classStudents', d)
   },
-  // 在园记录-添加
+  // 在园记录 - 添加
   tabGarAdd: (d) => {
     return ajax.post('nursery/garden_record/increase', d)
   },
@@ -1693,7 +1693,7 @@ const http = {
   zxDetail: (d) => { return ajax.post('nursery/information/details', { teachers_id: d.id }) },
   // 园所咨询 - 上下移
   zxSort: (d) => {
-    // 1下移 2上移
+    // 1 下移 2 上移
     let data = { id: d.id, status: d.type }
     return ajax.post('nursery/information/sort', data)
   },
@@ -1729,7 +1729,7 @@ const http = {
     }
     return ajax.post('nursery/human/assessment_edit', data)
   },
-  // 获取kpl指标库
+  // 获取 kpl 指标库
   jxKpl: (d) => {
     let data = { department_id: d.id, page: d.page || 1, limit: d.limit || 20 }
     return ajax.post('nursery/human/get_index_database', data)
@@ -1744,7 +1744,7 @@ const http = {
     return ajax.post('com/nursery_common/nurseryExtDetails', {})
   },
   // 成长管理
-  // 获取班级-宝贝
+  // 获取班级 - 宝贝
   growBaby: (d) => {
     let data = {
       class_id: d.id || '',
@@ -1859,7 +1859,7 @@ const http = {
   // 作业类型
   growTaskDetail: (d) => {
     let data = { task_id: d.id, page: d.page || 1, limit: d.limit || 10 }
-    data.status = [1, 2, 1, 2][d.type] // 0已答题 1未答题 2已提交 3已完成
+    data.status = [1, 2, 1, 2][d.type] // 0 已答题 1 未答题 2 已提交 3 已完成
     let url = d.type < 2 ? 'nursery/adolesce/homeland/questionsAnswered' : 'nursery/adolesce/homeland/jobList'
     return ajax.post(url, data)
   },
@@ -1920,7 +1920,7 @@ const http = {
   },
   // 制度/表单 部门
   toolGroup: (d) => {
-    // 1 制度 2表单 3园所课堂
+    // 1 制度 2 表单 3 园所课堂
     return ajax.post('nursery/yuansuo/tool/classification', { type: d.id || 1 })
   },
   // 制度/表单 列表
@@ -1946,7 +1946,7 @@ const http = {
   ueiList: (d) => {
     let data = {
       classify_id: d.id,
-      sort: d.type || 1, // 1:点赞量倒序 2:点赞量正序3:浏览量倒序4:浏览量正序5:发布时间正序6:发布时间倒序
+      sort: d.type || 1, // 1:点赞量倒序 2:点赞量正序 3:浏览量倒序 4:浏览量正序 5:发布时间正序 6:发布时间倒序
       page: d.page || 1,
       limit: d.limit || 20
     }
@@ -1988,14 +1988,14 @@ const http = {
       url = 'detailedInformation'
     }
     console.log(url)
-    // 1编辑详情 不传列表详情
+    // 1 编辑详情 不传列表详情
     return ajax.post('nursery/yuansuo/innovation/' + url, { id: d.id, type: d.type || '' })
   },
   // 环创 - 我的
   ueiUpUser: (d) => {
     let data = {
       classify_id: d.id,
-      sort: d.type || 1, // 1:点赞量倒序 2:点赞量正序3:浏览量倒序4:浏览量正序5:发布时间正序6:发布时间倒序
+      sort: d.type || 1, // 1:点赞量倒序 2:点赞量正序 3:浏览量倒序 4:浏览量正序 5:发布时间正序 6:发布时间倒序
       page: d.page || 1,
       limit: d.limit || 20
     }

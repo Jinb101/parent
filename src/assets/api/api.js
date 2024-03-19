@@ -201,7 +201,7 @@ let http = async (name, data, fn, methods = 'post', isLogin = false, successCode
   // if (babyuserid > 0 && name !== 'bindacc' && ntk === '') {
   //   ntk = await babymore(babyuserid)
   //   window.demotoken = ntk
-  //   console.log(ntk, 'token变更请求', name);
+  //   console.log(ntk, 'token 变更请求', name);
   // }
 
   // if (ntk) {
@@ -274,7 +274,6 @@ let http = async (name, data, fn, methods = 'post', isLogin = false, successCode
         if (window.location.href.indexOf("&tulis") > -1 && token) {
           return
         }
-        console.log(window.location.hash);
         if (window.location.hash === '#/login' ) {
           return 0
         }

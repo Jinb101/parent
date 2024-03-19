@@ -42,6 +42,9 @@ const loginApi = {
   babyVideo: 'parents/home_interactive/BabyOnline', // 宝贝在线
   babyVideoCheck: 'parents/home_interactive/babyIsOff', // 宝贝在线是否开启
   babyVideoDetail: 'parents/home_interactive/OnlineDetail', // 宝贝在线详情
+  babywatch: 'parents/baby_online/BabyViewingRecords ', // 记录宝贝在线观看记录
+  // babyWatchList: 'nursery/baby_online/WatchList', // 宝贝在线观看记录
+
   feedBack: 'parents/home_interactive/feedback', // 调研表
   feedBackAdd: 'parents/home_interactive/Submit', // 答题
   feedBackDetail: 'parents/home_interactive/OnlineAnswer', // 答题详情
@@ -71,7 +74,7 @@ const loginApi = {
   classComment: 'parents/class_show/comment', // 评论
   classDel: 'parents/class_show/del_class_show', // 删除
   classCommentAll: 'parents/class_show/moreComments', // 更多评论分页
-  classAdd: 'parents/class_show/publishclassshow', // 班级圈-发布
+  classAdd: 'parents/class_show/publishclassshow', // 班级圈 - 发布
   classdet: 'parents/class_show/Detail', // 班级圈详情
   delComment: 'parents/class_show/delMyComment', // 班级圈详情
 
@@ -114,9 +117,9 @@ const loginApi = {
   drugsDel: 'parents/medication/delete', // 删除喂药记录
 
   schoolPhoto: 'parents/semester_album/index', // 学期相册
-  schoolclassadd: 'parents/semester_album/classCircleoinAlbum', // 班级圈加入相册 【新】
-  schoolPhotoadd: 'parents/semester_album/createAlbum', // 添加 【新】
-  schoolPhotodel: 'parents/semester_album/delete_album', // 删除 【新】
+  schoolclassadd: 'parents/semester_album/classCircleoinAlbum', // 班级圈加入相册【新】
+  schoolPhotoadd: 'parents/semester_album/createAlbum', // 添加【新】
+  schoolPhotodel: 'parents/semester_album/delete_album', // 删除【新】
 
   shopIfy: 'parents/foods/index/classification', // 食材分类
   shopfood: 'parents/foods/index/index', // 商品列表
@@ -188,12 +191,12 @@ const loginApi = {
   a2023042610: 'parents/v2_country_study/comment', // 经典吟诵 评论
   a2023042611: 'parents/v2_country_study/ActivationCode', // 激活码
 
-  a2023051901: 'parents/montessori/index', // 列表 家园联系册 板1
-  a2023051902: 'parents/montessori/details', // 详情 家园联系册 板1
-  a2023051903: 'parents/montessori/share', // 分享 家园联系册 板1
-  a2023051904: 'parents/montessori/CheckInAndLike', // 点赞 家园联系册 板1
-  a2023051905: 'parents/montessori/comment', // 评论 家园联系册 板1
-  a2023051906: 'parents/montessori/moreComments', // 获取评论 家园联系册 板1
+  a2023051901: 'parents/montessori/index', // 列表 家园联系册 板 1
+  a2023051902: 'parents/montessori/details', // 详情 家园联系册 板 1
+  a2023051903: 'parents/montessori/share', // 分享 家园联系册 板 1
+  a2023051904: 'parents/montessori/CheckInAndLike', // 点赞 家园联系册 板 1
+  a2023051905: 'parents/montessori/comment', // 评论 家园联系册 板 1
+  a2023051906: 'parents/montessori/moreComments', // 获取评论 家园联系册 板 1
   a2023051907: 'parents/montessori/getHomeContactBook', // 模板类型
   a2023051908: 'parents/montessori/unread', // 小红点
 

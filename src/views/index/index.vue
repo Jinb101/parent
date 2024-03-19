@@ -21,7 +21,7 @@
         left-icon="wechat"
         @click="appPath('/wx_bind')"
       >
-        点击-绑定微信
+        点击 - 绑定微信
       </van-notice-bar>
     </x-content>
     <x-content v-if="is_info">
@@ -161,8 +161,9 @@ export default {
     onview(e) {
       // console.log(e, 123, e.validate);
       this.islogin = (e.user || {}).id;
-
+      console.log(e.user);
       this.tab = this.$js.def.indexRoute;
+      console.log(this.tab);
       this.user = e.user || {};
       this.tels = (e.config || {}).nursery_ext || {};
       let val = e.validate;
@@ -292,13 +293,13 @@ export default {
         });
         return 0;
       }
-
+      // console.log(this.islogin === false, window.location.href.indexOf("tulis"));
           if (e.level > 0) {
-          if (!this.islogin && window.location.href.indexOf("tulis") === -1) {
+          if (!this.islogin && window.location.href.indexOf("tulis") !== -1) {
           this.$model.info("您还未登录", 2);
-          this.$nextTick(() => {
-            this.appPath("/login");
-          });
+          // this.$nextTick(() => {
+          //   this.appPath("/login");
+          // });
           return 0;
         }
       // e.level 1=>需登录 2=>需绑定宝宝
@@ -306,7 +307,7 @@ export default {
         // 检测是否有权限访问
         if (e.level > 1) {
           let r = this.user;
-          // is_it_bound, // 绑定宝宝审核 0未绑定 1待审核 2通过 3驳回
+          // is_it_bound, // 绑定宝宝审核 0 未绑定 1 待审核 2 通过 3 驳回
           switch (+r.is_it_bound) {
             case 0:
               this.$model.info("您还未绑定宝宝", 2);

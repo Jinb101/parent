@@ -28,7 +28,7 @@
                 v-model="pwd"
                 label
                 type="password"
-                placeholder="请输入6-20位数字或字母密码"
+                placeholder="请输入 6-20 位数字或字母密码"
                 maxlength="20"
                 @keyup.13="sub"
               >

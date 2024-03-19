@@ -37,7 +37,7 @@
             v-model="pwd"
             label
             type="password"
-            placeholder="请输入6-20位数字或字母密码"
+            placeholder="请输入 6-20 位数字或字母密码"
             maxlength="20"
             @keyup.13="sub"
           />
@@ -99,7 +99,7 @@ export default {
         this.$demo.es6().downTime("", (e) => {
           this.nums = e.all;
         });
-        this.$model.info("验证码发送成功!请注意查收", 2);
+        this.$model.info("验证码发送成功！请注意查收", 2);
       });
     },
   },

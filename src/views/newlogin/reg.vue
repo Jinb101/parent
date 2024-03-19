@@ -53,7 +53,7 @@
       >
     </template>
     <div class="reg" @click="appPath('/login1')">
-      已有账号?<b class="col_info">去登录</b>
+      已有账号？<b class="col_info">去登录</b>
     </div>
     <v-s v-model="t1" :list="ys" :open="open2" noselect @change="ont1"></v-s>
   </v-a>
@@ -155,7 +155,7 @@ export default {
         demo.es6().downTime("", (e) => {
           this.nums = e.all;
         });
-        this.$toast("验证码发送成功!请注意查收");
+        this.$toast("验证码发送成功！请注意查收");
       });
     },
     selectgroup() {

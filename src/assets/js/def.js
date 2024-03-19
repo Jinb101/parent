@@ -42,7 +42,7 @@ let u1 = (text, path, icon, level = 0, num = 0) => {
   return { text, path, icon: siteicon(icon, 'index'), num, square: true, default: true, theme: 5, level }
 }
 
-// 底部tabbar
+// 底部 tabbar
 let tabbar = [
   c('home', '首页'),
   c('class', '班级圈'),
@@ -69,7 +69,7 @@ let indexRoute = [
   c9('a', '智能相册', '/album', 2, 12, { menulevel: 1004 }),
   c9('6014', '学国学', '/chant', 2, 14, { menulevel: 1009 }),
   c9('6015', '投票', '/vote', 2, 15),
-  // c9('6013', '家园联系2', '/record1', 2, 14),
+  // c9('6013', '家园联系 2', '/record1', 2, 14),
 ].map(s => {
   s.text = s.title
   return s

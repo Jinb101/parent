@@ -11,7 +11,7 @@
         <p>请假类型：{{ toType(i.type) }}</p>
         <p>开始时间：{{ toTime(i.begin_date) }}</p>
         <p>结束时间：{{ toTime(i.end_date) }}</p>
-        <p>{{ i.status === 2 ? "" : "未" }}通过</p>
+        <p>{{ statusType(i.status) }}</p>
         <p v-if="i.caption">请假备注：{{ i.caption }}</p>
         <div class="flex fw" v-if="i.imgs && i.imgs.length">
           <div class="ava" v-for="(x, y) in i.imgs" :key="y + '-ss'">
@@ -39,6 +39,11 @@ export default {
   inject: ["appTimeout", "appShowImage"],
   watch: {},
   methods: {
+    statusType(type) {
+      if (type === 1) return "审核中";
+      if (type === 2) return "已通过";
+      return "已撤销";
+    },
     toTime(v) {
       if (isNaN(v)) return v;
       if (v > 0) {

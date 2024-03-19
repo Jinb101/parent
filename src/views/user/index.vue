@@ -191,7 +191,7 @@ export default {
       // if (this.vipday > 0) return 0;
       this.$api.http("user", {}, (r) => {
         let s = +r.guardian === 1;
-        let d = +r.bind_last_day <= 0;
+        let d = +r.guardian_pay_fee === 2;
         if (!s && d) {
           return this.$model.info("不可缴费，主监护人未完成缴费", 2);
         }

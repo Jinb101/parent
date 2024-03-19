@@ -11,7 +11,7 @@ class validate {
       return error('请输入正确的手机号', 'tel')
     }
     if (is_length(opt['pwd'], 6, 20)) {
-      return error('密码长度不符,请输入6-20位密码', 'pwd')
+      return error('密码长度不符，请输入 6-20 位密码', 'pwd')
     }
     return code('验证成功', 1, opt)
   }
@@ -30,10 +30,10 @@ class validate {
       return error('请输入正确的手机号', 'tel')
     }
     if (is_length(opt['sms'], 4, 4)) {
-      return error('请输入4位验证码', 'sms')
+      return error('请输入 4 位验证码', 'sms')
     }
     if (is_length(opt['pwd'], 6, 20)) {
-      return error('密码长度不符,请输入6-20位密码', 'pwd')
+      return error('密码长度不符，请输入 6-20 位密码', 'pwd')
     }
     if (!opt['checked']) {
       return error('请先同意用户协议', 'checked')
@@ -65,10 +65,10 @@ class validate {
       return error('请输入正确的手机号', 'tel')
     }
     if (is_length(opt['sms'], 4, 4)) {
-      return error('请输入4位验证码', 'sms')
+      return error('请输入 4 位验证码', 'sms')
     }
     if (is_length(opt['pwd'], 6, 20)) {
-      return error('密码长度不符,请输入6-20位密码', 'pwd')
+      return error('密码长度不符，请输入 6-20 位密码', 'pwd')
     }
     return code('验证成功', 1, opt)
   }
@@ -87,13 +87,13 @@ class validate {
       return error('请确认密码', 'pwd2')
     }
     if (is_length(opt['sms'], 4, 4)) {
-      return error('请输入4位验证码', 'sms')
+      return error('请输入 4 位验证码', 'sms')
     }
     if (is_length(opt['pwd'], 6, 20)) {
-      return error('密码长度不符,请输入6-20位密码', 'pwd')
+      return error('密码长度不符，请输入 6-20 位密码', 'pwd')
     }
     if (is_length(opt['pwd2'], 6, 20)) {
-      return error('密码长度不符,请输入6-20位密码', 'pwd2')
+      return error('密码长度不符，请输入 6-20 位密码', 'pwd2')
     }
     if (opt['pwd'] !== opt['pwd2']) {
       return error('两次密码输入不一致', 'pwd2')
@@ -128,10 +128,10 @@ class validate {
       return error('请确认新密码', 'pwd3')
     }
     if (is_length(opt['pwd2'], 6, 20)) {
-      return error('密码长度不符,请输入6-20位密码', 'pwd2')
+      return error('密码长度不符，请输入 6-20 位密码', 'pwd2')
     }
     if (is_length(opt['pwd3'], 6, 20)) {
-      return error('密码长度不符,请输入6-20位密码', 'pwd3')
+      return error('密码长度不符，请输入 6-20 位密码', 'pwd3')
     }
     if (opt['pwd2'] !== opt['pwd3']) {
       return error('两次密码输入不一致', 'pwd3')
@@ -153,7 +153,7 @@ class validate {
       return error('请正确输入手机号', 'tel')
     }
     if (is_length(opt['sms'], 4, 4)) {
-      return error('请输入4位验证码', 'sms')
+      return error('请输入 4 位验证码', 'sms')
     }
     return code('验证成功', 1, opt)
   }

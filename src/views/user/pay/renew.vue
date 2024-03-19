@@ -2,7 +2,7 @@
   <div class="pay_renew">
     <v-tool-title></v-tool-title>
     <div class="flex fw">
-      <section v-for="(i, j) in item" :key="j + '-s'" @click="id = i.id">
+      <section v-for="(i, j) in item" :key="j + '-s'" @click="id = i.id,selleItem=i">
         <div class="box" :class="{ active: id === i.id }">
           <p class="day">{{ i.title }}</p>
           <p class="col_danger">￥{{ i.value }}</p>
@@ -25,6 +25,7 @@ export default {
       id: "",
       theme: {},
       path: "/",
+      selleItem: {},
     };
   },
   inject: ["appGetTheme", "appGetConfig"],
@@ -34,7 +35,7 @@ export default {
       let token = this.$demo.$local.get("token", "");
       let id = this.$demo.$local.get("nid", "");
       let href = encodeURIComponent(window.location.href);
-      this.$api.http("paySetBabyVip", { type: this.id }, (e) => {
+      this.$api.http("paySetBabyVip", { type: this.id, assistant_type: this.selleItem.type }, (e) => {
         let suffix = ["?id=", id, "&n=", e, "&t=", token, "&u=", href].join("");
         let url = this.$js.api.pay + suffix;
         window.location.href = url;
@@ -43,7 +44,7 @@ export default {
   },
   mounted() {
     this.theme = this.appGetTheme();
-    // let tc = ["180天", "1年", "2年", "3年"];
+    // let tc = ["180 天", "1 年", "2 年", "3 年"];
     // let tx = ["half", "one", "two", "three"].map((r) => {
     //   return "main_" + r + "_year";
     // });
@@ -89,7 +90,15 @@ export default {
           ];
         }
       } else {
+        let list = e.payment_deadline
+        list.forEach((i) => {
+          // i.name = "day"
+          i.value = i.price
+          i.title = i.name
+          i.id = i.day
+        })
         this.item = [
+          ...list,
           {
             name: "day",
             value: e.price,
