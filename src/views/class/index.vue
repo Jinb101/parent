@@ -11,7 +11,7 @@
         <!-- 点击头像 进入 该用户朋友圈主页
       点击图片 放大预览
       点击评论 触发 @评论
-      点击tool无反应
+      点击 tool 无反应
       点击其他 进入详情 -->
         <section class="l_box flex van-hairline--bottom"
                  v-for="(i, j) in item"
@@ -91,7 +91,7 @@
                        alt=""
                        class="db_image" />
                 </div>
-                <b>{{ +i.is_like === 1 ? "取消" : "" }}点赞({{
+                <b>{{ +i.is_like === 1 ? "取消" : "" }}点赞 ({{
                   i.likes.length
                 }})</b>
               </div>
@@ -108,7 +108,7 @@
                        alt=""
                        class="db_image" />
                 </div>
-                <b>评论({{ i.comment_count }})</b>
+                <b>评论 ({{ i.comment_count }})</b>
               </div>
             </div>
             <div class="likes flex"
@@ -296,7 +296,7 @@ export default {
         this.item.forEach((item) => {
           item.comment.forEach((comment, index) => {
             if (comment.id === c.id) {
-              // 删除对应的comment数据
+              // 删除对应的 comment 数据
               item.comment.splice(index, 1);
               item.comment_count--;
             }
@@ -410,7 +410,9 @@ export default {
             return s;
           })
         );
+       this.$nextTick(() => {
         this.$refs.page.onFinish(e.length < 20);
+       })
       });
     },
     // 创建播放器 播放视频

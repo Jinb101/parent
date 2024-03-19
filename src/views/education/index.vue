@@ -161,8 +161,10 @@ export default {
       }
       let classify_id = this.active3 || this.active2 || this.active;
       this.$api.http("edulist", { classify_id, page, limit: 20 }, (e) => {
-        this.item = this.item.concat(e);
-        this.$refs.page.onFinish(e.length < 20);
+      this.item = this.item.concat(e);
+      this.$nextTick(() => {
+      this.$refs.page.onFinish(e.length < 20);
+      });
       });
     },
     onmenu(r, arr = []) {

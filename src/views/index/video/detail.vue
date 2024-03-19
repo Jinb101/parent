@@ -99,6 +99,8 @@ export default {
       // onshowqr: false,
       styls: {},
       isios: false,
+      timerID: null,
+      isOntime: null,
     };
   },
   components: { vQ },
@@ -127,6 +129,7 @@ export default {
   },
   inject: ["appBack"],
   methods: {
+
     init() {
       this.$api.http("babyVideoCheck", { baby_id: this.id }, (e) => {
         if (+e.is_on === 1) {
@@ -135,6 +138,22 @@ export default {
           return 0;
         }
         this.onPage(1);
+         // 定时 请求
+         this.isOntime = setInterval(() => {
+          this.getIson()
+        }, 20000);
+      });
+    },
+    getIson() {
+      this.$api.http("babyVideoCheck", { baby_id: this.id }, (r) => {
+        if (+r.is_on === 1) {
+          clearInterval(this.timerID);
+          clearInterval(this.isOntime);
+          this.sendWatch(3)
+          this.$model.info("抱歉，该宝贝在线未开启", 2);
+          this.appBack(1);
+          return 0;
+        }
       });
     },
     onPage(e) {
@@ -218,8 +237,10 @@ export default {
               h5 +
               "&definition=" +
               definition;
+         // 定时器 10s 发送一次观看记录
+        this.timerID = setInterval(() => {
             this.sendWatch(2);
-            setInterval(this.sendWatch(2), 10000);
+          }, 10000);
             // this.srcmax =
             //   this.$js.api.h5 + "h5/surveillance/view.html?" + h5share;
           }
@@ -229,6 +250,7 @@ export default {
       }
     },
     onDetail(e) {
+      this.sendWatch(3)
       this.id = e.baby_id;
       this.onPage(1);
     },
@@ -256,7 +278,8 @@ export default {
     sendWatch(type = 2) {
       // 2 观看中 3 观看结束
       this.$api.http("babywatch", { baby_id: this.id, type: type }, (r) => {
-        this.$emit("watch", r);
+        // this.$emit("watch", r);
+        console.log('观看记录', r);
       });
     },
   },
@@ -269,9 +292,14 @@ export default {
     // this.isios = demo.es6().mobile().system.toLowerCase().indexOf("android") < 0;
   },
   // 页面卸载时 清楚计时器
-  beforeDestroy() {
+  // beforeDestroy() {
+  //   clearInterval(this.timerID);
+  //   this.sendWatch(3)
+  // },
+  destroyed() {
+    clearInterval(this.timerID);
+    clearInterval(this.isOntime);
     this.sendWatch(3)
-    clearInterval(this.sendWatch(3));
   },
 };
 </script>

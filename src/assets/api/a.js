@@ -283,7 +283,7 @@ const http = {
   },
   /**----------------------------------------------------- 组织管理 z 4 / 4----------------------------------------------------- */
   // 组织架构/园所风采
-  zIndex: (type) => { // 1组织架构 0园所风采
+  zIndex: (type) => { // 1 组织架构 0 园所风采
     return ajax.post('nursery/Human/organization', {
 
       n_id: nid,
@@ -400,7 +400,7 @@ const http = {
     let data = {
 
       datetime: d.time || '',
-      status: [1, 5, 3, 6][d.type] || 1, // 1已打卡 5迟到 3缺卡 6离校
+      status: [1, 5, 3, 6][d.type] || 1, // 1 已打卡 5 迟到 3 缺卡 6 离校
       class_id: d.id
     }
     return ajax.post('nursery/Education/childAttendance', data)
@@ -423,7 +423,7 @@ const http = {
   },
   /**----------------------------------------------------- 调研表 d 5 / 5 ----------------------------------------------------- */
   // 调查
-  dIndex: (type) => { // 0家长调研表 1员工调研表 2岗位胜任力调研表
+  dIndex: (type) => { // 0 家长调研表 1 员工调研表 2 岗位胜任力调研表
     return ajax.post('nursery/work/feedBack', {
 
       n_id: nid,
@@ -451,7 +451,7 @@ const http = {
     return ajax.post('nursery/work/submit', data)
   },
   // 记录
-  dList: (type) => { // 0家长调研表 1员工调研表 2岗位胜任力调研表
+  dList: (type) => { // 0 家长调研表 1 员工调研表 2 岗位胜任力调研表
     return ajax.post('nursery/work/survey_records', {
 
       type: [1, 2, 3][type] || 1
@@ -483,7 +483,7 @@ const http = {
 
       n_id: nid,
       title: d.title,
-      type: d.type ? 2 : 1, // 0图片 1视频
+      type: d.type ? 2 : 1, // 0 图片 1 视频
       cover: d.img,
       video: d.video
     }
@@ -521,7 +521,7 @@ const http = {
       page: d.page || 1,
       limit: d.limit || 10,
       n_id: nid,
-      examine_status: d.type ? 1 : 2, // 1待审核 0已审核
+      examine_status: d.type ? 1 : 2, // 1 待审核 0 已审核
       name: d.name || ''
     }
     return ajax.post('nursery/binding/audit_list', data)
@@ -537,7 +537,7 @@ const http = {
   ySend: (d) => {
     let data = {
 
-      status: d.type ? 1 : 2, // 1通过 0驳回
+      status: d.type ? 1 : 2, // 1 通过 0 驳回
       reject: d.msg || '',
       id: d.id
     }
@@ -592,7 +592,7 @@ const http = {
       n_id: nid,
       start_time: d.start,
       end_time: d.end,
-      type: d.type ? 1 : 2, // 1文本 0图片
+      type: d.type ? 1 : 2, // 1 文本 0 图片
       recipes: d.list || [],
       describe: d.desc || ''
     }

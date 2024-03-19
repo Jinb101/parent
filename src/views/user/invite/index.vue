@@ -40,8 +40,8 @@
       v-else
     />
     <div class="desc">
-      <p>1.对方号码必须已经注册,否则无法邀请</p>
-      <p>2.发出邀请后,对方收到一个验证码,输入验证码,即完成验证</p>
+      <p>1.对方号码必须已经注册，否则无法邀请</p>
+      <p>2.发出邀请后，对方收到一个验证码，输入验证码，即完成验证</p>
     </div>
     <div class="foot">
       <van-button block round :color="theme.linear" @click="onSub"

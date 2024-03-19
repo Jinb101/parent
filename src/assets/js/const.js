@@ -1,49 +1,52 @@
-import def from './def'
-import table from './form'
+import def from "./def";
+import table from "./form";
 
-let prefix = window.location.origin
-let pathname = prefix + window.location.pathname
+let prefix = window.location.origin;
+let pathname = prefix + window.location.pathname;
 let api = {
-  http: prefix + '/api/', // 请求地址
-  pdf: prefix + '/pdf/web/viewer.html?file=',
-  wxValidate: pathname + 'static/html/wxbind.html',
-  pay: pathname + 'static/pay/',
+  http: prefix + "/api/", // 请求地址
+  pdf: prefix + "/pdf/web/viewer.html?file=",
+  wxValidate: pathname + "static/html/wxbind.html",
+  pay: pathname + "static/pay/",
   share: pathname,
-  h5: prefix + '/500/'
-}
-let env = process.env.NODE_ENV === 'development'
+  h5: prefix + "/500/"
+};
+let env = process.env.NODE_ENV === "development";
 
 if (env) {
-  api.http = '/dev/'
-  api.h5 = 'http://127.0.0.5/500/'
+  api.http = "/dev/";
+  api.h5 = "http://127.0.0.5/500/";
 }
 
 if (window.LINKTOAPIWWW) {
-  api.http = window.LINKTOAPIWWW
+  api.http = window.LINKTOAPIWWW;
 }
 
-let html = (name) => {
-  return (env ? '../../../' : './') + 'static/frame/' + name + '.html'
-}
+let html = name => {
+  return (env ? "../../../" : "./") + "static/frame/" + name + ".html";
+};
 
-let wxshare = () => {
+let wxshare = () => {};
 
-}
-
-let frametoh5page = (type, data = {}, type2 = '') => {
+let frametoh5page = (type, data = {}, type2 = "") => {
   let os = {
-    type: 'web',
+    type: "web",
     // eslint-disable-next-line
-    ext: { token: demo.$local.get('token'), ...data },
+    ext: { token: demo.$local.get("token"), ...data },
     // eslint-disable-next-line
-    id: demo.$local.get('nid'),
+    id: demo.$local.get("nid"),
     page: type2 || type
-  }
-  let h5 = api.h5.indexOf('127.0.') >= 0 ? 'http://localhost:8506' : api.h5 + 'h5/h5page'
+  };
+  let h5 =
+    api.h5.indexOf("127.0.") >= 0
+      ? "http://localhost:8506"
+      : api.h5 + "h5/h5page";
   // eslint-disable-next-line
-  let url = h5 + '/?type=' + type + '&h5=' + demo.es6().encrypt(os, '', os.type)
-  return url
-}
+  let url =
+    // eslint-disable-next-line no-undef
+    h5 + "/?type=" + type + "&h5=" + demo.es6().encrypt(os, "", os.type);
+  return url;
+};
 
 // let a = frametoh5page('media', { country_study_id: 161 }, 'chantdet2')
 
@@ -58,7 +61,7 @@ let wxshareh5 = (type, obj = {}) => {
     m: e.openid || "",
     cid: e.id || "",
     ...obj
-  }
+  };
   // eslint-disable-next-line
   let a = demo.es6().encrypt(os, "", "poster");
   // eslint-disable-next-line
@@ -67,20 +70,30 @@ let wxshareh5 = (type, obj = {}) => {
     console.log(url);
   }
   return url;
-}
+};
 
 let wxcode = (hash, page) => {
   // eslint-disable-next-line
-  let localname = 'youeryuanweb' + demo.getUrlParam('id')
+  let localname = "youeryuanweb" + demo.getUrlParam("id");
   // eslint-disable-next-line
-  let id = demo.$local.get('nid', demo.getUrlParam('id'))
-  let baseurl = [api.h5, 'auth/index.html?type=web&id=', id, '&url=', encodeURIComponent(api.http), '&local=', localname, '&hash=', hash || '']
+  let id = demo.$local.get("nid", demo.getUrlParam("id"));
+  let baseurl = [
+    api.h5,
+    "auth/index.html?type=web&id=",
+    id,
+    "&url=",
+    encodeURIComponent(api.http),
+    "&local=",
+    localname,
+    "&hash=",
+    hash || ""
+  ];
   if (page) {
-    baseurl = baseurl.concat(['&page=', encodeURIComponent(page)])
+    baseurl = baseurl.concat(["&page=", encodeURIComponent(page)]);
   }
-  let url = baseurl.join('')
-  window.location.href = url
-}
+  let url = baseurl.join("");
+  window.location.href = url;
+};
 
 let wxlogin = () => {
   // eslint-disable-next-line
@@ -99,25 +112,33 @@ let wxlogin = () => {
   }
   if (env) {
     console.log(url);
-    return 0
+    return 0;
   }
   return window.location.replace(url);
-}
+};
 
-let btnColor = 'linear-gradient(rgb(255, 83, 1), rgb(248, 180, 119))'
+let btnColor = "linear-gradient(rgb(255, 83, 1), rgb(248, 180, 119))";
 
 // export
 const _const = {
-  debug: api.http === '/dev/',
+  debug: api.http === "/dev/",
   api,
-  path: env ? '../../../' : './',
-  sex: ['男', '女'],
+  path: env ? "../../../" : "./",
+  sex: ["男", "女"],
   wx: (appId, id) => {
-    return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId + "&redirect_uri=" + api.wxValidate + "&response_type=code&scope=snsapi_base&state=" + id + "#wechat_redirect"
+    return (
+      "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" +
+      appId +
+      "&redirect_uri=" +
+      api.wxValidate +
+      "&response_type=code&scope=snsapi_base&state=" +
+      id +
+      "#wechat_redirect"
+    );
   },
   html,
   def,
-  class: ['', '幼小衔接班', '婴幼衔接班', '小班', '中班', '大班'],
+  class: ["", "幼小衔接班", "婴幼衔接班", "小班", "中班", "大班"],
   table,
   env,
   prefix,
@@ -129,5 +150,5 @@ const _const = {
   wxshareh5,
   frametoh5page,
   wxlogin
-}
-export default _const
+};
+export default _const;

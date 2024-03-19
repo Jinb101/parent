@@ -69,7 +69,7 @@
     <transition name="fade">
       <div class="app_show_fixed a" v-if="id === '2'">
         <van-icon name="cross" size="55" color="tomato" />
-        <p class="col_danger">未通过审核，请重试!</p>
+        <p class="col_danger">未通过审核，请重试！</p>
         <p class="col_danger" v-if="err">{{ err }}</p>
         <div class="w60">
           <van-button block round :color="theme.linear" @click="id = '0'"

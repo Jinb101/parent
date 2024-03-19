@@ -75,7 +75,7 @@ export default {
     text: String,
     overflow: Boolean,
     index: [String, Number],
-    retreat: Boolean, // 在不开启header的情况下 显示 返回按钮
+    retreat: Boolean, // 在不开启 header 的情况下 显示 返回按钮
     retreatTop: { type: [Number, String], default: 0 },
     coverBgc: String,
     coverBgcs: {
@@ -142,7 +142,7 @@ export default {
           nid: n.n_id,
           nick: n.nickname,
           phone: n.phone,
-          type: "新版parent",
+          type: "新版 parent",
           openid: n.openid,
           ua: navigator.userAgent,
           // eslint-disable-next-line
@@ -174,6 +174,7 @@ export default {
       //   // this.appPath("/index");
       //   return 0;
       // }
+      console.log(v);
         this.$emit("on-view", this.views);
       },
       deep: true,
@@ -245,13 +246,12 @@ export default {
       if (this.footbar) {
         this.selectfootname = this.$route.name;
       }
-
       // 获取配置
       let config = demo.$local.get("appConfig", {});
       let wx = demo.$local.get("wxConfig", {});
       let nid = demo.$local.get("nid", "");
       let time = Date.now();
-      let len = 3e4; // 30s缓存
+      let len = 3e4; // 30s 缓存
       if (!nid) {
         nid = demo.getUrlParam("id");
         if (!nid) {

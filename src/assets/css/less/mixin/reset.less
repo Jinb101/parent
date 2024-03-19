@@ -2,20 +2,88 @@
 
 @import "../variables/varibles.less";
 
-.mixin-reset(){
-  html, body, div, span, applet, object, iframe,
-  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-  a, abbr, acronym, address, big, cite, code,
-  del, dfn, em, img, ins, kbd, q, s, samp,
-  small, strike, strong, sub, sup, tt, var,
-  b, u, i, center,
-  dl, dt, dd, ol, ul, li,
-  fieldset, form, label, legend,
-  table, caption, tbody, tfoot, thead, tr, th, td,
-  article, aside, canvas, details, embed,
-  figure, figcaption, footer, header, hgroup,
-  menu, nav, output, ruby, section, summary,
-  time, mark, audio, video {
+.mixin-reset() {
+  html,
+  body,
+  div,
+  span,
+  applet,
+  object,
+  iframe,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  pre,
+  a,
+  abbr,
+  acronym,
+  address,
+  big,
+  cite,
+  code,
+  del,
+  dfn,
+  em,
+  img,
+  ins,
+  kbd,
+  q,
+  s,
+  samp,
+  small,
+  strike,
+  strong,
+  sub,
+  sup,
+  tt,
+  var,
+  b,
+  u,
+  i,
+  center,
+  dl,
+  dt,
+  dd,
+  ol,
+  ul,
+  li,
+  fieldset,
+  form,
+  label,
+  legend,
+  table,
+  caption,
+  tbody,
+  tfoot,
+  thead,
+  tr,
+  th,
+  td,
+  article,
+  aside,
+  canvas,
+  details,
+  embed,
+  figure,
+  figcaption,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  output,
+  ruby,
+  section,
+  summary,
+  time,
+  mark,
+  audio,
+  video {
     margin: 0;
     padding: 0;
     border: 0;
@@ -24,26 +92,39 @@
     vertical-align: baseline;
     // color: @default-font-color;
   }
-  i{
+  i {
     color: inherit;
   }
   /* HTML5 display-role reset for older browsers */
-  article, aside, details, figcaption, figure,
-  footer, header, hgroup, menu, nav, section {
+  article,
+  aside,
+  details,
+  figcaption,
+  figure,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  section {
     display: block;
   }
   body {
     line-height: 1;
   }
-  ol, ul {
+  ol,
+  ul {
     list-style: none;
   }
-  blockquote, q {
+  blockquote,
+  q {
     quotes: none;
   }
-  blockquote:before, blockquote:after,
-  q:before, q:after {
-    content: '';
+  blockquote:before,
+  blockquote:after,
+  q:before,
+  q:after {
+    content: "";
     content: none;
   }
   table {
@@ -69,20 +150,23 @@
   figure {
     margin: 0;
   }
-  a,a:active,a:hover{
+  a,
+  a:active,
+  a:hover {
     text-decoration: none;
   }
 }
 
 //移动端
-.mixin-reset-web(){
+.mixin-reset-web() {
   html {
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
     -webkit-text-size-adjust: 100%;
-    font-family: -apple-system, "PingFang SC","Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+    font-family: -apple-system, "PingFang SC", "Helvetica Neue", Helvetica,
+      STHeiTi, sans-serif;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     font-size: 62.5%;
     background: transparent;
@@ -93,30 +177,77 @@
     height: 100%;
     -webkit-overflow-scrolling: touch;
   }
-  body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, sumary {
+  body,
+  div,
+  dl,
+  dt,
+  dd,
+  ul,
+  ol,
+  li,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  pre,
+  code,
+  form,
+  fieldset,
+  legend,
+  input,
+  textarea,
+  p,
+  blockquote,
+  th,
+  td,
+  hr,
+  button,
+  article,
+  aside,
+  details,
+  figcaption,
+  figure,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  section,
+  sumary {
     margin: 0;
     padding: 0;
   }
-  input, select,textarea {
+  input,
+  select,
+  textarea {
     border: 0;
     -webkit-appearance: none;
-    appearance:none;
+    appearance: none;
   }
-  ol, ul {
+  ol,
+  ul {
     list-style: none;
   }
-  *:not(input, select, textArea) {
+  *:not(input, select, textarea) {
     -webkit-user-select: none;
   }
-  img,a{
-    -webkit-touch-callout:none;
+  img,
+  a {
+    -webkit-touch-callout: none;
   }
 
-  a,a:active,a:hover {
+  a,
+  a:active,
+  a:hover {
     text-decoration: none;
   }
-  a,button,input,textarea{
-    -webkit-tap-highlight-color:rgba(0,0,0,0);
+  a,
+  button,
+  input,
+  textarea {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
   button,
   input {
@@ -139,10 +270,10 @@
   }
 
   button,
-  input[type=button],
-  input[type=checkbox],
-  input[type=reset],
-  input[type=submit],
+  input[type="button"],
+  input[type="checkbox"],
+  input[type="reset"],
+  input[type="submit"],
   label {
     cursor: pointer;
     user-select: none;
@@ -151,7 +282,7 @@
     -webkit-user-select: none;
   }
 
-  input[type=submit] {
+  input[type="submit"] {
     -webkit-user-modify: read-plaintext-only;
     -moz-user-modify: read-plaintext-only;
     -ms-user-modify: read-plaintext-only;
@@ -159,12 +290,12 @@
     user-modify: read-plaintext-only;
   }
 
-  input[type='search']::-webkit-search-cancel-button,
-  input[type='search']::-webkit-search-decoration {
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-decoration {
     -webkit-appearance: none;
   }
 
-  input[type='search'] {
+  input[type="search"] {
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
@@ -192,28 +323,29 @@
   *,
   *:before,
   *:after {
-    box-sizing: border-box; ///*所有元素以border开始计算盒子大小*/
+    box-sizing: border-box; ///*所有元素以 border 开始计算盒子大小*/
   }
 }
 
-//常用class
-.mixin-style(){
-  .fl{
+//常用 class
+.mixin-style() {
+  .fl {
     float: left;
   }
-  .fr{
+  .fr {
     float: right;
   }
-  .dn{
+  .dn {
     display: none;
   }
-  .clear,.clearfix{
+  .clear,
+  .clearfix {
     .mixin-after();
   }
   .text_overflow {
     display: block;
     white-space: nowrap;
     text-overflow: ellipsis;
-    overflow: hidden
+    overflow: hidden;
   }
 }

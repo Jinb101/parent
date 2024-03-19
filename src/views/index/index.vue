@@ -162,6 +162,7 @@ export default {
       // console.log(e, 123, e.validate);
       this.islogin = (e.user || {}).id;
       console.log(e.user);
+      console.log(e);
       this.tab = this.$js.def.indexRoute;
       console.log(this.tab);
       this.user = e.user || {};
