@@ -94,6 +94,21 @@ let wxcode = (hash, page) => {
   let url = baseurl.join("");
   window.location.href = url;
 };
+let wxArtcode = (hash, page) => {
+  // eslint-disable-next-line no-undef
+  let localname = "youeryuanweb" + demo.getUrlParam("id");
+  // eslint-disable-next-line no-undef
+  let id = demo.$local.get("nid", demo.getUrlParam("id"));
+  let baseurl = `${
+    api.h5
+  }auth/index.html?type=web&id=${id}&url=${encodeURIComponent(
+    api.http
+  )}&local=${localname}&hash=${hash || ""}`;
+  if (page) {
+    baseurl += `&page=${encodeURIComponent(page)}`;
+  }
+  window.location.href = baseurl;
+};
 
 let wxlogin = () => {
   // eslint-disable-next-line
@@ -149,6 +164,7 @@ const _const = {
   config: siteConfig(),
   wxshareh5,
   frametoh5page,
-  wxlogin
+  wxlogin,
+  wxArtcode
 };
 export default _const;

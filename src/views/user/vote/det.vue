@@ -1,13 +1,16 @@
 <template>
-  <v-view bgc="#f8f7fa" retreat :header="false" index="500" ref="view">
+  <v-view bgc="#f8f7fa"
+          retreat
+          :header="false"
+          index="500"
+          ref="view">
     <div class="demo_scrollbar det">
-      <div class="vote" @touchstart.stop="clicknum++">
-        <div
-          class="music_box"
-          v-if="det.music"
-          :class="[{ pause: !isplay }, { play: plays }]"
-          @click="isplay = !isplay"
-        >
+      <div class="vote"
+           @touchstart.stop="clicknum++">
+        <div class="music_box"
+             v-if="det.music"
+             :class="[{ pause: !isplay }, { play: plays }]"
+             @click="isplay = !isplay">
           <van-icon name="music-o" />
         </div>
         <div class="vote_h1">
@@ -33,58 +36,56 @@
               <h6>活动规则</h6>
               <p>
                 每个微信号每天可投票点赞{{ det.number_votes }}次，每次{{
-                  det.score_per_vote
-                }}分
+            det.score_per_vote
+          }}分
               </p>
               <p v-if="det.comment_score > 0">
                 首次参与评论，得{{ det.comment_score }}分
               </p>
               <p v-if="det.completion_score > 0">
-                首次观看作品时长超过80%时，得{{ det.completion_score }}分
+                首次观看作品时长超过 80% 时，得{{ det.completion_score }}分
               </p>
               <p>可发动亲朋好友积极参与点赞，但严禁采取技术手段刷票</p>
               <p>系统自带刷票监控，一经发现，即刻取消参赛资格</p>
             </div>
-            <div class="time box flex" v-if="votetime.v === 2">
+            <div class="time box flex"
+                 v-if="votetime.v === 2">
               <div class="ico"><van-icon name="underway" /></div>
               <div class="text">
                 <p>距离投票结束还有：</p>
                 <p class="n">
-                  <b>{{ endtime[0] }}</b
-                  >天<b>{{ endtime[1] }}</b
-                  >时<b>{{ endtime[2] }}</b
-                  >分<b>{{ endtime[3] }}</b
-                  >秒
+                  <b>{{ endtime[0] }}</b>天<b>{{ endtime[1] }}</b>时<b>{{ endtime[2] }}</b>分<b>{{ endtime[3] }}</b>秒
                 </p>
               </div>
             </div>
           </div>
           <div class="search">
-            <v-s v-model="sval" unauto @search="onPage(1)"></v-s>
+            <v-s v-model="sval"
+                 unauto
+                 @search="onPage(1)"></v-s>
           </div>
-          <v-p ref="page" @on-page="onPage">
+          <v-p ref="page"
+               @on-page="onPage">
             <ul class="child_list">
-              <li
-                v-for="(i, j) in item"
-                :key="j"
-                @click.stop="ondet(i)"
-                class="flex"
-              >
+              <li v-for="(i, j) in item"
+                  :key="j"
+                  @click.stop="ondet(i)"
+                  class="flex">
                 <div class="logo">
-                  <van-image lazy-load fit="contain" :src="toimageshow(i)">
+                  <van-image lazy-load
+                             fit="contain"
+                             :src="toimageshow(i)">
                     <template v-slot:loading>未设置封面</template>
                     <template v-slot:error>未设置封面</template>
                   </van-image>
                 </div>
                 <div class="text">
                   <div class="title">
-                    {{ i.full_name }} <b>({{ i.score }})分</b>
+                    {{ i.full_name }} <b>({{ i.score }}) 分</b>
                   </div>
                   <p class="rank">
                     排名{{ i.ranking }}
-                    <b v-if="i.ranking > 1"
-                      >距离上一名票数{{ i.from_previous_place }}分</b
-                    >
+                    <b v-if="i.ranking > 1">距离上一名票数{{ i.from_previous_place }}分</b>
                   </p>
                   <div class="status">去投票</div>
                 </div>
@@ -94,35 +95,35 @@
         </div>
       </div>
       <transition name="van-fade">
-        <div class="r_b_btn" v-if="det.number > 0" @click="open2 = true">
+        <div class="r_b_btn"
+             v-if="det.number > 0"
+             @click="open2 = true">
           排名
         </div>
       </transition>
     </div>
     <template #fixed>
-      <v-f v-model="open" :text="childdet.full_name" :index="610">
+      <v-f v-model="open"
+           :text="childdet.full_name"
+           :index="610">
         <div class="vote_h3">
-          <div class="player" v-if="childdet.video">
-            <v-v
-              :urls="childdet.video"
-              :pics="childdet.video_picture"
-              @progress="onprogressvideo"
-              progress="80"
-              @play="onpauseaudio"
-              @pause="onplayaudio"
-            ></v-v>
+          <div class="player"
+               v-if="childdet.video">
+            <v-v :urls="childdet.video"
+                 :pics="childdet.video_picture"
+                 @progress="onprogressvideo"
+                 progress="80"
+                 @play="onpauseaudio"
+                 @pause="onplayaudio"></v-v>
           </div>
-          <div
-            class="swipe"
-            v-else-if="childdet.picture && childdet.picture.length"
-          >
+          <div class="swipe"
+               v-else-if="childdet.picture && childdet.picture.length">
             <van-swipe>
-              <van-swipe-item v-for="(x, y) in childdet.picture" :key="y">
-                <van-image
-                  :src="x"
-                  fit="contain"
-                  @click.stop="appShowImage(childdet.picture, y)"
-                ></van-image>
+              <van-swipe-item v-for="(x, y) in childdet.picture"
+                              :key="y">
+                <van-image :src="x"
+                           fit="contain"
+                           @click.stop="appShowImage(childdet.picture, y)"></van-image>
               </van-swipe-item>
             </van-swipe>
           </div>
@@ -147,13 +148,15 @@
           </div>
           <template v-if="votetime.v === 2">
             <div class="flex good_box">
-              <div class="goods" @click="onsavevote">
+              <div class="goods"
+                   @click="onsavevote">
                 <van-icon name="thumb-circle" />
                 请点赞
               </div>
-              <div class="goods share" @click="onshare(childdet)">
+              <div class="goods share"
+                   @click="onshare(childdet)">
                 <van-icon name="share" />
-                帮TA拉票
+                帮 TA 拉票
               </div>
             </div>
           </template>
@@ -161,31 +164,36 @@
           <div class="content">
             <p>
               每个微信号每天可投票点赞{{ det.number_votes }}次，每次{{
-                det.score_per_vote
-              }}分
+            det.score_per_vote
+          }}分
             </p>
             <p v-if="det.comment_score > 0">
               首次参与评论，得{{ det.comment_score }}分
             </p>
             <p v-if="det.completion_score > 0">
-              首次观看作品时长超过80%时，得{{ det.completion_score }}分
+              首次观看作品时长超过 80% 时，得{{ det.completion_score }}分
             </p>
             <p>可发动亲朋好友积极参与点赞，但严禁采取技术手段刷票</p>
             <p>系统自带刷票监控，一经发现，即刻取消参赛资格</p>
           </div>
-          <van-divider content-position="left"
-            >评论({{ commentlen }})</van-divider
-          >
-          <v-c-l v-model="commentlist" @write="onwritewrite"></v-c-l>
-          <v-c unfocus v-model="comment.msg" @change="onchangecomment"></v-c>
+          <van-divider content-position="left">评论 ({{ commentlen }})</van-divider>
+          <v-c-l v-model="commentlist"
+                 @write="onwritewrite"></v-c-l>
+          <v-c unfocus
+               v-model="comment.msg"
+               @change="onchangecomment"></v-c>
         </div>
       </v-f>
-      <v-f v-model="open1" text="投票成功" :index="620">
+      <v-f v-model="open1"
+           text="投票成功"
+           :index="620">
         <div class="vote_h4">
           <div class="status"><van-icon name="success" />投票成功</div>
-          <p>你已投票，快去再给TA拉拉票吧</p>
-          <div class="show_image" v-if="det.cover_image">
-            <van-image :src="det.cover_image" fit="cover"></van-image>
+          <p>你已投票，快去再给 TA 拉拉票吧</p>
+          <div class="show_image"
+               v-if="det.cover_image">
+            <van-image :src="det.cover_image"
+                       fit="cover"></van-image>
           </div>
           <div class="box flex">
             <div class="names">
@@ -195,15 +203,21 @@
               </h2>
               <p>当前排名第{{ childdet.ranking }}</p>
             </div>
-            <div class="btn" @click="onshare(childdet)">帮TA拉票</div>
+            <div class="btn"
+                 @click="onshare(childdet)">帮 TA 拉票</div>
           </div>
         </div>
       </v-f>
-      <v-f v-model="open2" text="排名" :index="630">
+      <v-f v-model="open2"
+           text="排名"
+           :index="630">
         <div class="vote_h5">
           <ul>
-            <li v-for="(i, j) in rankitem" :key="j" class="flex">
-              <v-a class="logo" :src="toimageshow(i, true)"></v-a>
+            <li v-for="(i, j) in rankitem"
+                :key="j"
+                class="flex">
+              <v-a class="logo"
+                   :src="toimageshow(i, true)"></v-a>
               <div class="text">
                 <p>
                   No.{{ j + 1 }} {{ i.full_name }}
@@ -441,7 +455,7 @@ export default {
             open_id: this.oid,
             viewing_duration: e,
           },
-          () => {}
+          () => { }
         );
       } else {
         // console.log("已");
@@ -493,12 +507,20 @@ export default {
         did: r.vote_id,
         path: this.$route.path,
       });
+      let len = 3e4; // 30s 缓存
+      this.$api.http("wx", {}, (res) => {
+        demo.$local.set("wxConfig", {
+          into_time: Date.now() + len,
+          ...res,
+        });
+      });
+      console.log('详情');
       this.$nextTick(() => {
         this.$vx({
           link,
           desc: n,
-          logo: r.picture ? r.picture[0] || "" : "",
-          title: (this.det.activity_name + "").replace("/#br#/", " "),
+          logo: r.picture.length > 0 ? r.picture[0] : '',
+          title: (this.det.activity_name + "").replace("/#br#/", " ")
         });
       });
       if (flag) return 0;
@@ -573,7 +595,7 @@ export default {
           if (t.isplay) {
             a.play();
           }
-        } catch (err) {}
+        } catch (err) { }
       });
       a.addEventListener("error", () => {
         console.log("加载失败");
@@ -603,8 +625,8 @@ export default {
       // 获取列表
       // 点击列表获取宝宝
       // 若 id 获取宝宝
-      // id 作品id
-      // did 活动id
+      // id 作品 id
+      // did 活动 id
 
       // 获取详情
       this.$api.http("a2023052302", { vote_id: e.did, open_id: id }, (r) => {
@@ -614,6 +636,12 @@ export default {
           did: r.vote_id,
           path: this.$route.path,
         });
+        const wheWxConfig = demo.$local.get('wxConfig', null)
+        if (!wheWxConfig) {
+          this.$api.http("wx", {}, (e) => {
+            this.$demo.$local.set("wxConfig", e);
+          });
+        }
         this.$nextTick(() => {
           this.$vx({
             link,
@@ -668,468 +696,542 @@ export default {
   },
 };
 </script>
-<style lang='less' scoped>
-@color: #62b290;
-.det {
-  height: 100%;
-}
-.vote {
-  .music_box {
-    position: fixed;
-    right: 15px;
-    top: 15px;
-    z-index: 300;
-    width: 50px;
-    height: 50px;
-    overflow: hidden;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(34, 34, 34, 0.5);
-    color: #fff;
-    box-sizing: border-box;
-    transform: scale(0.8);
-    .van-icon {
-      font-size: 45px;
-    }
-    border: 2px solid #fff;
-    &.pause::before {
-      position: absolute;
-      content: "";
-      left: 0;
-      top: 0;
-      width: 150%;
-      height: 4px;
-      z-index: 301;
-      background-color: #fff;
-      transform: rotate(45deg);
-      transform-origin: 0 100%;
-    }
-    &.play {
-      animation: runrotate360 3s linear infinite;
-    }
-  }
-  .screen_fixed {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100% !important;
-    height: 100%;
-    z-index: 1;
-    background-color: @color;
-    .img {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 30%;
-      img {
-        object-fit: cover;
-      }
-    }
-  }
-  .h2_name {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    padding: 20px 0;
-    font-weight: 650;
-    line-height: 1.2;
-    text-align: center;
-    h2 {
-      font-size: 24px;
-      padding: 10px 0;
-      box-sizing: border-box;
-      max-width: 320px;
-    }
-    p {
-      font-size: 18px;
-      padding: 8px 15px;
-      border-radius: 15px;
-      background-color: #fff;
-      color: @color;
-      letter-spacing: 2px;
-      max-width: 280px;
-    }
-  }
-  .vote_h1 {
-    > :not(.screen_fixed) {
-      position: relative;
-      z-index: 10;
-    }
-    .h2_name,
-    .view_cont {
-      position: relative;
-      z-index: 12;
-      color: #fff;
-    }
-    .view_cont {
-      color: @color;
-      margin: 0 auto;
-      width: 90%;
-      background-color: #fff;
-      box-sizing: border-box;
-      padding: 15px 15px 20px;
-      font-size: 14px;
-      &::after,
-      &::before {
-        content: "";
-        position: absolute;
-        top: 0px;
-        bottom: 0px;
-        width: 10px;
+<style lang='less'
+       scoped>
+      @color: #62b290;
+
+      .det {
         height: 100%;
-        background: radial-gradient(circle, #fff, #fff 4px, transparent 5px);
-        background-size: 10px 10px;
       }
-      &::after {
-        left: -5px;
-      }
-      &::before {
-        right: -5px;
-      }
-      .content {
-        line-height: 1.5;
-      }
-      .btn {
-        margin: 20px auto 0;
-        width: 70%;
-      }
-      .time,
-      .rule {
-        line-height: 1.2;
-      }
-      h6 {
-        position: relative;
-        box-sizing: border-box;
-        padding: 10px;
-        display: inline-block;
-        font-weight: 600;
-        letter-spacing: 1px;
-        margin-top: 12px;
-        &::before,
-        &::after {
-          position: absolute;
-          content: "";
-          top: 0;
-          bottom: 0;
-          margin: auto;
-          height: 14px;
-          background-color: @color;
-          width: 2px;
-        }
-        &::before {
-          left: 0;
-        }
-        &::after {
-          right: 0;
-        }
-        &.no {
-          margin-top: 0;
-        }
-      }
-    }
-    .box {
-      @h: 80px;
-      margin-top: 12px;
-      background-color: darken(@color, 10%);
-      height: @h;
-      color: #fff;
-      section {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
-        font-size: 13px;
-        b {
-          font-weight: 650;
-          padding: 10px 0 0;
-          font-size: 22px;
-        }
-      }
-      .ico {
-        width: @h;
-        height: 100%;
-        font-size: 40px;
-        background-color: darken(@color, 15%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #f5f5f5;
-      }
-      .text {
-        box-sizing: border-box;
-        padding-left: 10px;
-        width: calc(100% - @h);
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        font-size: 13px;
-        .n {
-          padding: 5px 0;
-          font-size: 16px;
-          b {
-            font-weight: 650;
-            padding: 0 5px;
-          }
-        }
-      }
-    }
-    .child_list {
-      margin-top: 10px;
-      box-sizing: border-box;
-      padding: 0 10px 40px;
-      li {
-        box-sizing: border-box;
-        position: relative;
-        margin-bottom: 12px;
-        background-color: #fff;
-        border-radius: 8px 0 8px 8px;
-        overflow: hidden;
-        font-size: 14px;
-        color: #999;
-        .logo {
-          width: 90px;
-          height: 90px;
-          margin-right: 10px;
-        }
-        .text {
-          width: calc(100% - 100px);
-          box-sizing: border-box;
-          position: relative;
-          padding-right: 50px;
-        }
-        .status {
-          position: absolute;
-          right: 5px;
-          top: 0;
-          bottom: 0;
-          margin: auto;
+
+      .vote {
+        .music_box {
+          position: fixed;
+          right: 15px;
+          top: 15px;
+          z-index: 300;
+          width: 50px;
+          height: 50px;
+          overflow: hidden;
+          border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 50px;
+          background-color: rgba(34, 34, 34, 0.5);
+          color: #fff;
           box-sizing: border-box;
-          height: 50px;
-          font-size: 14px;
-          border: 1px solid #999;
-          border-radius: 50%;
           transform: scale(0.8);
-          opacity: 0.9;
+
+          .van-icon {
+            font-size: 45px;
+          }
+
+          border: 2px solid #fff;
+
+          &.pause::before {
+            position: absolute;
+            content: "";
+            left: 0;
+            top: 0;
+            width: 150%;
+            height: 4px;
+            z-index: 301;
+            background-color: #fff;
+            transform: rotate(45deg);
+            transform-origin: 0 100%;
+          }
+
+          &.play {
+            animation: runrotate360 3s linear infinite;
+          }
         }
-        .title {
-          padding: 8px 5px;
-          font-size: 14px;
+
+        .screen_fixed {
+          position: fixed;
+          left: 0;
+          top: 0;
+          width: 100% !important;
+          height: 100%;
+          z-index: 1;
+          background-color: @color;
+
+          .img {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 30%;
+
+            img {
+              object-fit: cover;
+            }
+          }
         }
-        .rank {
-          padding: 5px;
-          b {
-            font-size: 12px;
+
+        .h2_name {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          box-sizing: border-box;
+          padding: 20px 0;
+          font-weight: 650;
+          line-height: 1.2;
+          text-align: center;
+
+          h2 {
+            font-size: 24px;
+            padding: 10px 0;
+            box-sizing: border-box;
+            max-width: 320px;
+          }
+
+          p {
+            font-size: 18px;
+            padding: 8px 15px;
+            border-radius: 15px;
+            background-color: #fff;
+            color: @color;
+            letter-spacing: 2px;
+            max-width: 280px;
+          }
+        }
+
+        .vote_h1 {
+          > :not(.screen_fixed) {
+            position: relative;
+            z-index: 10;
+          }
+
+          .h2_name,
+          .view_cont {
+            position: relative;
+            z-index: 12;
+            color: #fff;
+          }
+
+          .view_cont {
+            color: @color;
+            margin: 0 auto;
+            width: 90%;
+            background-color: #fff;
+            box-sizing: border-box;
+            padding: 15px 15px 20px;
+            font-size: 14px;
+
+            &::after,
+            &::before {
+              content: "";
+              position: absolute;
+              top: 0px;
+              bottom: 0px;
+              width: 10px;
+              height: 100%;
+              background: radial-gradient(circle, #fff, #fff 4px, transparent 5px);
+              background-size: 10px 10px;
+            }
+
+            &::after {
+              left: -5px;
+            }
+
+            &::before {
+              right: -5px;
+            }
+
+            .content {
+              line-height: 1.5;
+            }
+
+            .btn {
+              margin: 20px auto 0;
+              width: 70%;
+            }
+
+            .time,
+            .rule {
+              line-height: 1.2;
+            }
+
+            h6 {
+              position: relative;
+              box-sizing: border-box;
+              padding: 10px;
+              display: inline-block;
+              font-weight: 600;
+              letter-spacing: 1px;
+              margin-top: 12px;
+
+              &::before,
+              &::after {
+                position: absolute;
+                content: "";
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                height: 14px;
+                background-color: @color;
+                width: 2px;
+              }
+
+              &::before {
+                left: 0;
+              }
+
+              &::after {
+                right: 0;
+              }
+
+              &.no {
+                margin-top: 0;
+              }
+            }
+          }
+
+          .box {
+            @h: 80px;
+            margin-top: 12px;
+            background-color: darken(@color, 10%);
+            height: @h;
+            color: #fff;
+
+            section {
+              flex: 1;
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+              justify-content: center;
+              font-size: 13px;
+
+              b {
+                font-weight: 650;
+                padding: 10px 0 0;
+                font-size: 22px;
+              }
+            }
+
+            .ico {
+              width: @h;
+              height: 100%;
+              font-size: 40px;
+              background-color: darken(@color, 15%);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: #f5f5f5;
+            }
+
+            .text {
+              box-sizing: border-box;
+              padding-left: 10px;
+              width: calc(100% - @h);
+              display: flex;
+              justify-content: center;
+              flex-direction: column;
+              font-size: 13px;
+
+              .n {
+                padding: 5px 0;
+                font-size: 16px;
+
+                b {
+                  font-weight: 650;
+                  padding: 0 5px;
+                }
+              }
+            }
+          }
+
+          .child_list {
+            margin-top: 10px;
+            box-sizing: border-box;
+            padding: 0 10px 40px;
+
+            li {
+              box-sizing: border-box;
+              position: relative;
+              margin-bottom: 12px;
+              background-color: #fff;
+              border-radius: 8px 0 8px 8px;
+              overflow: hidden;
+              font-size: 14px;
+              color: #999;
+
+              .logo {
+                width: 90px;
+                height: 90px;
+                margin-right: 10px;
+              }
+
+              .text {
+                width: calc(100% - 100px);
+                box-sizing: border-box;
+                position: relative;
+                padding-right: 50px;
+              }
+
+              .status {
+                position: absolute;
+                right: 5px;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 50px;
+                box-sizing: border-box;
+                height: 50px;
+                font-size: 14px;
+                border: 1px solid #999;
+                border-radius: 50%;
+                transform: scale(0.8);
+                opacity: 0.9;
+              }
+
+              .title {
+                padding: 8px 5px;
+                font-size: 14px;
+              }
+
+              .rank {
+                padding: 5px;
+
+                b {
+                  font-size: 12px;
+                }
+              }
+            }
           }
         }
       }
-    }
-  }
-}
-.r_b_btn {
-  position: fixed;
-  right: 8px;
-  bottom: 8px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: darken(@color, 20%);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  z-index: 300;
-  transform: scale(0.8);
-}
-.vote_h4 {
-  box-sizing: border-box;
-  padding-bottom: 60px;
-  color: @color;
-  font-size: 14px;
-  .status {
-    padding: 30px 0 15px;
-    text-align: center;
-    font-size: 22px;
-    letter-spacing: 2px;
-    line-height: 20px;
-    .van-icon {
-      vertical-align: top;
-    }
-    & + p {
-      text-align: center;
-    }
-  }
-  .show_image {
-    width: 90%;
-    margin: 20px auto 0;
-  }
-  .box {
-    @bg: #e0f8e7;
-    width: 90%;
-    margin: 20px auto 0;
-    background-color: @bg;
-    height: 60px;
-    .names {
-      width: calc(100% - 80px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      box-sizing: border-box;
-      padding-left: 10px;
-      font-size: 12px;
-      h2 {
-        line-height: 30px;
-        font-size: 15px;
-        margin-bottom: 2px;
-        .ico {
-          width: 30px;
-          height: 30px;
-          display: inline-block;
-          margin-right: 4px;
-          vertical-align: top;
-          background-color: #fff;
-          border-radius: 50%;
-        }
+
+      .r_b_btn {
+        position: fixed;
+        right: 8px;
+        bottom: 8px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: darken(@color, 20%);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        z-index: 300;
+        transform: scale(0.8);
       }
-    }
-    .btn {
-      width: 80px;
-      text-align: center;
-      background: darken(@bg, 10%);
-      line-height: 60px;
-    }
-  }
-}
-.vote_h3 {
-  h1 {
-    font-weight: 650;
-    font-size: 18px;
-    padding: 15px 10px;
-    border: 1px dashed #eee;
-  }
-  .player,
-  .swipe,
-  .van-swipe {
-    height: 210px;
-  }
-  .rank {
-    padding: 10px 5px;
-    section {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      font-size: 14px;
-      b {
-        font-size: 16px;
-        font-weight: 650;
-        padding: 5px 0;
-        color: #38f;
-      }
-    }
-  }
-  .content {
-    box-sizing: border-box;
-    padding: 10px 20px;
-    > p {
-      font-size: 14px;
-      padding: 0 10px;
-      line-height: 1.2;
-      margin-top: 8px;
-      color: #999;
-    }
-  }
-  .good_box {
-    align-items: center;
-    justify-content: center;
-  }
-  .goods {
-    margin: 0 10px;
-    // margin: 0 auto;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    display: flex;
-    font-size: 12px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: tomato;
-    .van-icon {
-      margin-bottom: 5px;
-      font-size: 50px;
-      color: pink;
-    }
-    &.share {
-      color: #07c160;
-      .van-icon {
-        font-size: 44px;
-        color: #07c160;
-      }
-    }
-  }
-}
-.vote_h5 {
-  li {
-    padding: 10px 20px;
-    box-sizing: border-box;
-    .logo {
-      width: 40px;
-      height: 40px;
-      margin-right: 10px;
-      background-color: #f8f7fa;
-    }
-    .text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: calc(100% - 40px);
-      p {
+
+      .vote_h4 {
+        box-sizing: border-box;
+        padding-bottom: 60px;
+        color: @color;
         font-size: 14px;
-        position: relative;
-        color: #999;
-        line-height: 18px;
-        b {
-          position: absolute;
-          right: 0;
-          top: 0;
+
+        .status {
+          padding: 30px 0 15px;
+          text-align: center;
+          font-size: 22px;
+          letter-spacing: 2px;
+          line-height: 20px;
+
+          .van-icon {
+            vertical-align: top;
+          }
+
+          &+p {
+            text-align: center;
+          }
+        }
+
+        .show_image {
+          width: 90%;
+          margin: 20px auto 0;
+        }
+
+        .box {
+          @bg: #e0f8e7;
+          width: 90%;
+          margin: 20px auto 0;
+          background-color: @bg;
+          height: 60px;
+
+          .names {
+            width: calc(100% - 80px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-sizing: border-box;
+            padding-left: 10px;
+            font-size: 12px;
+
+            h2 {
+              line-height: 30px;
+              font-size: 15px;
+              margin-bottom: 2px;
+
+              .ico {
+                width: 30px;
+                height: 30px;
+                display: inline-block;
+                margin-right: 4px;
+                vertical-align: top;
+                background-color: #fff;
+                border-radius: 50%;
+              }
+            }
+          }
+
+          .btn {
+            width: 80px;
+            text-align: center;
+            background: darken(@bg, 10%);
+            line-height: 60px;
+          }
+        }
+      }
+
+      .vote_h3 {
+        h1 {
+          font-weight: 650;
+          font-size: 18px;
+          padding: 15px 10px;
+          border: 1px dashed #eee;
+        }
+
+        .player,
+        .swipe,
+        .van-swipe {
+          height: 210px;
+        }
+
+        .rank {
+          padding: 10px 5px;
+
+          section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-size: 14px;
+
+            b {
+              font-size: 16px;
+              font-weight: 650;
+              padding: 5px 0;
+              color: #38f;
+            }
+          }
+        }
+
+        .content {
+          box-sizing: border-box;
+          padding: 10px 20px;
+
+          >p {
+            font-size: 14px;
+            padding: 0 10px;
+            line-height: 1.2;
+            margin-top: 8px;
+            color: #999;
+          }
+        }
+
+        .good_box {
+          align-items: center;
+          justify-content: center;
+        }
+
+        .goods {
+          margin: 0 10px;
+          // margin: 0 auto;
+          border-radius: 50%;
+          width: 100px;
+          height: 100px;
+          display: flex;
           font-size: 12px;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          color: tomato;
+
+          .van-icon {
+            margin-bottom: 5px;
+            font-size: 50px;
+            color: pink;
+          }
+
+          &.share {
+            color: #07c160;
+
+            .van-icon {
+              font-size: 44px;
+              color: #07c160;
+            }
+          }
         }
       }
-      .run {
-        margin-top: 8px;
-        width: 100%;
-        height: 2px;
-        background-color: #eee;
-        position: relative;
-        i {
-          position: absolute;
-          height: 2px;
-          left: 0;
-          top: 0;
-          background-color: #38f;
-          transition: all 0.3s;
+
+      .vote_h5 {
+        li {
+          padding: 10px 20px;
+          box-sizing: border-box;
+
+          .logo {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            background-color: #f8f7fa;
+          }
+
+          .text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: calc(100% - 40px);
+
+            p {
+              font-size: 14px;
+              position: relative;
+              color: #999;
+              line-height: 18px;
+
+              b {
+                position: absolute;
+                right: 0;
+                top: 0;
+                font-size: 12px;
+              }
+            }
+
+            .run {
+              margin-top: 8px;
+              width: 100%;
+              height: 2px;
+              background-color: #eee;
+              position: relative;
+
+              i {
+                position: absolute;
+                height: 2px;
+                left: 0;
+                top: 0;
+                background-color: #38f;
+                transition: all 0.3s;
+              }
+            }
+          }
         }
       }
-    }
-  }
-}
-@keyframes runrotate360 {
-  0% {
-    transform: rotate(0) scale(0.8);
-  }
-  100% {
-    transform: rotate(360deg) scale(0.8);
-  }
-}
-</style>
+
+      @keyframes runrotate360 {
+        0% {
+          transform: rotate(0) scale(0.8);
+        }
+
+        100% {
+          transform: rotate(360deg) scale(0.8);
+        }
+      }
+    </style>

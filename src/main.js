@@ -118,7 +118,7 @@ if ($js.env) {
       e.target.src = $js.path + "static/image/theme/t4.png";
       console.log(e);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 }

@@ -72,11 +72,11 @@
                   alt=""
                   class="db_image"
                 />
-                <b>点赞({{ tonum(i.like_count) }})</b>
+                <b>点赞 ({{ tonum(i.like_count) }})</b>
               </span>
               <span @click.stop="onvent('comment', i, j)">
                 <img :src="icons(203)" alt="" class="db_image" />
-                <b>评论({{ tonum(i.comment_count) }})</b>
+                <b>评论 ({{ tonum(i.comment_count) }})</b>
               </span>
               <span @click.stop="onvent('share', i, j)">
                 <img :src="icons(200)" alt="" class="db_image" />

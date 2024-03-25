@@ -1,24 +1,20 @@
 <template>
-  <van-popup
-    v-model="show"
-    position="bottom"
-    :style="{ height: '50%' }"
-    get-container="#app"
-    close-on-popstate
-    safe-area-inset-bottom
-  >
-    <van-datetime-picker
-      v-model="currentDate"
-      :type="type"
-      :title="title"
-      :min-date="minDate"
-      :max-date="maxDate"
-      :formatter="formatter"
-      item-height="1.1733rem"
-      @confirm="onChange"
-      @cancel="onClose"
-      class="app_time"
-    />
+  <van-popup v-model="show"
+             position="bottom"
+             :style="{ height: '50%' }"
+             get-container="#app"
+             close-on-popstate
+             safe-area-inset-bottom>
+    <van-datetime-picker v-model="currentDate"
+                         :type="type"
+                         :title="title"
+                         :min-date="minDate"
+                         :max-date="maxDate"
+                         :formatter="formatter"
+                         item-height="1.1733rem"
+                         @confirm="onChange"
+                         @cancel="onClose"
+                         class="app_time" />
   </van-popup>
 </template>
 
@@ -34,7 +30,7 @@ export default {
     value: null,
     max: String, // d_7 m_5 y_3
     min: String,
-    once: [String, Number], // 静默获取 0当月 1下月 -1上月
+    once: [String, Number], // 静默获取 0 当月 1 下月 -1 上月
   },
   data() {
     return {
@@ -45,8 +41,11 @@ export default {
     };
   },
   watch: {
-    open() {
-      this.show = true;
+    open(v) {
+      this.show = v;
+      if (!v) {
+        this.$emit("close", v);
+      }
     },
     times: {
       handler(n) {

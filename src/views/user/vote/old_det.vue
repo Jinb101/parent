@@ -40,7 +40,7 @@
                 首次参与评论，得{{ det.comment_score }}分
               </p>
               <p v-if="det.completion_score > 0">
-                首次观看作品时长超过80%时，得{{ det.completion_score }}分
+                首次观看作品时长超过 80% 时，得{{ det.completion_score }}分
               </p>
               <p>可发动亲朋好友积极参与点赞，但严禁采取技术手段刷票</p>
               <p>系统自带刷票监控，一经发现，即刻取消参赛资格</p>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="text">
                   <div class="title">
-                    {{ i.full_name }} <b>({{ i.score }})分</b>
+                    {{ i.full_name }} <b>({{ i.score }}) 分</b>
                   </div>
                   <p class="rank">
                     排名{{ i.ranking }}
@@ -144,7 +144,7 @@
             </div>
           </template>
           <van-divider content-position="left"
-            >评论({{ commentlen }})</van-divider
+            >评论 ({{ commentlen }})</van-divider
           >
           <ul class="comment_list">
             <li
@@ -166,7 +166,7 @@
       <v-f v-model="open1" text="投票成功" index="610">
         <div class="vote_h4">
           <div class="status"><van-icon name="success" />投票成功</div>
-          <p>你已投票，快去再给TA拉拉票吧</p>
+          <p>你已投票，快去再给 TA 拉拉票吧</p>
           <div class="show_image" v-if="det.cover_image">
             <van-image :src="det.cover_image" fit="cover"></van-image>
           </div>
@@ -178,7 +178,7 @@
               </h2>
               <p>当前排名第{{ childdet.ranking }}</p>
             </div>
-            <div class="btn" @click="onshare(childdet)">帮TA拉票</div>
+            <div class="btn" @click="onshare(childdet)">帮 TA 拉票</div>
           </div>
         </div>
       </v-f>
@@ -536,8 +536,8 @@ export default {
       // 获取列表
       // 点击列表获取宝宝
       // 若 id 获取宝宝
-      // id 作品id
-      // did 活动id
+      // id 作品 id
+      // did 活动 id
 
       // 获取详情
       this.$api.http("a2023052302", { vote_id: this.did, open_id: id }, (r) => {

@@ -431,7 +431,14 @@ export default {
     // 检测登录
     appIsLogin(fn, err) {
       let token = this.$demo.$local.get("token", "");
+
       let url = window.location.href;
+      // eslint-disable-next-line no-undef
+      const isArtStyle = demo.$local.get("isArtStyle", null)
+      if (isArtStyle) {
+        console.log(token);
+        return
+      }
       if (window.location.href.indexOf('tulis') > -1 && token) {
         let newUrl = window.location.href.replace(/&tulis=1/, '');
         history.replaceState(null, '', newUrl);
@@ -446,6 +453,7 @@ export default {
           this.appPath("/index");
         });
       }
+
       if (!token) {
         if (err) {
           return err();
@@ -534,7 +542,7 @@ export default {
     },
     // 初始化 10 分钟
     async init() {
-      let ts = this;
+      const ts = this;
       let nid = ts.$demo.$local.get("nid", "");
       if (nid > 0 && ts.params.id > 0 && +nid !== +ts.params.id) {
         // 更换园所
@@ -573,17 +581,37 @@ export default {
         ts.getconfigs();
       }
       // 获取微信配置 5
+
+      // console.log(wheWxconfig, 'wheWxconfig');
       if (ts.$demo.es6().isWx()) {
-        ts.$api.http("wx", {}, (e) => {
+        this.$api.http("wx", {}, (e) => {
           ts.$demo.$local.set("wxConfig", e);
           ts.wxConfig = e;
           ts.$vx();
         });
       }
+      // // 获取当前时间的时间戳（毫秒）
+      // const currentTimestamp = Date.now();
+      // // eslint-disable-next-line no-undef
+      // const wheWxconfig = demo.$local.get("wxConfig", null)
+      // // 转换当前时间戳为秒
+      // const currentTimestampInSeconds = Math.floor(currentTimestamp / 1000);
+      // // 计算时间差并转换为小时
+      // const timeDiff = (currentTimestampInSeconds - wheWxconfig.timestamp) / 3600;
+      // // 判断是否超过两个小时
+      // if (timeDiff > 2) {
+      //   this.$api.http("wx", {}, (e) => {
+      //     ts.$demo.$local.set("wxConfig", e);
+      //     ts.wxConfig = e;
+      //   });
+      //   console.log("时间差超过两个小时，需要处理");
+      // }
       // 获取新版 权限
       ts.$api.http("newmenulevel", {}, (r) => {
         // eslint-disable-next-line
         let res = siteConfig().menulevel(r);
+        // 判断 r 中 每一个的 switch
+        console.log(res, '------------------------');
         ts.$demo.$session.set("menulevel", res);
       });
     },

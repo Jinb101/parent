@@ -1,39 +1,39 @@
 <template>
   <div class="user x_bgc_body">
-    <x-header :color="$theme.color" class="h"></x-header>
+    <x-header :color="$theme.color"
+              class="h"></x-header>
     <x-content> </x-content>
     <x-content>
-      <x-box :header="false" size="big">
-        <span class="by" :style="$theme.bgc_linear">
+      <x-box :header="false"
+             size="big">
+        <span class="by"
+              :style="$theme.bgc_linear">
           <span v-if="vip > 0">剩余{{ vip }}天</span>
-          <span v-else @click="onToByVip">已过期</span>
+          <span v-else
+                @click="onToByVip">已过期</span>
         </span>
         <div class="flex head">
-          <div class="ava" @click="appPath('/user_info')">
-            <van-image fit="cover" round :src="user.avatar"></van-image>
+          <div class="ava"
+               @click="appPath('/user_info')">
+            <van-image fit="cover"
+                       round
+                       :src="user.avatar"></van-image>
           </div>
           <div class="text">
             <p class="name van-ellipsis">
               {{ user.nickname }}
-              <van-tag v-if="authorjob" type="primary">{{ authorjob }}</van-tag>
+              <van-tag v-if="authorjob"
+                       type="primary">{{ authorjob }}</van-tag>
             </p>
             <p class="phone">
-              <span
-                v-if="+user.is_it_bound === 0"
-                @click="appPath('/bind_baby/0')"
-                >未绑定</span
-              >
-              <span
-                v-else-if="+user.is_it_bound === 1"
-                @click="appPath('/bind_baby/1')"
-                >待审核</span
-              >
-              <span
-                v-else-if="+user.is_it_bound === 3"
-                @click="appPath('/bind_baby/2')"
-                >已驳回</span
-              >
-              <span v-else @click="appPath('/user_baby_info')">
+              <span v-if="+user.is_it_bound === 0"
+                    @click="appPath('/bind_baby/0')">未绑定</span>
+              <span v-else-if="+user.is_it_bound === 1"
+                    @click="appPath('/bind_baby/1')">待审核</span>
+              <span v-else-if="+user.is_it_bound === 3"
+                    @click="appPath('/bind_baby/2')">已驳回</span>
+              <span v-else
+                    @click="appPath('/user_baby_info')">
                 {{ baby.class_name }} {{ baby.name }}
               </span>
             </p>
@@ -44,16 +44,20 @@
     <x-content>
       <x-box :header="false">
         <ul class="flex fw">
-          <li v-for="(i, j) in nav" :key="j + '-item1'" @click="onDetail(i)">
+          <li v-for="(i, j) in nav"
+              :key="j + '-item1'"
+              @click="onDetail(i)">
             <!-- <div class="dot" v-if="i.num > 0">
               <van-badge :content="i.num"> </van-badge>
             </div> -->
             <x-radius :color="i.color">
-              <van-image :src="i.icon" fit="cover"></van-image>
+              <van-image :src="i.icon"
+                         fit="cover"></van-image>
             </x-radius>
             <p class="van-ellipsis">
               {{ i.title }}
-              <van-badge :content="i.num" v-if="i.num > 0"> </van-badge>
+              <van-badge :content="i.num"
+                         v-if="i.num > 0"> </van-badge>
             </p>
           </li>
         </ul>
@@ -61,68 +65,79 @@
     </x-content>
     <x-content>
       <!-- 联系客服 -->
-      <a class="lines flex van-hairline--bottom" :href="'tel:' + tel">
-        <van-icon name="phone" size="16" color="#71beff" />
+      <a class="lines flex van-hairline--bottom"
+         :href="'tel:' + tel">
+        <van-icon name="phone"
+                  size="16"
+                  color="#71beff" />
         <b>联系客服</b>
         <span class="tel">{{ tel }}</span>
         <van-icon name="arrow" />
       </a>
-      <div class="lines flex van-hairline--bottom" @click="onToCheck">
-        <van-icon name="friends-o" size="16" color="#71beff" />
+      <div class="lines flex van-hairline--bottom"
+           @click="onToCheck">
+        <van-icon name="friends-o"
+                  size="16"
+                  color="#71beff" />
         <b>切换宝宝</b>
         <span></span>
         <van-icon name="arrow" />
       </div>
-      <div class="lines flex" @click="onToFood">
-        <van-icon name="shop" size="16" color="#71beff" />
+      <div class="lines flex"
+           @click="onToFood">
+        <van-icon name="shop"
+                  size="16"
+                  color="#71beff" />
         <b>食材小店</b>
         <span></span>
         <van-icon name="arrow" />
       </div>
-      <div
-        class="lines flex m10"
-        @click="appPath('/educationorder')"
-        v-if="+pid === 7"
-      >
-        <van-icon name="bill-o" size="16" color="#71beff" />
+      <div class="lines flex m10"
+           @click="appPath('/educationorder')"
+           v-if="+pid === 7">
+        <van-icon name="bill-o"
+                  size="16"
+                  color="#71beff" />
         <b>家庭教育订单</b>
         <span></span>
         <van-icon name="arrow" />
       </div>
       <!-- 设置 -->
-      <div class="lines flex m10" @click="appPath('/system')">
-        <van-icon name="setting" size="16" color="#71beff" />
+      <div class="lines flex m10"
+           @click="appPath('/system')">
+        <van-icon name="setting"
+                  size="16"
+                  color="#71beff" />
         <b>设置</b>
         <span></span>
         <van-icon name="arrow" />
       </div>
     </x-content>
     <x-content>
-      <van-button block color="#fff" @click="onExit">
+      <van-button block
+                  color="#fff"
+                  @click="onExit">
         <b class="col_danger">退出登录</b>
       </van-button>
     </x-content>
     <transition name="van-slide-left">
-      <div
-        class="app_show_fixed top auto"
-        v-if="show_bind"
-        style="z-index: 600"
-      >
-        <v-tool-title back @on-back="show_bind = false" text="切换宝贝">
-          <span class="col_green" @click="appPath('/bind_baby/0')"
-            >绑定新的</span
-          >
+      <div class="app_show_fixed top auto"
+           v-if="show_bind"
+           style="z-index: 600">
+        <v-tool-title back
+                      @on-back="show_bind = false"
+                      text="切换宝贝">
+          <span class="col_green"
+                @click="appPath('/bind_baby/0')">绑定新的</span>
         </v-tool-title>
         <van-radio-group v-model="radio">
           <van-cell-group>
-            <van-cell
-              :title="i.child_name"
-              clickable
-              @click="radio = i.id"
-              v-for="(i, j) in binds"
-              :key="j + 'b'"
-              :label="toBindLabel(i)"
-            >
+            <van-cell :title="i.child_name"
+                      clickable
+                      @click="radio = i.id"
+                      v-for="(i, j) in binds"
+                      :key="j + 'b'"
+                      :label="toBindLabel(i)">
               <template #right-icon>
                 <van-radio :name="i.id" />
               </template>
@@ -130,9 +145,10 @@
           </van-cell-group>
         </van-radio-group>
         <div class="w60">
-          <van-button block round type="primary" @click="onCheckBind"
-            >点击切换</van-button
-          >
+          <van-button block
+                      round
+                      type="primary"
+                      @click="onCheckBind">点击切换</van-button>
         </div>
       </div>
     </transition>
@@ -320,7 +336,7 @@ export default {
               this.$set(this.nav[index], "num", e);
             }
           });
-        } catch (err) {}
+        } catch (err) { }
       }
       // 喂药
       if (!this.baby.no) {
@@ -337,91 +353,107 @@ export default {
   },
 };
 </script>
-<style lang='less' scoped>
-.user {
-  overflow-y: scroll;
-  padding-bottom: 30px;
-  .h {
-    height: 210px;
-  }
-  li {
-    width: 33.33%;
-    text-align: center;
-    color: #444;
-    margin: 8px 0;
-    position: relative;
-    p {
-      padding: 7px 0;
-      font-size: 12px;
-      font-weight: 550;
-    }
-    .p {
-      width: 100%;
-    }
-    .dot {
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-  }
-  .lines {
-    padding: 10px;
-    line-height: 35px;
-    background-color: #fff;
-    color: #333;
-    font-size: 13px;
-    .van-icon {
-      line-height: 35px;
-      width: 30px;
-      text-align: center;
-    }
-    span {
-      flex: 1;
-      text-align: right;
-      letter-spacing: 1px;
-      font-weight: 600;
-    }
-  }
+<style lang='less'
+       scoped>
+      .user {
+        overflow-y: scroll;
+        padding-bottom: 30px;
 
-  .m10 {
-    margin-bottom: 10px;
-  }
-
-  .by {
-    font-size: 10px;
-    position: absolute;
-    right: -10px;
-    top: 0;
-    color: #fff;
-    border-radius: 10px 0 0 10px;
-    z-index: 9;
-    padding: 5px;
-  }
-  .head {
-    position: relative;
-    .ava {
-      width: 64px;
-      height: 64px;
-      margin-right: 12px;
-    }
-    .text {
-      width: calc(100% - 76px);
-      .name {
-        padding: 10px 0;
-        font-size: 18px;
-        font-weight: 600;
-        b {
-          font-size: 12px;
-          font-weight: 400;
+        .h {
+          height: 210px;
         }
-        span {
-          margin-left: 5px;
+
+        li {
+          width: 33.33%;
+          text-align: center;
+          color: #444;
+          margin: 8px 0;
+          position: relative;
+
+          p {
+            padding: 7px 0;
+            font-size: 12px;
+            font-weight: 550;
+          }
+
+          .p {
+            width: 100%;
+          }
+
+          .dot {
+            position: absolute;
+            right: 0;
+            top: 0;
+          }
+        }
+
+        .lines {
+          padding: 10px;
+          line-height: 35px;
+          background-color: #fff;
+          color: #333;
+          font-size: 13px;
+
+          .van-icon {
+            line-height: 35px;
+            width: 30px;
+            text-align: center;
+          }
+
+          span {
+            flex: 1;
+            text-align: right;
+            letter-spacing: 1px;
+            font-weight: 600;
+          }
+        }
+
+        .m10 {
+          margin-bottom: 10px;
+        }
+
+        .by {
+          font-size: 10px;
+          position: absolute;
+          right: -10px;
+          top: 0;
+          color: #fff;
+          border-radius: 10px 0 0 10px;
+          z-index: 9;
+          padding: 5px;
+        }
+
+        .head {
+          position: relative;
+
+          .ava {
+            width: 64px;
+            height: 64px;
+            margin-right: 12px;
+          }
+
+          .text {
+            width: calc(100% - 76px);
+
+            .name {
+              padding: 10px 0;
+              font-size: 18px;
+              font-weight: 600;
+
+              b {
+                font-size: 12px;
+                font-weight: 400;
+              }
+
+              span {
+                margin-left: 5px;
+              }
+            }
+
+            .phone {
+              font-size: 14px;
+            }
+          }
         }
       }
-      .phone {
-        font-size: 14px;
-      }
-    }
-  }
-}
-</style>
+    </style>

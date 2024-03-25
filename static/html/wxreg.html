@@ -1,70 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <title>注册</title>
-  <meta name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="../css/base.min.css">
-  <link rel="stylesheet" href="../css/main.min.css">
-  <style type="text/css">
-    .header {
-      font-size: 0.16rem;
-      line-height: 0.4rem;
-      height: 0.4rem;
-      color: #fff;
-      background: linear-gradient(85deg, rgb(5, 177, 15), rgb(15, 208, 27));
-    }
+  <head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet"
+          href="../css/base.min.css">
+    <link rel="stylesheet"
+          href="../css/main.min.css">
+    <style type="text/css">
+      .header {
+        font-size: 0.16rem;
+        line-height: 0.4rem;
+        height: 0.4rem;
+        color: #fff;
+        background: linear-gradient(85deg, rgb(5, 177, 15), rgb(15, 208, 27));
+      }
 
-    .header span {
-      padding: 0 0.2rem
-    }
+      .header span {
+        padding: 0 0.2rem
+      }
 
-    .header p {
-      flex: 1;
-      text-align: center;
-      font-weight: 650;
-      text-indent: -0.6rem
-    }
+      .header p {
+        flex: 1;
+        text-align: center;
+        font-weight: 650;
+        text-indent: -0.6rem
+      }
 
-    .view {
-      margin: 0.3rem auto 0;
-      width: 1.5rem;
-      height: 1.5rem;
-      background-color: #ccc;
-      border-radius: 0.2rem;
-      display: block;
-      animation: run 2s linear infinite alternate;
-      box-shadow: 0 0 0.3rem #333;
-    }
-
-    @keyframes run {
-      from {
+      .view {
+        margin: 0.3rem auto 0;
+        width: 1.5rem;
+        height: 1.5rem;
+        background-color: #ccc;
         border-radius: 0.2rem;
-        transform: scale(1);
+        display: block;
+        animation: run 2s linear infinite alternate;
+        box-shadow: 0 0 0.3rem #333;
       }
 
-      to {
-        border-radius: 50%;
-        transform: scale(0.7);
-      }
-    }
-  </style>
-</head>
+      @keyframes run {
+        from {
+          border-radius: 0.2rem;
+          transform: scale(1);
+        }
 
-<body>
-  <div class="header flex">
-    <span id="back">返回</span>
-    <p>注册授权</p>
-  </div>
-  <textarea name="" id="aaa" cols="30" rows="10"></textarea>
-</body>
+        to {
+          border-radius: 50%;
+          transform: scale(0.7);
+        }
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="header flex">
+      <span id="back">返回</span>
+      <p>注册授权</p>
+    </div>
+    <textarea name=""
+              id="aaa"
+              cols="30"
+              rows="10"></textarea>
+  </body>
 
 </html>
-<script type="text/javascript" src="../js/axios.min.js"></script>
-<script type="text/javascript" src="../js/base.min.js"></script>
-<script type="text/javascript" src="../vconsole.min.js"></script>
+<script type="text/javascript"
+        src="../js/axios.min.js"></script>
+<script type="text/javascript"
+        src="../js/base.min.js"></script>
+<script type="text/javascript"
+        src="../vconsole.min.js"></script>
 <script type="text/javascript">
   new VConsole()
   var $demo = new Demo({

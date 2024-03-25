@@ -217,7 +217,11 @@ const loginApi = {
   // 宝宝列表
   babyList: "parents/my/bindBabyAccount",
   // 技能列表
-  skitList: "parents/eurhythmics/skill"
+  skitList: "parents/eurhythmics/skill",
+  // 向日葵艺体充值
+  payFee: "parents/eurhythmics/payFee",
+  // 向日葵艺体充值
+  payOrder: "parents/eurhythmics/payParentsOrder"
 };
 
 export default {

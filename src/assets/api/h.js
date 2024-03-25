@@ -17,7 +17,7 @@ function getToken() {
   return t
 }
 
-let tmt = 12e4; // 超时 2分钟
+let tmt = 12e4; // 超时 2 分钟
 // 添加请求拦截器
 axios.interceptors.request.use(function (configs) {
   if (configs.timeout !== 20000) {
@@ -62,7 +62,7 @@ axios.interceptors.response.use(function (response) {
       // console.log('h.js 跳转账号已禁用')
       c = 408
       break
-    case 410: // token已过期
+    case 410: // token 已过期
       // console.log('h.js 跳转账号已禁用')
       c = 410
       break
@@ -108,7 +108,7 @@ function _post(opt, timeout = tmt, headers = {}, flag = 0) {
           // resolve({ data: { type: 'progress', time: pro }, code: 2 })
         }
       },
-      withCredentials: false // 是否允许发送cookie
+      withCredentials: false // 是否允许发送 cookie
     })
       .then(function (response) {
         if (response.status === 200) {
@@ -141,7 +141,7 @@ function _get(opt, timeout = tmt, headers = {}, flag = 0) {
       headers: headers,
       data: !!flag ? opt.data : qs.stringify(opt.data),
       timeout: timeout,
-      withCredentials: false // 是否允许发送cookie
+      withCredentials: false // 是否允许发送 cookie
     })
       .then(function (response) {
         if (response.status === 200) {

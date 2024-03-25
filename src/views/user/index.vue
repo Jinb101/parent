@@ -112,6 +112,7 @@ export default {
         // { t: "食材小店", n: "food" },
         { t: "设置", n: "system" },
       ],
+      menuLeveList: [],
       isbabyvip: false,
     };
   },
@@ -149,6 +150,7 @@ export default {
       return e.bind_is_expire * 1 ? 0 : Math.floor(e.bind_last_day || 0);
     },
     menulist() {
+      console.log(this.nav, this.swipernum, '----');
       if (this.nav.length > this.swipernum) {
         // eslint-disable-next-line
         return demo
@@ -156,6 +158,33 @@ export default {
           .chunk(this.swipernum);
       }
       return [this.nav];
+    },
+  },
+  watch: {
+    'menuLeveList.length': {
+      handler(v) {
+        if (v > 0) {
+          // 艺体中心判断
+          // 找到 key 为 eurhythmics 的对象
+          let index = this.menuLeveList
+            .map((s, v) => {
+              return { f: s.key === "eurhythmics", v };
+            })
+            .filter((s) => {
+              return s.f;
+            })[0].v;
+          // 判断 switch 0 开启 1 关闭
+          if (this.menuLeveList[index].switch === 1) {
+            // 删除 tab 中 path === 'art_style' 的对象
+            this.$nextTick(() => {
+              this.nav = this.nav.filter((r) => {
+                return r.path !== "/art_style";
+              });
+            });
+          }
+        }
+      },
+      deep: true,
     },
   },
   methods: {
@@ -241,11 +270,15 @@ export default {
       }
     },
     onview(e) {
+      this.$api.http("newmenulevel", {}, (e) => {
+        this.menuLeveList = e;
+      });
       this.user = e.user || {};
       this.baby = e.baby || {};
       this.tel = (e.config || {}).tel;
       this.pid = this.user.n_id;
       this.tab = this.$js.def.user2;
+      console.log(this.$js.def.user2, 'this.$js.def.user2');
       if (this.tel) {
         this.$set(this.listmenu[0], "v", this.tel);
       }
@@ -255,6 +288,7 @@ export default {
       this.checklevel(+this.user.guardian === 1, 4);
       // 宝贝在线续费判断
       this.checklevel(this.user.bind_last_day <= 0, 5);
+
       // 缴费判断
       this.checklevel(+this.user.show_payment === 2, 3, () => {
         try {
@@ -295,7 +329,6 @@ export default {
       this.checklevel(val.t19, 15);
 
       this.isbabyvip = val.t0;
-
       this.nav = this.tab;
     },
     onToFood() {
@@ -323,114 +356,115 @@ export default {
   },
 };
 </script>
-<style lang='less' scoped>
-.scrollhand {
-  position: absolute;
-  right: 0;
-  font-size: 12px;
-  top: 0;
-  color: #868686;
-  padding: 5px;
-  border-radius: 5px 0 0 5px;
-}
-
-.user_box {
-  background-color: #fff;
-  border-radius: 8px;
-  position: relative;
-  font-size: 16px;
-  overflow: hidden;
-}
-
-.head {
-  padding: 10px;
-
-  .avatar {
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    overflow: hidden;
-    box-shadow: 0 0 10px #f7f7f7;
-  }
-
-  .strong {
-    width: calc(100% - 65px);
-    padding-left: 10px;
-    padding-top: 8px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-
-    h2 {
-      padding: 5px 0;
-      font-weight: 650;
-      color: #232323;
-
-      b {
-        font-weight: 400;
+<style lang='less'
+       scoped>
+      .scrollhand {
+        position: absolute;
+        right: 0;
         font-size: 12px;
-        padding-left: 8px;
-        color: #999;
+        top: 0;
+        color: #868686;
+        padding: 5px;
+        border-radius: 5px 0 0 5px;
       }
-    }
 
-    .account {
-      padding: 5px 0;
-      font-size: 15px;
-    }
-  }
+      .user_box {
+        background-color: #fff;
+        border-radius: 8px;
+        position: relative;
+        font-size: 16px;
+        overflow: hidden;
+      }
 
-  .tag {
-    position: absolute;
-    font-size: 12px;
-    padding: 5px 10px;
-    color: #fff;
-    background: linear-gradient(45deg, rgb(255, 83, 1), rgb(248, 180, 119));
-    right: 0;
-    top: 10px;
-    border-radius: 10px 0 0 10px;
-  }
+      .head {
+        padding: 10px;
 
-  .head_cover {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50px;
-  }
-}
+        .avatar {
+          width: 65px;
+          height: 65px;
+          border-radius: 50%;
+          overflow: hidden;
+          box-shadow: 0 0 10px #f7f7f7;
+        }
 
-.menu {
-  padding: 10px 0;
-}
+        .strong {
+          width: calc(100% - 65px);
+          padding-left: 10px;
+          padding-top: 8px;
+          box-sizing: border-box;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
 
-.swipe_dot {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+          h2 {
+            padding: 5px 0;
+            font-weight: 650;
+            color: #232323;
 
-  span {
-    width: 10px;
-    height: 5px;
-    transition: all 0.5s;
-    background-color: #f0f0f0;
-    border-radius: 5px;
+            b {
+              font-weight: 400;
+              font-size: 12px;
+              padding-left: 8px;
+              color: #999;
+            }
+          }
 
-    &.active {
-      background-color: #fb8639;
-    }
-  }
-}
+          .account {
+            padding: 5px 0;
+            font-size: 15px;
+          }
+        }
 
-.exit {
-  padding: 25px 8%;
-  box-sizing: border-box;
-}
+        .tag {
+          position: absolute;
+          font-size: 12px;
+          padding: 5px 10px;
+          color: #fff;
+          background: linear-gradient(45deg, rgb(255, 83, 1), rgb(248, 180, 119));
+          right: 0;
+          top: 10px;
+          border-radius: 10px 0 0 10px;
+        }
 
-.list_menu {
-  .van-cell {
-    margin: 2px 0;
-  }
-}
-</style>
+        .head_cover {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 50px;
+        }
+      }
+
+      .menu {
+        padding: 10px 0;
+      }
+
+      .swipe_dot {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        span {
+          width: 10px;
+          height: 5px;
+          transition: all 0.5s;
+          background-color: #f0f0f0;
+          border-radius: 5px;
+
+          &.active {
+            background-color: #fb8639;
+          }
+        }
+      }
+
+      .exit {
+        padding: 25px 8%;
+        box-sizing: border-box;
+      }
+
+      .list_menu {
+        .van-cell {
+          margin: 2px 0;
+        }
+      }
+    </style>

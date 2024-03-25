@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import Vue from "vue";
 import Router from "vue-router";
 // import session from '../assets/js/session'
@@ -399,9 +400,20 @@ const val = [
   "/teacher",
   "/wxlogin"
 ];
+// eslint-disable-next-line no-undef
+let token = demo.$local.get("token", "");
+
+const libertyView = ["/art_style"];
+let hrefUrl = window.location.href;
+
+function hasParameter(url, parameterName) {
+  let urlParams = new URLSearchParams(new URL(url).search);
+  return urlParams.has(parameterName);
+}
 // 路由拦截，如果没有登录 则返回登录页面
 router.beforeEach((to, from, next) => {
-  console.log(router);
+  // console.log(router);
+
   let path = "/" + to.path.split("/")[1];
   // eslint-disable-next-line
   if (!demo.vx().version(5)) {
@@ -418,6 +430,26 @@ router.beforeEach((to, from, next) => {
       if (m.url) {
         window.location.replace(m.url + "?h5=" + encodeURIComponent(h5));
         return 0;
+      }
+    }
+  }
+
+  // 如果是自由页面 那么无需登录
+  if (libertyView.indexOf(to.path) >= 0) {
+    let params = demo.getUrl();
+    // 本地存储
+    if (token) {
+      // 清除 isArtStyle
+      localStorage.removeItem("source");
+    } else {
+      // url 是否含有字段 source
+      // let hasSource = hasParameter(hrefUrl, "source");
+      if (params.source) {
+        // 本地存储
+        demo.$local.set("source", "1");
+      } else {
+        localStorage.removeItem("source");
+        next("/login");
       }
     }
   }

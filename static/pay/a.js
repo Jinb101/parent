@@ -1,31 +1,56 @@
+/* eslint-disable no-undef */
 // console.log(demo.$vx())
 demo.access("$vx", demo.fn("demo_vx"));
-
-new VConsole();
+console.log(1.0);
+// eslint-disable-next-line no-new
+// new VConsole();
 
 let api = window.location.origin + "/api/";
 let urls = {
   open: "com/common/get_openid",
   code: "com/common/get_share",
-  pay: "parents/My/payParentsOrder"
+  pay: "parents/My/payParentsOrder",
+  // 向日葵艺体充值
+  payOrder: "parents/eurhythmics/payParentsOrder"
 };
 let vp = demo.$session.get("wx-pay-config", {});
 let params = demo.getUrl();
-
+console.log(params, "1");
 demo
   .cssLazy()
   .text(
     "#index,body{width:100vw;height:100vh}header{height:50px;padding:5px;box-sizing:border-box;line-height:40px;text-align:center;color:#fff;background-color:#04be02;letter-spacing:1px;font-size:18px}.box{height:calc(100% - 130px);width:85%;margin:0 auto;box-sizing:border-box;font-size:15px}h1{line-height:1.2;padding:10% 10px 15px;text-align:center;font-weight:700;letter-spacing:1px}.b{margin:10px 0}.b p{color:#999;margin-bottom:5px}.btn{text-align:center;margin-top:15px}.btn .m_btn{min-width:80px}.btn .m_btn + .m_btn{margin-left:20px}"
   );
 
-let a1 = demo._div(
-  "h1",
-  "",
-  "你正在支付一笔由 [幼儿园] 发起的 [宝贝在线播放] 订单"
-);
+let a1 = () => {
+  if (params.state) {
+    let rData = params.state.split("_0_");
+    // 如果第五位存在
+    if (rData[5]) {
+      params.is = rData[5];
+      return demo._div(
+        "h1",
+        "",
+        "你正在支付一笔由 [幼儿园] 发起的 [艺体中心] 订单"
+      );
+    }
+  }
+  if (params.is) {
+    return demo._div(
+      "h1",
+      "",
+      "你正在支付一笔由 [幼儿园] 发起的 [艺体中心] 订单"
+    );
+  }
+  return demo._div(
+    "h1",
+    "",
+    "你正在支付一笔由 [幼儿园] 发起的 [宝贝在线播放] 订单"
+  );
+};
 let a2 = demo._div("div", "b", "正在查询订单状态，请稍后。。。");
 let a3 = demo._div("div", "btn");
-demo.js("#index .box").appendChild(a1);
+demo.js("#index .box").appendChild(a1());
 demo.js("#index .box").appendChild(a2);
 demo.js("#index .box").appendChild(a3);
 
@@ -74,19 +99,32 @@ let btns = function(f) {
 
   setTimeout(function() {
     demo.js("#ret").click(function() {
-      let rData = params.state.split("_0_");
-      window.location.replace(decodeURIComponent(rData[4]));
+      let rData;
+      if (params.state) {
+        rData = params.state.split("_0_");
+      }
+      window.location.replace(
+        decodeURIComponent(params.state ? rData[4] : params.u)
+      );
     });
-    demo.js("#reset").click(function() {
-      let rData = params.state.split("_0_");
-      params = {
-        t: rData[1],
-        n: rData[2],
-        id: rData[3],
-        u: rData[4]
-      };
-      init(demo.$session.get("wx-pay-config", {}));
-    });
+    if (f === 2) {
+      demo.js("#reset").click(function() {
+        if (params.state) {
+          let rData = params.state.split("_0_");
+          params = {
+            t: rData[1],
+            n: rData[2],
+            id: rData[3],
+            u: rData[4]
+          };
+          // 如果第五位存在
+          if (rData[5]) {
+            params.is = rData[5];
+          }
+        }
+        init(demo.$session.get("wx-pay-config", {}));
+      });
+    }
   }, 500);
 };
 
@@ -105,19 +143,23 @@ let init = function(e) {
         // 验证通过 授权
         if (res.code) {
           let bb = e.strAppId ? { component_appid: "wx55b8471985fa8e81" } : {};
-          demo.$vx().auth({
-            data:
-              "t_0_" +
-              params.t +
-              "_0_" +
-              params.n +
-              "_0_" +
-              params.id +
-              "_0_" +
-              params.u,
+          let data =
+            "t_0_" +
+            params.t +
+            "_0_" +
+            params.n +
+            "_0_" +
+            params.id +
+            "_0_" +
+            params.u +
+            "_0_" +
+            (params.is || "");
+          let obj = {
+            data: data,
             type: 1,
             ...bb
-          });
+          };
+          demo.$vx().auth(obj);
         }
       }
     );
@@ -138,7 +180,10 @@ let init = function(e) {
             return demo.toast(res.data.errmsg);
           }
           let id = res.data.openid;
-          demo.ajax(api + urls.pay).post(
+          let urlFieu =
+            rData[5] && rData[5] === "art" ? urls.payOrder : urls.pay;
+          // console.log(urlFieu);
+          demo.ajax(api + urlFieu).post(
             {
               access_token: rData[1] || "",
               order_sn: rData[2] || "",
@@ -146,12 +191,15 @@ let init = function(e) {
               n_id: rData[3] || ""
             },
             q => {
+              console.log(q, "支付信息");
               // 调取支付
               if (q.code === 200) {
                 let os = q.data.jsApi_request;
                 dom.html(template(q.data));
                 let status = demo.js("#status");
+                // status.html("支付成功");
                 demo.$vx().pay(os, w => {
+                  console.log(w, "支付成功");
                   if (w.code) {
                     status.html("支付成功");
                     btns(0);

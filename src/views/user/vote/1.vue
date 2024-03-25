@@ -96,7 +96,7 @@
                 </van-image>
               </div>
               <div class="title">
-                {{ i.full_name }} <b>({{ i.number_votes }})票</b>
+                {{ i.full_name }} <b>({{ i.number_votes }}) 票</b>
               </div>
               <p class="rank">
                 排名{{ i.ranking }}
@@ -161,7 +161,7 @@
               >投票</van-button
             >
             <van-button type="info" round @click="onshare(childdet)"
-              >帮TA拉票</van-button
+              >帮 TA 拉票</van-button
             >
           </template>
         </div>
@@ -170,7 +170,7 @@
     <transition name="van-fade">
       <div class="vote_h4" v-if="open1">
         <div class="status"><van-icon name="success" />投票成功</div>
-        <p>你已投票，快去再给TA拉拉票吧</p>
+        <p>你已投票，快去再给 TA 拉拉票吧</p>
         <div class="show_image" v-if="det.cover_image">
           <van-image :src="det.cover_image" fit="cover"></van-image>
         </div>
@@ -182,7 +182,7 @@
             </h2>
             <p>当前排名第{{ childdet.ranking }}</p>
           </div>
-          <div class="btn" @click="onshare(childdet)">帮TA拉票</div>
+          <div class="btn" @click="onshare(childdet)">帮 TA 拉票</div>
         </div>
         <div class="close" @click="open1 = false">
           <van-icon name="cross" />
@@ -364,7 +364,7 @@ export default {
       this.$refs.view.$share();
       // demo.$session.set("gotype", "voteshare");
       // demo.$local.set("votesharedata", {
-      //   title: "请帮[" + e.full_name + "]投一票",
+      //   title: "请帮 [" + e.full_name + "] 投一票",
       //   desc: e.content.substring(0, 25),
       //   logo: e.picture ? e.picture[0] || "" : "",
       //   ext: e,
@@ -427,7 +427,7 @@ export default {
             r.nickname,
             "学号：",
             r.no,
-            "的[",
+            "的 [",
             r.full_name,
             "。请为我投上一票！",
           ].join("");
@@ -481,8 +481,8 @@ export default {
       // 获取列表
       // 点击列表获取宝宝
       // 若 id 获取宝宝
-      // id 作品id
-      // did 活动id
+      // id 作品 id
+      // did 活动 id
 
       // 获取详情
       this.$api.http("a2023052302", { vote_id: this.did }, (r) => {

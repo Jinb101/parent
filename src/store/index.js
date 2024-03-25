@@ -1,9 +1,9 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import mutations from './mutations'
-import actions from './action'
+import Vue from "vue";
+import Vuex from "vuex";
+import mutations from "./mutations";
+import actions from "./action";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const state = {
   count: 0,
@@ -13,10 +13,10 @@ const state = {
   comment: {},
   tabbarStatus: {},
   shareWx: 0
-}
+};
 
 export default new Vuex.Store({
   state,
   actions,
   mutations
-})
+});

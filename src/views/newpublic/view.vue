@@ -1,64 +1,69 @@
 <template>
   <div class="v_view">
-    <div class="cover" v-if="cover" :style="coverStyle"></div>
-    <div class="header flex van-hairline--bottom" v-if="header">
+    <div class="cover"
+         v-if="cover"
+         :style="coverStyle"></div>
+    <div class="header flex van-hairline--bottom"
+         v-if="header">
       <transition name="van-slide-down">
-        <div class="header_cover" v-if="headerCover" :style="headStyle"></div>
+        <div class="header_cover"
+             v-if="headerCover"
+             :style="headStyle"></div>
       </transition>
-      <span class="return" @click="onBack">
+      <span class="return"
+            @click="onBack">
         <van-icon name="arrow-left"></van-icon>
       </span>
-      <p
-        class="text text_overflow"
-        :class="{ active: headerCover }"
-        v-if="text"
-      >
+      <p class="text text_overflow"
+         :class="{ active: headerCover }"
+         v-if="text">
         {{ text }}
       </p>
-      <p v-else class="text"><slot name="texts" /></p>
-      <div
-        class="tool"
-        :class="[{ menu: $slots.menu }, { menu_cover: headerCover }]"
-      >
+      <p v-else
+         class="text">
+        <slot name="texts" />
+      </p>
+      <div class="tool"
+           :class="[{ menu: $slots.menu }, { menu_cover: headerCover }]">
         <template v-if="$slots.menu">
           <slot name="menu" />
         </template>
       </div>
     </div>
-    <span
-      class="return return_fixed"
-      @click="onBack"
-      v-if="retreat"
-      :style="retreatStyle"
-    >
+    <span class="return return_fixed"
+          @click="onBack"
+          v-if="retreat"
+          :style="retreatStyle">
       <van-icon name="arrow-left"></van-icon>
     </span>
-    <div
-      class="view"
-      :class="[viewStyls, { overflow: overflow }]"
-      :style="viewStyle"
-      ref="view"
-      @scroll="onViewScroll"
-    >
-      <div
-        class="cover"
-        v-if="cover && !header && bgc"
-        :style="coverStyle"
-      ></div>
+    <div class="view"
+         :class="[viewStyls, { overflow: overflow }]"
+         :style="viewStyle"
+         ref="view"
+         @scroll="onViewScroll">
+      <div class="cover"
+           v-if="cover && !header && bgc"
+           :style="coverStyle"></div>
       <slot />
     </div>
     <transition name="van-fade">
-      <div class="footer" v-if="bar">
+      <div class="footer"
+           v-if="bar">
         <template v-if="footbar">
-          <v-b index fixed :select="selectfootname" :noclass="noclass"></v-b>
+          <v-b index
+               fixed
+               :select="selectfootname"
+               :noclass="noclass"></v-b>
         </template>
         <slot name="footer" />
       </div>
     </transition>
-    <div class="fixed" :style="fixedIndex">
+    <div class="fixed"
+         :style="fixedIndex">
       <slot name="fixed" />
     </div>
-    <v-s v-if="shareopen" @change="shareopen = false"></v-s>
+    <v-s v-if="shareopen"
+         @change="shareopen = false"></v-s>
   </div>
 </template>
 
@@ -166,15 +171,15 @@ export default {
       handler(v) {
         // console.log(v);
         // console.log(this.views)
-      //   let url = window.location.href;
-      // if (url.indexOf("tulis") > -1) {
-      //   this.active = 'home'
-      //   // this.$model.info('游客不开放')
-      //   this.$emit("on-view", this.views);
-      //   // this.appPath("/index");
-      //   return 0;
-      // }
-      console.log(v);
+        //   let url = window.location.href;
+        // if (url.indexOf("tulis") > -1) {
+        //   this.active = 'home'
+        //   // this.$model.info('游客不开放')
+        //   this.$emit("on-view", this.views);
+        //   // this.appPath("/index");
+        //   return 0;
+        // }
+        console.log(v);
         this.$emit("on-view", this.views);
       },
       deep: true,
@@ -324,6 +329,11 @@ export default {
       }
 
       let token = demo.$local.get("token", "");
+      // eslint-disable-next-line no-undef
+      const isArtStyle = demo.$local.get("isArtStyle", null)
+      if (isArtStyle) {
+        return
+      }
       if (token) {
         // 获取用户信息
         let user = demo.$session.get("user", {});
@@ -341,10 +351,10 @@ export default {
           });
         }
       }
-       if (!this.nologin  ) {
+      if (!this.nologin) {
         if (!token && window.location.href.indexOf("tulis") == -1) {
-        this.$toast("请先登录");
-        this.$router.push("/login");
+          this.$toast("请先登录");
+          this.$router.push("/login");
         }
       }
       let tnum = token ? 4 : 3;
@@ -394,116 +404,134 @@ export default {
         w: a.clientWidth,
         h: a.clientHeight,
       };
-    } catch (err) {}
+    } catch (err) { }
     this.init();
   },
 };
 </script>
-<style lang='less' scoped>
-.v_view {
-  width: 100%;
-  height: 100%;
-  background-color: #f7f8fa;
-  // position: relative;
-  .return {
-    width: 40px;
-    height: 40px;
-    padding-right: 20px;
-    cursor: pointer;
-    box-sizing: border-box;
-    padding: 5px;
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    &.return_fixed {
-      position: fixed;
-    }
-  }
-  .header {
-    height: 50px;
-    box-sizing: border-box;
-    padding: 5px;
-    .tool {
-      position: absolute;
-      z-index: 7;
-      min-width: 40px;
-      top: 5px;
-      right: 5px;
-      height: 40px;
-      &.menu {
-        span {
-          line-height: 40px;
-          font-size: 14px;
-          padding: 0 5px;
-          &.bold {
-            font-weight: 650;
+<style lang='less'
+       scoped>
+      .v_view {
+        width: 100%;
+        height: 100%;
+        background-color: #f7f8fa;
+
+        // position: relative;
+        .return {
+          width: 40px;
+          height: 40px;
+          padding-right: 20px;
+          cursor: pointer;
+          box-sizing: border-box;
+          padding: 5px;
+          position: absolute;
+          top: 5px;
+          left: 5px;
+          z-index: 10;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          &.return_fixed {
+            position: fixed;
           }
         }
-        &.menu_cover span {
-          color: #fff;
+
+        .header {
+          height: 50px;
+          box-sizing: border-box;
+          padding: 5px;
+
+          .tool {
+            position: absolute;
+            z-index: 7;
+            min-width: 40px;
+            top: 5px;
+            right: 5px;
+            height: 40px;
+
+            &.menu {
+              span {
+                line-height: 40px;
+                font-size: 14px;
+                padding: 0 5px;
+
+                &.bold {
+                  font-weight: 650;
+                }
+              }
+
+              &.menu_cover span {
+                color: #fff;
+              }
+            }
+          }
+
+          .text {
+            position: relative;
+            text-align: center;
+            line-height: 40px;
+            max-width: 60%;
+            font-size: 16px;
+            font-weight: 650;
+            z-index: 5;
+            margin: 0 auto;
+
+            &.active {
+              color: #fff;
+            }
+          }
+
+          .header_cover {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 4;
+          }
         }
-      }
-    }
-    .text {
-      position: relative;
-      text-align: center;
-      line-height: 40px;
-      max-width: 60%;
-      font-size: 16px;
-      font-weight: 650;
-      z-index: 5;
-      margin: 0 auto;
-      &.active {
-        color: #fff;
-      }
-    }
-    .header_cover {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 4;
-    }
-  }
-  .view {
-    height: 100%;
-    overflow-y: scroll;
-    &.a1 {
-      height: calc(100% - 50px);
-    }
-    &.a2 {
-      height: calc(100% - 100px);
-    }
-    &.overflow {
-      overflow: hidden;
-    }
-  }
-  .footer,
-  .view,
-  .header,
-  .fixed {
-    position: relative;
-    z-index: 2;
-  }
-  .footer {
-    height: 50px;
-    box-sizing: border-box;
-    z-index: 100;
-  }
-  .cover {
-    z-index: 1;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 210px;
-  }
 
-}
+        .view {
+          height: 100%;
+          overflow-y: scroll;
 
-</style>
+          &.a1 {
+            height: calc(100% - 50px);
+          }
+
+          &.a2 {
+            height: calc(100% - 100px);
+          }
+
+          &.overflow {
+            overflow: hidden;
+          }
+        }
+
+        .footer,
+        .view,
+        .header,
+        .fixed {
+          position: relative;
+          z-index: 2;
+        }
+
+        .footer {
+          height: 50px;
+          box-sizing: border-box;
+          z-index: 100;
+        }
+
+        .cover {
+          z-index: 1;
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 210px;
+        }
+
+      }
+
+    </style>
