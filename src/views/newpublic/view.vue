@@ -169,17 +169,6 @@ export default {
     },
     "views.validate": {
       handler(v) {
-        // console.log(v);
-        // console.log(this.views)
-        //   let url = window.location.href;
-        // if (url.indexOf("tulis") > -1) {
-        //   this.active = 'home'
-        //   // this.$model.info('游客不开放')
-        //   this.$emit("on-view", this.views);
-        //   // this.appPath("/index");
-        //   return 0;
-        // }
-        console.log(v);
         this.$emit("on-view", this.views);
       },
       deep: true,
@@ -280,7 +269,7 @@ export default {
       }
       // 获取微信
       let wxurl = window.location.href.split("#")[0];
-
+      console.log(wxurl);
       if ((wx.into_time && wx.into_time > time) || wxurl === wx.url) {
         this.views.wx = wx;
         this.$vx();
@@ -303,7 +292,6 @@ export default {
       }
 
       this.views.state = demo.$random.vars(8);
-
       // 获取功能开启权限
       let validate = demo.$session.get("validate-open", {});
       if (validate.into_time && validate.into_time > time) {
@@ -330,8 +318,8 @@ export default {
 
       let token = demo.$local.get("token", "");
       // eslint-disable-next-line no-undef
-      const isArtStyle = demo.$local.get("isArtStyle", null)
-      if (isArtStyle) {
+      const isArtStyle = demo.$local.get("source", null)
+      if (source) {
         return
       }
       if (token) {
@@ -381,7 +369,7 @@ export default {
     checkbaby() {
       let token = demo.$local.get("token", "");
       if (token) {
-        let baby = demo.$session.get("baby-info", {});
+        let baby = demo.$session.get("baby-info", null);
         if (baby.into_time && baby.into_time > Date.now()) {
           this.views.baby = baby;
         } else {
@@ -398,6 +386,7 @@ export default {
     },
   },
   mounted() {
+    this.init();
     try {
       let a = this.$refs.view;
       this.rect = {
@@ -405,7 +394,7 @@ export default {
         h: a.clientHeight,
       };
     } catch (err) { }
-    this.init();
+
   },
 };
 </script>

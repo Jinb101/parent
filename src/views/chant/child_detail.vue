@@ -279,135 +279,137 @@ export default {
   },
 };
 </script>
-<style lang='less' scoped>
-.child_detail {
-  font-size: 15px;
-  padding-bottom: 80px;
+<style lang='less'
+       scoped>
+      .child_detail {
+        font-size: 15px;
+        padding-bottom: 80px;
 
-  .logo {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-    overflow: hidden;
-    background-color: #e9e9e9;
-  }
+        .logo {
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+          margin-right: 10px;
+          overflow: hidden;
+          background-color: #e9e9e9;
+        }
 
-  .text {
-    width: calc(100% - 50px);
+        .text {
+          width: calc(100% - 50px);
 
-    h3 {
-      font-weight: 650;
-      padding: 5px 0;
-    }
+          h3 {
+            font-weight: 650;
+            padding: 5px 0;
+          }
 
-    p {
-      color: #999;
-    }
-  }
+          p {
+            color: #999;
+          }
+        }
 
-  .head {
-    padding: 15px;
-    background-color: #fff;
+        .head {
+          padding: 15px;
+          background-color: #fff;
 
-    .a {
-      align-items: center;
-      position: relative;
+          .a {
+            align-items: center;
+            position: relative;
 
-      .status {
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 5px;
-        font-size: 12px;
-        z-index: 60;
-        letter-spacing: 1px;
+            .status {
+              position: absolute;
+              top: 0;
+              right: 0;
+              padding: 5px;
+              font-size: 12px;
+              z-index: 60;
+              letter-spacing: 1px;
+            }
+          }
+
+          .c {
+            padding: 8px 0;
+            line-height: 1.2;
+            color: #666;
+          }
+
+          .p {
+            height: 193px;
+            background-color: #222;
+            border-radius: 8px;
+            overflow: hidden;
+          }
+        }
+
+        .comment {
+          margin-top: 10px;
+          padding: 10px 15px;
+          box-sizing: border-box;
+          background-color: #fff;
+
+          .t {
+
+            >.l,
+            >.r {
+              padding: 10px 0;
+            }
+          }
+
+          .l {
+            flex: 1;
+          }
+
+          .r {
+            display: flex;
+            align-items: center;
+
+            span {
+              width: 16px;
+              height: 16px;
+              margin-right: 5px;
+              display: inline-block;
+            }
+          }
+        }
+
+        li {
+          padding: 10px 0;
+          position: relative;
+
+          .time {
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            font-size: 12px;
+            color: #999;
+          }
+        }
       }
-    }
 
-    .c {
-      padding: 8px 0;
-      line-height: 1.2;
-      color: #666;
-    }
+      .poster {
+        height: 100%;
+        position: relative;
 
-    .p {
-      height: 193px;
-      background-color: #222;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-  }
-
-  .comment {
-    margin-top: 10px;
-    padding: 10px 15px;
-    box-sizing: border-box;
-    background-color: #fff;
-
-    .t {
-
-      >.l,
-      >.r {
-        padding: 10px 0;
+        .player {
+          position: absolute;
+          z-index: 5;
+          width: 80px;
+          height: 80px;
+          left: 0;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          margin: auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #fff;
+          font-size: 50px;
+        }
       }
-    }
 
-    .l {
-      flex: 1;
-    }
-
-    .r {
-      display: flex;
-      align-items: center;
-
-      span {
-        width: 16px;
-        height: 16px;
-        margin-right: 5px;
-        display: inline-block;
+      [id^="player"] {
+        height: 100%;
+        width: 100%;
+        display: block;
       }
-    }
-  }
-
-  li {
-    padding: 10px 0;
-    position: relative;
-
-    .time {
-      position: absolute;
-      right: 8px;
-      top: 8px;
-      font-size: 12px;
-      color: #999;
-    }
-  }
-}
-
-.poster {
-  height: 100%;
-  position: relative;
-
-  .player {
-    position: absolute;
-    z-index: 5;
-    width: 80px;
-    height: 80px;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 50px;
-  }
-}
-
-[id^="player"] {
-  height: 100%;
-  width: 100%;
-  display: block;
-}</style>
+    </style>

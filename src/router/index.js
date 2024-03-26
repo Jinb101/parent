@@ -401,15 +401,10 @@ const val = [
   "/wxlogin"
 ];
 // eslint-disable-next-line no-undef
-let token = demo.$local.get("token", "");
+let token = window.demo.$local.get("token", "");
 
 const libertyView = ["/art_style"];
-let hrefUrl = window.location.href;
 
-function hasParameter(url, parameterName) {
-  let urlParams = new URLSearchParams(new URL(url).search);
-  return urlParams.has(parameterName);
-}
 // 路由拦截，如果没有登录 则返回登录页面
 router.beforeEach((to, from, next) => {
   // console.log(router);
@@ -418,18 +413,18 @@ router.beforeEach((to, from, next) => {
   // eslint-disable-next-line
   if (!demo.vx().version(5)) {
     if (to.params.h5) {
-      const h5 = to.params.h5;
-      let cc = h5.split("_____");
+      const h5 = to.params.h5
+      let cc = h5.split('_____')
       // eslint-disable-next-line
-      let m = demo.es6().md5(cc[1], cc[0], 1);
+      let m = demo.es6().md5(cc[1], cc[0], 1)
       try {
-        m = JSON.parse(m);
+        m = JSON.parse(m)
       } catch (e) {
-        m = {};
+        m = {}
       }
       if (m.url) {
-        window.location.replace(m.url + "?h5=" + encodeURIComponent(h5));
-        return 0;
+        window.location.replace(m.url + '?h5=' + encodeURIComponent(h5))
+        return 0
       }
     }
   }
@@ -440,7 +435,7 @@ router.beforeEach((to, from, next) => {
     // 本地存储
     if (token) {
       // 清除 isArtStyle
-      localStorage.removeItem("source");
+      demo.$local.clear("source");
     } else {
       // url 是否含有字段 source
       // let hasSource = hasParameter(hrefUrl, "source");
@@ -448,8 +443,7 @@ router.beforeEach((to, from, next) => {
         // 本地存储
         demo.$local.set("source", "1");
       } else {
-        localStorage.removeItem("source");
-        next("/login");
+        demo.$local.clear("source");
       }
     }
   }

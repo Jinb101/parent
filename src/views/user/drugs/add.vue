@@ -1,21 +1,28 @@
 <template>
   <div class="drug_add">
     <v-tool-title>
-      <span v-if="hand" @click="hand = false">
-        <van-icon name="cross" size="20" />
+      <span v-if="hand"
+            @click="hand = false">
+        <van-icon name="cross"
+                  size="20" />
       </span>
-      <span v-else @click="onAddItem" class="col_green">添加药品</span>
+      <span v-else
+            @click="onAddItem"
+            class="col_green">添加药品</span>
     </v-tool-title>
     <div class="box">
       <h5 class="col_danger">重要说明</h5>
-      <p v-for="(i, j) in vex" :key="j + '-p'" class="col_danger">
+      <p v-for="(i, j) in vex"
+         :key="j + '-p'"
+         class="col_danger">
         {{ j + 1 }}.{{ i }}
       </p>
     </div>
     <transition name="fade">
-      <div class="box" v-if="zz">
+      <div class="box"
+           v-if="zz">
         <p>
-          本人宝宝({{ name }})因
+          本人宝宝 ({{ name }}) 因
           <b class="col_danger">{{ zz }}</b>
           症状，特委托
           <b class="col_danger">{{ sn }}</b>
@@ -23,16 +30,20 @@
         </p>
       </div>
     </transition>
-    <van-field v-model="cn" label="班级" readonly input-align="right" />
-    <van-field v-model="name" label="幼儿姓名" readonly input-align="right" />
-    <van-field
-      v-model="zz"
-      label="症状"
-      required
-      input-align="right"
-      placeholder="请输入症状"
-      maxlength="60"
-    />
+    <van-field v-model="cn"
+               label="班级"
+               readonly
+               input-align="right" />
+    <van-field v-model="name"
+               label="幼儿姓名"
+               readonly
+               input-align="right" />
+    <van-field v-model="zz"
+               label="症状"
+               required
+               input-align="right"
+               placeholder="请输入症状"
+               maxlength="60" />
     <!-- <van-field
       v-model="time"
       label="服药时间"
@@ -42,93 +53,97 @@
       placeholder="请选择服药时间"
       @click="onOpenTime('time')"
     /> -->
-    <van-cell
-      title="服药时间"
-      is-link
-      :value="todaynum > 0 ? todaynum + '天' : '选择服药时间'"
-      @click="open1 = true"
-    ></van-cell>
-    <van-field label="药品" readonly required />
+    <van-cell title="服药时间"
+              is-link
+              :value="todaynum > 0 ? todaynum + '天' : '选择服药时间'"
+              @click="open1 = true"></van-cell>
+    <van-field label="药品"
+               readonly
+               required />
     <div class="box med">
-      <article v-for="(i, j) in item" :key="j + '-art'">
+      <article v-for="(i, j) in item"
+               :key="j + '-art'">
         <h6>
           {{ j + 1 }}
-          <span class="del" @click="onDelItem(i.id)">
-            <van-icon size="20" name="delete" color="tomato" />
+          <span class="del"
+                @click="onDelItem(i.id)">
+            <van-icon size="20"
+                      name="delete"
+                      color="tomato" />
           </span>
         </h6>
-        <van-field
-          v-model="i.name"
-          label="药品名称"
-          required
-          input-align="right"
-          placeholder="请输入药品名称"
-        />
-        <van-field
-          v-model="i.num"
-          label="服用剂量"
-          required
-          input-align="right"
-          placeholder="请输入服用剂量"
-        />
-        <van-field
-          v-model="i.am"
-          label="上午服药时间"
-          readonly
-          input-align="right"
-          placeholder="请选择上午服药时间"
-          @click="onOpenTime('am', j)"
-        />
-        <van-field
-          v-model="i.pm"
-          label="下午服药时间"
-          readonly
-          input-align="right"
-          placeholder="请选择下午服药时间"
-          @click="onOpenTime('pm', j)"
-        />
+        <van-field v-model="i.name"
+                   label="药品名称"
+                   required
+                   input-align="right"
+                   placeholder="请输入药品名称" />
+        <van-field v-model="i.num"
+                   label="服用剂量"
+                   required
+                   input-align="right"
+                   placeholder="请输入服用剂量" />
+        <van-field v-model="i.am"
+                   label="上午服药时间"
+                   readonly
+                   input-align="right"
+                   placeholder="请选择上午服药时间"
+                   @click="onOpenTime('am', j)" />
+        <van-field v-model="i.pm"
+                   label="下午服药时间"
+                   readonly
+                   input-align="right"
+                   placeholder="请选择下午服药时间"
+                   @click="onOpenTime('pm', j)" />
       </article>
     </div>
-    <van-field label="医院病例/处方单" label-width="10em" readonly />
+    <van-field label="医院病例/处方单/药品照片"
+               label-width="14em"
+               required
+               readonly />
     <div class="box">
-      <v-i @path="onPath" max="3"></v-i>
+      <v-i @path="onPath"
+           max="3"></v-i>
     </div>
-    <van-field
-      label="家长签字"
-      readonly
-      required
-      @click="hand = true"
-      placeholder="点击签字"
-      input-align="right"
-    />
+    <van-field label="家长签字"
+               readonly
+               required
+               @click="hand = true"
+               placeholder="点击签字"
+               input-align="right" />
     <div class="box">
-      <div class="ava" v-if="hand_pic">
-        <van-image :src="hand_pic" @click="appShowImage(hand_pic)"></van-image>
+      <div class="ava"
+           v-if="hand_pic">
+        <van-image :src="hand_pic"
+                   @click="appShowImage(hand_pic)"></van-image>
       </div>
     </div>
     <div class="send">
-      <van-button block :color="theme.linear" round @click="onSub"
-        >添加</van-button
-      >
+      <van-button block
+                  :color="theme.linear"
+                  round
+                  @click="onSub">添加</van-button>
     </div>
     <transition name="fade">
-      <div class="app_show_fixed" v-if="hand">
+      <div class="app_show_fixed"
+           v-if="hand">
         <v-hand @on-save="onHandPath"></v-hand>
       </div>
     </transition>
-    <v-p type="time" :open="open">
-      <v-t @on-change="onChangeTime" v-if="etx.type === 'time'"></v-t>
-      <van-datetime-picker
-        v-model="tms"
-        type="time"
-        title="选择时间"
-        :min-hour="8"
-        :max-hour="20"
-        @confirm="subTime"
-        v-else
-      />
+    <v-p type="time"
+         :open="open">
+      <v-t @on-change="onChangeTime"
+           v-if="etx.type === 'time'"></v-t>
+      <van-datetime-picker v-model="tms"
+                           type="time"
+                           title="选择时间"
+                           :min-hour="8"
+                           :max-hour="20"
+                           @confirm="subTime"
+                           v-else />
     </v-p>
-    <van-calendar v-model="open1" type="multiple" @confirm="onConfirm" />
+    <van-calendar v-model="open1"
+                  type="multiple"
+                  @confirm="onConfirm" />
   </div>
 </template>
 
@@ -182,6 +197,7 @@ export default {
       // if (!this.time) return this.$model.info("请选择喂药时间", 2);
       if (!this.zz) return this.$model.info("请输入症状", 2);
       if (!this.hand_pic) return this.$model.info("请签字", 2);
+      if (this.image.length < 1) return this.$model.info("请上传病例/处方/药品 - 图片", 2);
       let os = {
         date: this.times.join(","),
         // date: this.time,
@@ -261,57 +277,69 @@ export default {
 };
 </script>
 
-<style lang='less' scoped>
-.drug_add {
-  overflow-y: scroll;
-  padding-bottom: 30px;
-  .med {
-    article {
-      background-color: rgba(79, 139, 223, 0.1);
-      .van-cell {
-        background-color: rgba(79, 139, 223, 0);
-      }
-      &:nth-child(2n) {
-        background-color: rgba(37, 206, 37, 0.1);
-        .van-cell {
-          background-color: rgba(37, 206, 37, 0);
+<style lang='less'
+       scoped>
+      .drug_add {
+        overflow-y: scroll;
+        padding-bottom: 30px;
+
+        .med {
+          article {
+            background-color: rgba(79, 139, 223, 0.1);
+
+            .van-cell {
+              background-color: rgba(79, 139, 223, 0);
+            }
+
+            &:nth-child(2n) {
+              background-color: rgba(37, 206, 37, 0.1);
+
+              .van-cell {
+                background-color: rgba(37, 206, 37, 0);
+              }
+            }
+          }
+
+          h6 {
+            position: relative;
+            padding: 10px;
+
+            .del {
+              position: absolute;
+              right: 10px;
+              top: 0;
+              bottom: 0;
+              margin: auto;
+              height: 20px;
+            }
+          }
+        }
+
+        .box {
+          padding: 10px;
+
+          .ava {
+            height: 213px;
+            width: 120px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+          }
+
+          h5,
+          p {
+            font-size: 14px;
+            line-height: 1.2;
+            margin-bottom: 2px;
+          }
+
+          h5 {
+            font-weight: 650;
+          }
+        }
+
+        .send {
+          width: 80%;
+          margin: 30px auto 10px;
         }
       }
-    }
-    h6 {
-      position: relative;
-      padding: 10px;
-      .del {
-        position: absolute;
-        right: 10px;
-        top: 0;
-        bottom: 0;
-        margin: auto;
-        height: 20px;
-      }
-    }
-  }
-  .box {
-    padding: 10px;
-    .ava {
-      height: 213px;
-      width: 120px;
-      border: 1px solid #eee;
-      border-radius: 5px;
-    }
-    h5,
-    p {
-      font-size: 14px;
-      line-height: 1.2;
-      margin-bottom: 2px;
-    }
-    h5 {
-      font-weight: 650;
-    }
-  }
-  .send {
-    width: 80%;
-    margin: 30px auto 10px;
-  }
-}
-</style>
+    </style>

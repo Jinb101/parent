@@ -12,11 +12,18 @@ module.exports = {
     assetsPublicPath: '/',
     headers: { 'Access-Control-Allow-Origin': '*' },
     proxyTable: {
-      '/dev': {
-        target: 'http://test.official.jsxrk.xin/api',
+      '/api': {
+        target: 'http://official.jsxrk.xin:8080/api',
         changeOrigin: true,
         pathRewrite: {
-          '^/dev': '/'// 重写，
+          '^/api': '/'// 重写，
+        }
+      },
+      '/dev': {
+        target: 'http://192.168.11.135/official/public/api',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/dev': '/'
         }
       },
       '/env': {

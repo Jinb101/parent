@@ -435,8 +435,8 @@ export default {
       let url = window.location.href;
       // eslint-disable-next-line no-undef
       const isArtStyle = demo.$local.get("isArtStyle", null)
+      console.log(isArtStyle);
       if (isArtStyle) {
-        console.log(token);
         return
       }
       if (window.location.href.indexOf('tulis') > -1 && token) {
@@ -590,22 +590,7 @@ export default {
           ts.$vx();
         });
       }
-      // // 获取当前时间的时间戳（毫秒）
-      // const currentTimestamp = Date.now();
-      // // eslint-disable-next-line no-undef
-      // const wheWxconfig = demo.$local.get("wxConfig", null)
-      // // 转换当前时间戳为秒
-      // const currentTimestampInSeconds = Math.floor(currentTimestamp / 1000);
-      // // 计算时间差并转换为小时
-      // const timeDiff = (currentTimestampInSeconds - wheWxconfig.timestamp) / 3600;
-      // // 判断是否超过两个小时
-      // if (timeDiff > 2) {
-      //   this.$api.http("wx", {}, (e) => {
-      //     ts.$demo.$local.set("wxConfig", e);
-      //     ts.wxConfig = e;
-      //   });
-      //   console.log("时间差超过两个小时，需要处理");
-      // }
+
       // 获取新版 权限
       ts.$api.http("newmenulevel", {}, (r) => {
         // eslint-disable-next-line

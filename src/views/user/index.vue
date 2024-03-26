@@ -116,7 +116,7 @@ export default {
       isbabyvip: false,
     };
   },
-  inject: ["appPath"],
+  inject: ["appPath", "appGetInfo"],
   components: { vM, vC },
   computed: {
     authorjob() {
@@ -143,6 +143,7 @@ export default {
       if (+num === 2) {
         o.text = [this.baby.class_name || "", this.baby.name].join(" ");
       }
+      console.log(o, this.baby.class_name, this.baby.name);
       return o;
     },
     vipday() {
@@ -269,67 +270,93 @@ export default {
         fn ? fn() : null;
       }
     },
+    isEmpty(obj) {
+      return Object.keys(obj).length === 0;
+    },
     onview(e) {
-      this.$api.http("newmenulevel", {}, (e) => {
-        this.menuLeveList = e;
-      });
-      this.user = e.user || {};
-      this.baby = e.baby || {};
-      this.tel = (e.config || {}).tel;
-      this.pid = this.user.n_id;
-      this.tab = this.$js.def.user2;
-      console.log(this.$js.def.user2, 'this.$js.def.user2');
-      if (this.tel) {
-        this.$set(this.listmenu[0], "v", this.tel);
-      }
-      let val = e.validate;
-
-      // 监护人判断
-      this.checklevel(+this.user.guardian === 1, 4);
-      // 宝贝在线续费判断
-      this.checklevel(this.user.bind_last_day <= 0, 5);
-
-      // 缴费判断
-      this.checklevel(+this.user.show_payment === 2, 3, () => {
-        try {
-          let index = this.tab
-            .map((s, v) => {
-              return { f: s.level === 3, v };
-            })
-            .filter((s) => {
-              return s.f;
-            })[0].v;
-          this.$api.http("payDot", {}, (e) => {
-            if (e >= 1) {
-              this.$set(this.nav[index], "num", e);
-            }
+      this.$nextTick(() => {
+        this.$api.http("newmenulevel", {}, (e) => {
+          this.menuLeveList = e;
+        });
+        let len = 3e4; // 30s 缓存
+        if (this.isEmpty(e.baby)) {
+          this.$api.http("userBabyInfo", {}, (res) => {
+            let r = res[0] || {};
+            console.log(r);
+            this.baby = r;
           });
-        } catch (err) { }
-      });
-      // 喂药
-      this.checklevel(this.baby.no, 2);
-      // 完善宝贝信息
-      this.checklevel(+this.user.c_id !== 0, 1);
+        } else {
+          this.baby = e.baby
+        }
+        if (this.isEmpty(e.user)) {
+          this.$api.http("user", {}, (res) => {
+            // eslint-disable-next-line no-undef
+            demo.$session.set("user", {
+              into_time: Date.now() + len,
+              ...res,
+            });
+            this.user = res;
+          });
+        } else {
+          this.user = e.user
+        }
+        console.log(this.baby, this.user);
+        this.tel = (e.config || {}).tel;
+        this.pid = this.user.n_id;
+        this.tab = this.$js.def.user2;
+        console.log(this.$js.def.user2, 'this.$js.def.user2');
+        if (this.tel) {
+          this.$set(this.listmenu[0], "v", this.tel);
+        }
+        let val = e.validate;
 
-      // 家庭教育订单/收货地址/招生动态
-      this.checklevel(+this.pid === 7, 9);
-      this.checklevel(+this.pid === 7, 12);
-      this.checklevel(+this.pid === 7, 14);
-      this.checklevel(+this.pid === 7, 16);
-      // 微信绑定
-      this.checklevel(this.$demo.es6().isWx(), 11);
+        // 监护人判断
+        this.checklevel(+this.user.guardian === 1, 4);
+        // 宝贝在线续费判断
+        this.checklevel(this.user.bind_last_day <= 0, 5);
 
-      // 宝贝在线
-      this.checklevel(val.t0, 5);
-      // 喂药管理
-      this.checklevel(val.t2, 2);
-      this.checklevel(val.t16, 3);
-      this.checklevel(val.t17, 6);
-      this.checklevel(val.t18, 8);
-      this.checklevel(val.t19, 15);
+        // 缴费判断
+        this.checklevel(+this.user.show_payment === 2, 3, () => {
+          try {
+            let index = this.tab
+              .map((s, v) => {
+                return { f: s.level === 3, v };
+              })
+              .filter((s) => {
+                return s.f;
+              })[0].v;
+            this.$api.http("payDot", {}, (e) => {
+              if (e >= 1) {
+                this.$set(this.nav[index], "num", e);
+              }
+            });
+          } catch (err) { }
+        });
+        // 喂药
+        this.checklevel(this.baby.no, 2);
+        // 完善宝贝信息
+        this.checklevel(+this.user.c_id !== 0, 1);
 
-      this.isbabyvip = val.t0;
-      this.nav = this.tab;
+        // 家庭教育订单/收货地址/招生动态
+        this.checklevel(+this.pid === 7, 9);
+        this.checklevel(+this.pid === 7, 12);
+        this.checklevel(+this.pid === 7, 14);
+        this.checklevel(+this.pid === 7, 16);
+        // 微信绑定
+        this.checklevel(this.$demo.es6().isWx(), 11);
+
+        // 宝贝在线
+        this.checklevel(val.t0, 5);
+        // 喂药管理
+        this.checklevel(val.t2, 2);
+        this.checklevel(val.t16, 3);
+        this.checklevel(val.t17, 6);
+        this.checklevel(val.t18, 8);
+        this.checklevel(val.t19, 15);
+
+        this.isbabyvip = val.t0;
+        this.nav = this.tab;
+      })
     },
     onToFood() {
       // eslint-disable-next-line

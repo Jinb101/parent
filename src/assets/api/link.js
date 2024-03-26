@@ -221,7 +221,9 @@ const loginApi = {
   // 向日葵艺体充值
   payFee: "parents/eurhythmics/payFee",
   // 向日葵艺体充值
-  payOrder: "parents/eurhythmics/payParentsOrder"
+  payOrder: "parents/eurhythmics/payParentsOrder",
+  // 公众号 二维码
+  getOffCode: "parents/common/getOfficialQrCode"
 };
 
 export default {

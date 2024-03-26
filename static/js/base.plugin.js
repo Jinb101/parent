@@ -1210,7 +1210,7 @@ var demo_es6 = function(cls) {
       result = arr1[arr1_index] + result;
     }
     //将【零千、零百】换成【零】 【十零】换成【十】
-    result = result.replace(/零 (千 | 百|十)/g, "零").replace(/十零/g, "十");
+    result = result.replace(/零 (千 | 百 | 十)/g, "零").replace(/十零/g, "十");
     //合并中间多个零为一个零
     result = result.replace(/零+/g, "零");
     //将【零亿】换成【亿】【零万】换成【万】
@@ -1840,28 +1840,29 @@ var demo_vx = function(cls) {
   };
 
   // 分享
+  // 分享
   let share = (option, fn, type = false) => {
     // 分享到朋友圈 : 分享给朋友
-    let api = type ? "updateTimelineShareData" : "updateAppMessageShareData";
-    let val = _getData("plug") || [];
+    let api = type ? 'updateTimelineShareData' : 'updateAppMessageShareData'
+    let val = _getData('plug') || []
     if (val.indexOf(api) < 0 && val.indexOf(api) < 0) {
-      fn ? fn(error("不支持 " + api)) : null;
-      return "";
+      fn ? fn(error('不支持 ' + api)) : null
+      return ''
     }
     let opt = {
-      title: option.title || "",
-      desc: option.desc || "",
-      imgUrl: option.logo || "",
+      title: option.title || '',
+      desc: option.desc || '',
+      imgUrl: option.logo || '',
       success: e => {
-        fn ? fn(e) : null;
+        fn ? fn(e) : null
       }
-    };
+    }
     if (!type) {
-      opt.link = option.link || window.location.href;
+      opt.link = option.link || window.location.href
     }
     console.log(api, wx[api]);
-    wx[api](opt);
-  };
+    wx[api](opt)
+  }
 
   // 获取网络状态
   let state = function(fn) {
@@ -2036,46 +2037,47 @@ var demo_vx = function(cls) {
   };
 
   // 初始化
-  let init = (e, fn, f2, type) => {
-    if (!version(5)) {
-      f2 ? f2(error("微信版本过低")) : null;
-      return 0;
-    }
-    isError = false;
-    let plug = [];
-    let i = false;
-    switch (type) {
-      case "share":
-      case "image":
-      case "default":
-      case "geo":
-      case "audio":
-      case "all":
-        i = true;
-        plug = choose(type);
-        break;
-      default:
-        plug = choose("share");
-    }
-    wx.config({
-      debug: isDebug,
-      appId: e.appId,
-      timestamp: e.timestamp,
-      nonceStr: e.nonceStr,
-      signature: e.signature,
-      jsApiList: plug
-    });
-    wx.ready(() => {
-      e.plug = i ? choose(type) : plug;
-      _setData(e);
-      fn ? fn(e.plug) : null;
-    });
-    wx.error(res => {
-      isError = true;
-      let msg = res.errMsg || "微信加载失败";
-      f2 ? f2(error(msg, 0, res)) : null;
-    });
-  };
+ // 初始化
+ let init = (e, fn, f2, type) => {
+  if (!version(5)) {
+    f2 ? f2(error('微信版本过低')) : null
+    return 0
+  }
+  isError = false
+  let plug = []
+  let i = false
+  switch (type) {
+    case 'share':
+    case 'image':
+    case 'default':
+    case 'geo':
+    case 'audio':
+    case 'all':
+      i = true
+      plug = choose(type)
+      break
+    default:
+      plug = choose('share')
+  }
+  wx.config({
+    debug: isDebug,
+    appId: e.appId,
+    timestamp: e.timestamp,
+    nonceStr: e.nonceStr,
+    signature: e.signature,
+    jsApiList: plug
+  });
+  wx.ready(() => {
+    e.plug = i ? choose(type) : plug
+    _setData(e)
+    fn ? fn(e.plug) : null
+  })
+  wx.error(res => {
+    isError = true
+    let msg = res.errMsg || '微信加载失败'
+    f2 ? f2(error(msg, 0, res)) : null
+  })
+};
 
   // 自定义插件 初始化
   /**

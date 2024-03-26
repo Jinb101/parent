@@ -137,6 +137,9 @@
           <van-button v-if="isArt"
                       type="default"
                       @click="goToLogin">登录</van-button>
+          <van-button v-if="isArt"
+                      type="default"
+                      @click="openQrCode">关注公众号</van-button>
           <van-button v-if="!isArt && payIndex === 0"
                       @click="payIndex = 1">新增宝宝</van-button>
           <van-button v-if="!isArt && payIndex === 1"
@@ -165,6 +168,17 @@
                   :columns="sexList"
                   @confirm="sexConfirm"
                   @cancel="sexOpen = false" />
+    </van-popup>
+
+    <van-popup v-model="codeOpen"
+               round
+               :style="{ height: '40%' }"
+               position="top">
+      <div class="code_box">
+        <img :src="offCode"
+             alt=""
+             srcset="">
+      </div>
     </van-popup>
 
     <Vt :open="dateOpen"
@@ -228,7 +242,9 @@ export default {
         },
       ],
       maxDate: new Date(2025, 10, 1),
-      openid: ''
+      openid: '',
+      codeOpen: false,
+      offCode: ''
     };
   },
   inject: [
@@ -307,8 +323,13 @@ export default {
       window.location.hash = '#/login'
       window.location.reload()
     },
+    openQrCode() {
+      this.$api.http("getOffCode", {}, (r) => {
+        this.offCode = r
+        this.codeOpen = true
+      });
+    },
     overlayClick($event) {
-      console.log(this.isArt, $event);
       if (this.isArt) {
         this.showDarn = true
         return
@@ -402,7 +423,6 @@ export default {
           let href = encodeURIComponent(window.location.href);
           let suffix = ["?id=", id, "&n=", r.order_sn, "&t=", token, "&u=", href, "&is=art"].join("");
           let url = this.$js.api.pay + suffix;
-          console.log(url);
           window.location.href = url;
         });
       } catch (error) {
@@ -496,12 +516,11 @@ export default {
         this.$js.wxArtcode("art_style");
       }
     } else {
-      if (!source) {
-        this.getUserInfo()
-        this.getBabyList()
-      }
+      this.getUserInfo()
+      this.getBabyList()
     }
     this.getSkitList()
+    // this.openQrCode()
     this.relation = this.$api.relation();
     console.log('Has n_id:', hasNId);
     console.log('Has source:', hasSource);
@@ -510,7 +529,7 @@ export default {
   beforeDestroy() {
     // 清除
     // eslint-disable-next-line no-undef
-    localStorage.removeItem("source");
+    demo.$local.clear("source");
   }
 };
 </script>
@@ -728,4 +747,16 @@ export default {
         margin: auto 0;
       }
 
+      .code_box {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center
+      }
+
+      .code_box img {
+        height: 4rem;
+        width: 4rem;
+      }
     </style>

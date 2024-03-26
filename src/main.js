@@ -95,19 +95,11 @@ window.demo.access("upload", demo.fn("demo_upload"));
 window.demo.access("scroll_num", 0);
 window.demo.access("timer_editor", null);
 window.demo.access("timer_user_mail", null);
-window.demo.access("toBindWx", (id, path) => {
-  return (
-    $js.prefix +
-    "/500/auth/index.html?type=web&id=" +
-    id +
-    "&url=" +
+window.demo.access('toBindWx', (id, path) => {
+  return $js.prefix + "/500/auth/index.html?type=web&id=" + id + "&url=" +
     encodeURIComponent($js.api.http) +
-    "&local=" +
-    localName +
-    "&hash=" +
-    path
-  );
-});
+    "&local=" + localName + "&hash=" + path;
+})
 
 Vue.config.productionTip = false;
 Vue.use(Title).use(xj);
@@ -116,7 +108,6 @@ if ($js.env) {
   Image.methods.onError = function(e) {
     try {
       e.target.src = $js.path + "static/image/theme/t4.png";
-      console.log(e);
     } catch (err) {
       // console.log(err);
     }
